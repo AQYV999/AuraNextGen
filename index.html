@@ -5491,6 +5491,283 @@ html.perf-lite .guide-body { contain: content; }
     white-space: nowrap;
   }
 
+  /* ============================================================
+     AURA NEXT GEN: NOTEPAD & GOALS STYLES
+     ============================================================ */
+  .top-nav-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 5px !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 8px !important;
+    padding: 3px 8px !important;
+    font-size: 11px !important;
+    font-weight: 500 !important;
+    color: #e2e8f0 !important;
+    cursor: pointer !important;
+    transition: all 0.18s ease !important;
+  }
+  .top-nav-btn:hover {
+    background: rgba(93, 202, 165, 0.18) !important;
+    border-color: rgba(93, 202, 165, 0.35) !important;
+    color: #5DCAA5 !important;
+  }
+  .notepad-backdrop {
+    position: fixed !important;
+    inset: 0 !important;
+    background: rgba(4, 6, 12, 0.68) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    z-index: 26 !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    transition: opacity 0.24s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  }
+  .notepad-backdrop.visible {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+  }
+  .notepad-panel {
+    position: fixed !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) scale(0.96) !important;
+    width: min(560px, calc(100vw - 28px)) !important;
+    max-height: min(85vh, 680px) !important;
+    padding: 20px 22px !important;
+    border-radius: 24px !important;
+    background: rgba(13, 16, 26, 0.94) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    backdrop-filter: blur(36px) saturate(150%) !important;
+    -webkit-backdrop-filter: blur(36px) saturate(150%) !important;
+    box-shadow: 0 32px 80px -16px rgba(0, 0, 0, 0.9), inset 0 1px 0 rgba(255, 255, 255, 0.12) !important;
+    z-index: 27 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    transition: opacity 0.24s ease, transform 0.28s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  }
+  .notepad-panel.visible {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    transform: translate(-50%, -50%) scale(1) !important;
+  }
+  .notepad-head {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    margin-bottom: 14px !important;
+    padding-bottom: 12px !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+  }
+  .notepad-icon-wrap {
+    width: 32px; height: 32px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(56, 189, 248, 0.14);
+    border: 1px solid rgba(56, 189, 248, 0.25);
+    color: #38bdf8;
+  }
+  .notepad-save-indicator {
+    font-size: 10.5px;
+    color: #64748b;
+  }
+  .notepad-tabs {
+    display: flex;
+    gap: 8px;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 3px;
+    border-radius: 10px;
+    margin-bottom: 14px;
+  }
+  .notepad-tab-btn {
+    flex: 1;
+    padding: 6px 12px;
+    font-size: 11.5px;
+    font-weight: 500;
+    border-radius: 8px;
+    border: none;
+    background: transparent;
+    color: #94a3b8;
+    cursor: pointer;
+    transition: all 0.18s ease;
+  }
+  .notepad-tab-btn.active {
+    background: rgba(255, 255, 255, 0.1);
+    color: #f8fafc;
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  }
+  .notepad-tab-content {
+    display: none;
+    flex-direction: column;
+    flex: 1;
+    min-height: 240px;
+  }
+  .notepad-tab-content.active {
+    display: flex;
+  }
+  .notepad-textarea-wrap {
+    flex: 1;
+    display: flex;
+    margin-bottom: 10px;
+  }
+  .notepad-textarea {
+    width: 100%;
+    min-height: 220px;
+    max-height: 380px;
+    padding: 12px;
+    font-size: 12.5px;
+    font-family: inherit;
+    line-height: 1.6;
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    color: #f1f5f9;
+    resize: vertical;
+    outline: none;
+    transition: border-color 0.16s ease;
+  }
+  .notepad-textarea:focus {
+    border-color: #5DCAA5;
+  }
+  .notepad-notes-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 11px;
+    color: #64748b;
+  }
+  .notepad-clean-btn {
+    background: transparent;
+    border: none;
+    font-size: 11px;
+    color: #64748b;
+    cursor: pointer;
+    padding: 2px 6px;
+    border-radius: 4px;
+  }
+  .notepad-clean-btn:hover {
+    color: #f87171;
+  }
+  .goals-progress-box {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 12px;
+    padding: 12px;
+    margin-bottom: 14px;
+  }
+  .goals-progress-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 6px;
+  }
+  .goals-progress-bar-bg {
+    width: 100%;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .goals-progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #5DCAA5, #38bdf8);
+    border-radius: 4px;
+    transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .goals-add-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+  .goals-input {
+    flex: 1;
+    padding: 7px 12px;
+    font-size: 12px;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: #f1f5f9;
+    outline: none;
+  }
+  .goals-input:focus {
+    border-color: #5DCAA5;
+  }
+  .goals-add-btn {
+    padding: 7px 14px;
+    font-size: 11.5px;
+    font-weight: 600;
+    background: rgba(93, 202, 165, 0.2);
+    border: 1px solid rgba(93, 202, 165, 0.35);
+    color: #5DCAA5;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.16s ease;
+  }
+  .goals-add-btn:hover {
+    background: #5DCAA5;
+    color: #08080a;
+  }
+  .goals-list {
+    flex: 1;
+    max-height: 250px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .goal-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 10px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    transition: all 0.16s ease;
+  }
+  .goal-item:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.09);
+  }
+  .goal-item-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+  }
+  .goal-checkbox {
+    width: 16px;
+    height: 16px;
+    accent-color: #5DCAA5;
+    cursor: pointer;
+  }
+  .goal-text {
+    font-size: 12px;
+    color: #e2e8f0;
+    transition: color 0.16s ease, text-decoration 0.16s ease;
+  }
+  .goal-item.done .goal-text {
+    color: #64748b;
+    text-decoration: line-through;
+  }
+  .goal-del-btn {
+    background: transparent;
+    border: none;
+    color: #64748b;
+    cursor: pointer;
+    font-size: 13px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    transition: color 0.16s ease;
+  }
+  .goal-del-btn:hover {
+    color: #ef4444;
+  }
+
 </style>
 </head>
 <body>
@@ -5592,6 +5869,16 @@ html.perf-lite .guide-body { contain: content; }
     <span class="clock" id="txtJam">--:--</span>
     <span class="pill-sep weather-sep"></span>
     <span class="weather" id="txtCuaca">--°C</span>
+    <span class="pill-sep"></span>
+    <button type="button" class="top-nav-btn" id="btnBukaNotepad" title="Notepad & Goals">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+        <polyline points="14 2 14 8 20 8"/>
+        <line x1="16" y1="13" x2="8" y2="13"/>
+        <line x1="16" y1="17" x2="8" y2="17"/>
+      </svg>
+      <span>Notes</span>
+    </button>
   </div>
 
   <!-- Tombol drawer (hanya muncul di HP) -->
@@ -5759,6 +6046,76 @@ html.perf-lite .guide-body { contain: content; }
       <canvas id="chartHistori"></canvas>
       <div class="trend-empty" id="trenKosong">No history data yet.<br>Data arrives every 5 minutes from ESP32.</div>
       <div class="trend-tooltip" id="trendTooltip"></div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       AURA NEXT GEN: NOTEPAD & GOALS PANEL
+       ========================================== -->
+  <div class="notepad-backdrop" id="notepadBackdrop"></div>
+  <div class="notepad-panel glass" id="notepadPanel" role="dialog" aria-labelledby="notepadTitle">
+    <div class="notepad-head">
+      <div style="display:flex; align-items:center; gap:10px;">
+        <div class="notepad-icon-wrap">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <line x1="16" y1="13" x2="8" y2="13"/>
+            <line x1="16" y1="17" x2="8" y2="17"/>
+          </svg>
+        </div>
+        <div>
+          <h3 id="notepadTitle" style="margin:0; font-size:14px; font-weight:600; color:#f8fafc;">AURA Notepad &amp; Goals</h3>
+          <span class="notepad-save-indicator" id="txtNotepadSaveState">Auto-saved</span>
+        </div>
+      </div>
+      <div style="display:flex; align-items:center; gap:8px;">
+        <button type="button" class="clear-btn" id="btnSalinKeChat" title="Kirim isi catatan ke input chat">Ask AI</button>
+        <button type="button" class="clear-btn" id="btnTutupNotepad">Close</button>
+      </div>
+    </div>
+
+    <!-- TAB SWITCHER -->
+    <div class="notepad-tabs">
+      <button type="button" class="notepad-tab-btn active" id="tabBtnNotes" data-tab="notes">Catatan &amp; Ide</button>
+      <button type="button" class="notepad-tab-btn" id="tabBtnGoals" data-tab="goals">Goals &amp; Target</button>
+    </div>
+
+    <!-- TAB 1: NOTES CONTENT -->
+    <div class="notepad-tab-content active" id="contentTabNotes">
+      <div class="notepad-textarea-wrap">
+        <textarea class="notepad-textarea" id="txtCatatan" placeholder="Tulis ide, rangkuman, catatan tugas, atau prompt penting di sini... (otomatis tersimpan)"></textarea>
+      </div>
+      <div class="notepad-notes-footer">
+        <span id="txtNotepadCount">0 kata · 0 karakter</span>
+        <button type="button" class="notepad-clean-btn" id="btnBersihkanCatatan">Clear</button>
+      </div>
+    </div>
+
+    <!-- TAB 2: GOALS CONTENT -->
+    <div class="notepad-tab-content" id="contentTabGoals">
+      <!-- GOAL PROGRESS -->
+      <div class="goals-progress-box">
+        <div class="goals-progress-header">
+          <span style="font-size:11.5px; font-weight:600; color:#e2e8f0;">Pencapaian Target</span>
+          <span style="font-size:11.5px; font-weight:600; color:#5DCAA5;" id="txtGoalsProgressPercent">0%</span>
+        </div>
+        <div class="goals-progress-bar-bg">
+          <div class="goals-progress-bar-fill" id="barGoalsProgress" style="width: 0%;"></div>
+        </div>
+        <div style="font-size:10.5px; color:#94a3b8; margin-top:4px;" id="txtGoalsCount">0 dari 0 target selesai</div>
+      </div>
+
+      <!-- ADD NEW GOAL -->
+      <div class="goals-add-row">
+        <input type="text" class="goals-input" id="inpNewGoal" placeholder="Tambah target baru... (tekan Enter)" autocomplete="off">
+        <button type="button" class="goals-add-btn" id="btnAddGoal">Tambah</button>
+      </div>
+
+      <!-- GOALS LIST -->
+      <div class="goals-list" id="listGoals">
+        <!-- Rendered dynamically -->
+      </div>
     </div>
   </div>
 
@@ -8014,6 +8371,252 @@ document.addEventListener('keydown', (e) => {
 
 // Update status button on initial page load
 try { perbaruiIndikatorApiKeys(); } catch (e) {}
+
+/* ============================================================
+   AURA NEXT GEN: NOTEPAD & GOALS CONTROLLER
+   ============================================================ */
+const AURA_NOTEPAD_STORAGE_KEY = 'aura_notepad_data';
+
+function muatDataNotepad() {
+  try {
+    const raw = localStorage.getItem(AURA_NOTEPAD_STORAGE_KEY);
+    if (!raw) return { notes: '', goals: [] };
+    const parsed = JSON.parse(raw);
+    return {
+      notes: typeof parsed.notes === 'string' ? parsed.notes : '',
+      goals: Array.isArray(parsed.goals) ? parsed.goals : []
+    };
+  } catch (e) {
+    return { notes: '', goals: [] };
+  }
+}
+
+function simpanDataNotepad(data) {
+  try {
+    localStorage.setItem(AURA_NOTEPAD_STORAGE_KEY, JSON.stringify(data));
+    const txtSave = document.getElementById('txtNotepadSaveState');
+    if (txtSave) {
+      txtSave.textContent = 'Saved ' + new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+      txtSave.style.color = '#5DCAA5';
+    }
+  } catch (e) {
+    console.error('Gagal simpan notepad data:', e);
+  }
+}
+
+let notepadData = muatDataNotepad();
+let notepadDebounceTimer = null;
+
+function hitungStatistikCatatan(teks) {
+  const chars = teks.length;
+  const words = teks.trim() ? teks.trim().split(/\s+/).length : 0;
+  const el = document.getElementById('txtNotepadCount');
+  if (el) el.textContent = `${words} kata · ${chars} karakter`;
+}
+
+function renderGoalsList() {
+  const container = document.getElementById('listGoals');
+  const bar = document.getElementById('barGoalsProgress');
+  const txtPercent = document.getElementById('txtGoalsProgressPercent');
+  const txtCount = document.getElementById('txtGoalsCount');
+  if (!container) return;
+
+  const goals = notepadData.goals || [];
+  container.innerHTML = '';
+
+  if (goals.length === 0) {
+    container.innerHTML = '<div style="font-size:11.5px; color:#64748b; text-align:center; padding:18px 0;">Belum ada target. Tambahkan target pertamamu di atas!</div>';
+    if (bar) bar.style.width = '0%';
+    if (txtPercent) txtPercent.textContent = '0%';
+    if (txtCount) txtCount.textContent = '0 target';
+    return;
+  }
+
+  let selesai = 0;
+  goals.forEach((g) => {
+    if (g.done) selesai++;
+    const item = document.createElement('div');
+    item.className = 'goal-item' + (g.done ? ' done' : '');
+
+    const left = document.createElement('div');
+    left.className = 'goal-item-left';
+
+    const chk = document.createElement('input');
+    chk.type = 'checkbox';
+    chk.className = 'goal-checkbox';
+    chk.checked = Boolean(g.done);
+    chk.addEventListener('change', () => {
+      g.done = chk.checked;
+      simpanDataNotepad(notepadData);
+      renderGoalsList();
+    });
+
+    const span = document.createElement('span');
+    span.className = 'goal-text';
+    span.textContent = g.text;
+
+    left.appendChild(chk);
+    left.appendChild(span);
+
+    const delBtn = document.createElement('button');
+    delBtn.type = 'button';
+    delBtn.className = 'goal-del-btn';
+    delBtn.title = 'Hapus target';
+    delBtn.innerHTML = '✕';
+    delBtn.addEventListener('click', () => {
+      notepadData.goals = notepadData.goals.filter(item => item.id !== g.id);
+      simpanDataNotepad(notepadData);
+      renderGoalsList();
+    });
+
+    item.appendChild(left);
+    item.appendChild(delBtn);
+    container.appendChild(item);
+  });
+
+  const percent = Math.round((selesai / goals.length) * 100);
+  if (bar) bar.style.width = percent + '%';
+  if (txtPercent) txtPercent.textContent = percent + '%';
+  if (txtCount) txtCount.textContent = `${selesai} dari ${goals.length} target selesai`;
+}
+
+function bukaNotepad(buka) {
+  const panel = document.getElementById('notepadPanel');
+  const backdrop = document.getElementById('notepadBackdrop');
+  if (!panel || !backdrop) return;
+
+  panel.classList.toggle('visible', buka);
+  backdrop.classList.toggle('visible', buka);
+
+  if (buka) {
+    notepadData = muatDataNotepad();
+    const txtArea = document.getElementById('txtCatatan');
+    if (txtArea) {
+      txtArea.value = notepadData.notes || '';
+      hitungStatistikCatatan(txtArea.value);
+    }
+    renderGoalsList();
+  }
+}
+
+// Inisialisasi Event Listener Notepad
+const btnOpenNotepad = document.getElementById('btnBukaNotepad');
+if (btnOpenNotepad) btnOpenNotepad.addEventListener('click', () => bukaNotepad(true));
+const btnCloseNotepad = document.getElementById('btnTutupNotepad');
+if (btnCloseNotepad) btnCloseNotepad.addEventListener('click', () => bukaNotepad(false));
+const bgNotepad = document.getElementById('notepadBackdrop');
+if (bgNotepad) bgNotepad.addEventListener('click', () => bukaNotepad(false));
+
+// Tab Switcher Notes vs Goals
+const tabBtnNotes = document.getElementById('tabBtnNotes');
+const tabBtnGoals = document.getElementById('tabBtnGoals');
+const contentTabNotes = document.getElementById('contentTabNotes');
+const contentTabGoals = document.getElementById('contentTabGoals');
+
+if (tabBtnNotes && tabBtnGoals) {
+  tabBtnNotes.addEventListener('click', () => {
+    tabBtnNotes.classList.add('active');
+    tabBtnGoals.classList.remove('active');
+    if (contentTabNotes) contentTabNotes.classList.add('active');
+    if (contentTabGoals) contentTabGoals.classList.remove('active');
+  });
+
+  tabBtnGoals.addEventListener('click', () => {
+    tabBtnGoals.classList.add('active');
+    tabBtnNotes.classList.remove('active');
+    if (contentTabGoals) contentTabGoals.classList.add('active');
+    if (contentTabNotes) contentTabNotes.classList.remove('active');
+  });
+}
+
+// Autosave Textarea Catatan
+const txtCatatan = document.getElementById('txtCatatan');
+if (txtCatatan) {
+  txtCatatan.addEventListener('input', () => {
+    hitungStatistikCatatan(txtCatatan.value);
+    const txtSave = document.getElementById('txtNotepadSaveState');
+    if (txtSave) {
+      txtSave.textContent = 'Typing...';
+      txtSave.style.color = '#94a3b8';
+    }
+    clearTimeout(notepadDebounceTimer);
+    notepadDebounceTimer = setTimeout(() => {
+      notepadData.notes = txtCatatan.value;
+      simpanDataNotepad(notepadData);
+    }, 400);
+  });
+}
+
+// Clear Catatan
+const btnClearNotes = document.getElementById('btnBersihkanCatatan');
+if (btnClearNotes) {
+  btnClearNotes.addEventListener('click', () => {
+    if (confirm('Bersihkan isi catatan?')) {
+      if (txtCatatan) txtCatatan.value = '';
+      notepadData.notes = '';
+      hitungStatistikCatatan('');
+      simpanDataNotepad(notepadData);
+    }
+  });
+}
+
+// Tambah Goal
+function tambahGoalBaru() {
+  const inp = document.getElementById('inpNewGoal');
+  if (!inp) return;
+  const val = inp.value.trim();
+  if (!val) return;
+
+  if (!Array.isArray(notepadData.goals)) notepadData.goals = [];
+  notepadData.goals.unshift({
+    id: 'g_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6),
+    text: val,
+    done: false
+  });
+  simpanDataNotepad(notepadData);
+  inp.value = '';
+  renderGoalsList();
+}
+
+const btnAddGoal = document.getElementById('btnAddGoal');
+if (btnAddGoal) btnAddGoal.addEventListener('click', tambahGoalBaru);
+const inpNewGoal = document.getElementById('inpNewGoal');
+if (inpNewGoal) {
+  inpNewGoal.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      tambahGoalBaru();
+    }
+  });
+}
+
+// Salin ke Chat (Ask AI)
+const btnSalinKeChat = document.getElementById('btnSalinKeChat');
+if (btnSalinKeChat) {
+  btnSalinKeChat.addEventListener('click', () => {
+    const txtArea = document.getElementById('txtCatatan');
+    const inpTanya = document.getElementById('inpTanya');
+    if (!txtArea || !inpTanya) return;
+    const isi = txtArea.value.trim();
+    if (!isi) {
+      alert('Catatan masih kosong!');
+      return;
+    }
+    inpTanya.value = 'Berikut catatanku, tolong berikan analisis/ringkasan atau bantuan terkait ini:\n\n' + isi;
+    inpTanya.style.height = 'auto';
+    inpTanya.style.height = Math.min(180, inpTanya.scrollHeight) + 'px';
+    bukaNotepad(false);
+    inpTanya.focus();
+  });
+}
+
+// Escape key to close Notepad
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    const p = document.getElementById('notepadPanel');
+    if (p && p.classList.contains('visible')) bukaNotepad(false);
+  }
+});
 
 /* ===== Press feedback untuk touch device: :active sering tidak fire di tablet,
    jadi kelas .is-pressed di-toggle manual lewat Pointer Events. ===== */
