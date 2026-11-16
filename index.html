@@ -8271,6 +8271,10 @@ if (_btnPerf) {
     tCtx = null;
   }
 
+  // --- AURA NEXT GEN: Cyberpunk Digital Glitch State ---
+  let nextGlitchTime = performance.now() + 2500;
+  let glitchEndTime = 0;
+
   // Pre-load web fonts into canvas memory
   if (document.fonts) {
     document.fonts.load('400 156px "Instrument Serif"').catch(() => {});
@@ -8706,10 +8710,68 @@ if (_btnPerf) {
         curLocalX += charW + tracking + (kerningPairs[i] || 0);
       }
 
-      // --- STEP 5D: BLIT TO MAIN CANVAS WITH SUBTLE GLOW ---
-      ctx.shadowColor = isThinking ? 'rgba(192, 132, 252, 0.28)' : 'rgba(56, 189, 248, 0.22)';
-      ctx.shadowBlur = (9 + voiceAmp * 6) * breath;
-      ctx.drawImage(textBuffer, startX - padX, cy - bufH / 2, bufW, bufH);
+      // --- STEP 5D: BLIT TO MAIN CANVAS WITH SUBTLE GLOW & CYBERPUNK GLITCH ---
+      const drawX = startX - padX;
+      const drawY = cy - bufH / 2;
+
+      // Update Glitch Timing State (triggers every ~2.4s - 4.5s for ~110ms - 190ms)
+      if (now >= nextGlitchTime) {
+        glitchEndTime = now + (110 + Math.random() * 80);
+        nextGlitchTime = now + (2400 + Math.random() * 2100);
+      }
+      const isGlitching = (now < glitchEndTime);
+
+      if (isGlitching) {
+        // 1. Chromatic Aberration (Cyan & Magenta RGB Split)
+        const shiftX = (Math.random() - 0.5) * 8;
+        const shiftY = (Math.random() - 0.5) * 3;
+
+        ctx.save();
+        ctx.globalCompositeOperation = 'screen';
+
+        // Cyan channel shift
+        ctx.shadowColor = 'rgba(0, 243, 255, 0.75)';
+        ctx.shadowBlur = 10;
+        ctx.globalAlpha = 0.70;
+        ctx.drawImage(textBuffer, drawX - shiftX, drawY - shiftY, bufW, bufH);
+
+        // Magenta channel shift
+        ctx.shadowColor = 'rgba(255, 0, 85, 0.75)';
+        ctx.shadowBlur = 10;
+        ctx.globalAlpha = 0.70;
+        ctx.drawImage(textBuffer, drawX + shiftX, drawY + shiftY, bufW, bufH);
+        ctx.restore();
+
+        // 2. Horizontal scanline displacement slices (2-3 random slices)
+        const numSlices = 2 + Math.floor(Math.random() * 2);
+        for (let s = 0; s < numSlices; s++) {
+          const sliceH = Math.max(4, Math.floor(Math.random() * (bufH * 0.35)));
+          const sliceY = Math.floor(Math.random() * (bufH - sliceH));
+          const sliceOffset = (Math.random() - 0.5) * 12;
+
+          ctx.save();
+          ctx.beginPath();
+          ctx.rect(drawX - 20, drawY + sliceY, bufW + 40, sliceH);
+          ctx.clip();
+          ctx.shadowColor = isThinking ? 'rgba(192, 132, 252, 0.5)' : 'rgba(56, 189, 248, 0.5)';
+          ctx.shadowBlur = 8;
+          ctx.drawImage(textBuffer, drawX + sliceOffset, drawY, bufW, bufH);
+          ctx.restore();
+        }
+
+        // 3. Base blit with subtle micro-flicker alpha
+        ctx.save();
+        ctx.shadowColor = isThinking ? 'rgba(192, 132, 252, 0.35)' : 'rgba(56, 189, 248, 0.30)';
+        ctx.shadowBlur = (9 + voiceAmp * 6) * breath;
+        ctx.globalAlpha = 0.72 + Math.random() * 0.28;
+        ctx.drawImage(textBuffer, drawX, drawY, bufW, bufH);
+        ctx.restore();
+      } else {
+        // Pristine normal render
+        ctx.shadowColor = isThinking ? 'rgba(192, 132, 252, 0.28)' : 'rgba(56, 189, 248, 0.22)';
+        ctx.shadowBlur = (9 + voiceAmp * 6) * breath;
+        ctx.drawImage(textBuffer, drawX, drawY, bufW, bufH);
+      }
     } else {
       // Solid Direct Fallback
       ctx.font = fontStr;
