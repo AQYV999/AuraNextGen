@@ -5954,6 +5954,153 @@ html.perf-lite .guide-body { contain: content; }
     margin-right: 8px;
   }
 
+  /* ============================================================
+     AURA NEXT GEN: CHAT HISTORY ARCHIVE MODAL
+     ============================================================ */
+  .history-archive-backdrop {
+    position: fixed !important;
+    inset: 0 !important;
+    background: rgba(4, 6, 12, 0.72) !important;
+    backdrop-filter: blur(14px) !important;
+    -webkit-backdrop-filter: blur(14px) !important;
+    z-index: 35 !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    transition: opacity 0.24s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  }
+  .history-archive-backdrop.visible {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+  }
+  .history-archive-panel {
+    position: fixed !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) scale(0.96) !important;
+    width: min(640px, calc(100vw - 28px)) !important;
+    max-height: min(85vh, 720px) !important;
+    padding: 22px 24px !important;
+    border-radius: 24px !important;
+    background: rgba(13, 16, 26, 0.95) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    backdrop-filter: blur(36px) saturate(150%) !important;
+    -webkit-backdrop-filter: blur(36px) saturate(150%) !important;
+    box-shadow: 0 32px 80px -16px rgba(0, 0, 0, 0.9), inset 0 1px 0 rgba(255, 255, 255, 0.12) !important;
+    z-index: 36 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    transition: opacity 0.24s ease, transform 0.28s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  }
+  .history-archive-panel.visible {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    transform: translate(-50%, -50%) scale(1) !important;
+  }
+  .history-search-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 14px;
+  }
+  .history-search-input {
+    flex: 1;
+    padding: 8px 12px;
+    font-size: 12px;
+    background: rgba(0, 0, 0, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    color: #f1f5f9;
+    outline: none;
+    transition: border-color 0.16s ease;
+  }
+  .history-search-input:focus {
+    border-color: #5DCAA5;
+  }
+  .history-export-btn {
+    padding: 7px 12px;
+    font-size: 11px;
+    font-weight: 500;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #cbd5e1;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    white-space: nowrap;
+  }
+  .history-export-btn:hover {
+    background: rgba(93, 202, 165, 0.18);
+    border-color: rgba(93, 202, 165, 0.35);
+    color: #5DCAA5;
+  }
+  .history-cards-container {
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-right: 4px;
+    min-height: 250px;
+  }
+  .history-card-item {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 12px;
+    padding: 12px 14px;
+    transition: all 0.16s ease;
+  }
+  .history-card-item:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+  .history-card-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-size: 10.5px;
+    color: #64748b;
+  }
+  .history-card-q {
+    font-size: 12px;
+    font-weight: 600;
+    color: #f1f5f9;
+    margin-bottom: 6px;
+    line-height: 1.4;
+  }
+  .history-card-a {
+    font-size: 11.5px;
+    color: #94a3b8;
+    line-height: 1.5;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    padding: 8px 10px;
+    border-left: 2px solid #5DCAA5;
+  }
+  .history-card-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+    justify-content: flex-end;
+  }
+  .history-action-link {
+    font-size: 10.5px;
+    color: #5DCAA5;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 2px 6px;
+    border-radius: 4px;
+    transition: opacity 0.15s ease;
+  }
+  .history-action-link:hover {
+    opacity: 0.8;
+    text-decoration: underline;
+  }
+
 </style>
 </head>
 <body>
@@ -6465,6 +6612,41 @@ html.perf-lite .guide-body { contain: content; }
         <span class="api-test-result" id="txtApiTestResult"></span>
         <button type="button" class="api-btn-save" id="btnSimpanApiKey">Save Keys</button>
       </div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       AURA NEXT GEN: CHAT HISTORY ARCHIVE MODAL
+       ========================================== -->
+  <div class="history-archive-backdrop" id="chatHistoryBackdrop"></div>
+  <div class="history-archive-panel glass" id="chatHistoryPanel" role="dialog" aria-labelledby="chatHistoryTitle">
+    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; padding-bottom:12px; border-bottom:1px solid rgba(255,255,255,0.08);">
+      <div style="display:flex; align-items:center; gap:10px;">
+        <div style="width:32px; height:32px; border-radius:10px; display:flex; align-items:center; justify-content:center; background:rgba(93,202,165,0.15); border:1px solid rgba(93,202,165,0.3); color:#5DCAA5;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+          </svg>
+        </div>
+        <div>
+          <h3 id="chatHistoryTitle" style="margin:0; font-size:14px; font-weight:600; color:#f8fafc;">Chat History &amp; Archive</h3>
+          <span style="font-size:10.5px; color:#94a3b8;" id="txtChatHistoryTotal">0 percakapan tersimpan</span>
+        </div>
+      </div>
+      <div style="display:flex; align-items:center; gap:8px;">
+        <button type="button" class="history-export-btn" id="btnExportChatTxt" title="Download Text">Export (.txt)</button>
+        <button type="button" class="history-export-btn" id="btnExportChatJson" title="Download JSON">Export (.json)</button>
+        <button type="button" class="clear-btn" id="btnTutupChatHistory">Close</button>
+      </div>
+    </div>
+
+    <!-- SEARCH BAR -->
+    <div class="history-search-bar">
+      <input type="text" class="history-search-input" id="inpSearchHistory" placeholder="Cari dalam riwayat percakapan..." autocomplete="off">
+    </div>
+
+    <!-- CARDS CONTAINER -->
+    <div class="history-cards-container" id="containerHistoryCards">
+      <!-- Cards rendered dynamically -->
     </div>
   </div>
 
@@ -7990,8 +8172,9 @@ function efekMengetik(el, teks, opsi = {}) {
 function buatHeadLog() {
   const head = document.createElement('div');
   head.className = 'chat-log-head';
-  head.innerHTML = '<span>History</span>'
+  head.innerHTML = '<span>Chat</span>'
     + '<div class="head-actions">'
+    +   '<button class="clear-btn" id="btnBukaArsipRiwayat" title="Buka Arsip Percakapan">Archive</button>'
     +   '<button class="min-btn" id="btnMinimize" aria-label="Minimize history">'
     +     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>'
     +   '</button>'
@@ -8015,6 +8198,11 @@ function renderChatLog() {
 }
 
 document.getElementById('chatLog').addEventListener('click', async (e) => {
+  // Tombol buka arsip riwayat percakapan
+  if (e.target.closest('#btnBukaArsipRiwayat')) {
+    bukaChatHistory(true);
+    return;
+  }
   // Tombol minimize
   if (e.target.closest('#btnMinimize')) {
     toggleMinimize();
@@ -9120,6 +9308,185 @@ if (btnSetReminder) {
 }
 
 try { renderRemindersList(); } catch (e) {}
+
+/* ============================================================
+   AURA NEXT GEN: CHAT HISTORY ARCHIVE CONTROLLER
+   ============================================================ */
+function formatWaktuChat(ts) {
+  if (!ts) return '--:--';
+  const d = new Date(ts);
+  return d.toLocaleDateString([], { day: 'numeric', month: 'short' }) + ' ' +
+         d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+}
+
+function bukaChatHistory(buka) {
+  const panel = document.getElementById('chatHistoryPanel');
+  const backdrop = document.getElementById('chatHistoryBackdrop');
+  if (!panel || !backdrop) return;
+
+  panel.classList.toggle('visible', buka);
+  backdrop.classList.toggle('visible', buka);
+
+  if (buka) {
+    const inpSearch = document.getElementById('inpSearchHistory');
+    if (inpSearch) inpSearch.value = '';
+    renderChatHistoryList();
+  }
+}
+
+function renderChatHistoryList(filterQuery = '') {
+  const container = document.getElementById('containerHistoryCards');
+  const txtTotal = document.getElementById('txtChatHistoryTotal');
+  if (!container) return;
+
+  const allHistory = (Array.isArray(riwayat) && riwayat.length) ? riwayat : bacaCacheLokal();
+  const query = (filterQuery || '').toLowerCase().trim();
+
+  const filtered = query
+    ? allHistory.filter(item =>
+        (item.tanya && item.tanya.toLowerCase().includes(query)) ||
+        (item.jawab && item.jawab.toLowerCase().includes(query))
+      )
+    : allHistory;
+
+  if (txtTotal) txtTotal.textContent = `${filtered.length} dari ${allHistory.length} percakapan tersimpan`;
+
+  container.innerHTML = '';
+  if (filtered.length === 0) {
+    container.innerHTML = `<div style="text-align:center; padding:30px 0; color:#64748b; font-size:12px;">${query ? 'Tidak ada percakapan yang cocok dengan kata kunci.' : 'Belum ada riwayat percakapan.'}</div>`;
+    return;
+  }
+
+  const reversed = [...filtered].reverse();
+  reversed.forEach((item) => {
+    const card = document.createElement('div');
+    card.className = 'history-card-item';
+
+    const meta = document.createElement('div');
+    meta.className = 'history-card-meta';
+
+    const timeSpan = document.createElement('span');
+    timeSpan.textContent = formatWaktuChat(item.waktu);
+
+    const modeSpan = document.createElement('span');
+    modeSpan.style.fontSize = '10px';
+    modeSpan.style.fontWeight = '600';
+    modeSpan.style.color = item.mode === 'cloud' ? '#38bdf8' : '#a78bfa';
+    modeSpan.textContent = (item.provider || item.mode || 'AI').toUpperCase();
+
+    meta.appendChild(timeSpan);
+    meta.appendChild(modeSpan);
+
+    const q = document.createElement('div');
+    q.className = 'history-card-q';
+    q.textContent = 'Q: ' + (item.tanya || '');
+
+    const a = document.createElement('div');
+    a.className = 'history-card-a';
+    a.innerHTML = renderMarkdown(item.jawab || '');
+
+    const actions = document.createElement('div');
+    actions.className = 'history-card-actions';
+
+    const btnCopy = document.createElement('button');
+    btnCopy.type = 'button';
+    btnCopy.className = 'history-action-link';
+    btnCopy.textContent = 'Copy';
+    btnCopy.addEventListener('click', () => {
+      navigator.clipboard.writeText(item.jawab || '').then(() => {
+        btnCopy.textContent = 'Copied!';
+        setTimeout(() => { btnCopy.textContent = 'Copy'; }, 1200);
+      });
+    });
+
+    const btnReask = document.createElement('button');
+    btnReask.type = 'button';
+    btnReask.className = 'history-action-link';
+    btnReask.textContent = 'Tanya Ulang ↗';
+    btnReask.addEventListener('click', () => {
+      const inpTanya = document.getElementById('inpTanya');
+      if (inpTanya) {
+        inpTanya.value = item.tanya || '';
+        inpTanya.style.height = 'auto';
+        inpTanya.style.height = Math.min(180, inpTanya.scrollHeight) + 'px';
+        bukaChatHistory(false);
+        inpTanya.focus();
+      }
+    });
+
+    actions.appendChild(btnCopy);
+    actions.appendChild(btnReask);
+
+    card.appendChild(meta);
+    card.appendChild(q);
+    card.appendChild(a);
+    card.appendChild(actions);
+
+    container.appendChild(card);
+  });
+}
+
+function eksporChatHistory(format = 'txt') {
+  const allHistory = (Array.isArray(riwayat) && riwayat.length) ? riwayat : bacaCacheLokal();
+  if (!allHistory.length) {
+    alert('Tidak ada percakapan untuk diekspor!');
+    return;
+  }
+
+  let content = '';
+  let mimeType = 'text/plain';
+  let filename = `AURA_Chat_History_${new Date().toISOString().slice(0, 10)}`;
+
+  if (format === 'json') {
+    content = JSON.stringify(allHistory, null, 2);
+    mimeType = 'application/json';
+    filename += '.json';
+  } else {
+    filename += '.txt';
+    content = `=== AURA NEXT GEN CHAT ARCHIVE ===\nTanggal Ekspor: ${new Date().toLocaleString()}\nJumlah Percakapan: ${allHistory.length}\n\n`;
+    allHistory.forEach((item, idx) => {
+      content += `--------------------------------------------------\n`;
+      content += `[#${idx + 1}] Waktu: ${formatWaktuChat(item.waktu)} | Mode: ${item.provider || item.mode || 'AI'}\n`;
+      content += `USER: ${item.tanya}\n`;
+      content += `AURA: ${item.jawab}\n\n`;
+    });
+  }
+
+  const blob = new Blob([content], { type: mimeType });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+// Event Listeners for Chat History Modal
+const btnCloseChatHistory = document.getElementById('btnTutupChatHistory');
+if (btnCloseChatHistory) btnCloseChatHistory.addEventListener('click', () => bukaChatHistory(false));
+const bgChatHistory = document.getElementById('chatHistoryBackdrop');
+if (bgChatHistory) bgChatHistory.addEventListener('click', () => bukaChatHistory(false));
+
+const inpSearchHistory = document.getElementById('inpSearchHistory');
+if (inpSearchHistory) {
+  inpSearchHistory.addEventListener('input', () => {
+    renderChatHistoryList(inpSearchHistory.value);
+  });
+}
+
+const btnExportTxt = document.getElementById('btnExportChatTxt');
+if (btnExportTxt) btnExportTxt.addEventListener('click', () => eksporChatHistory('txt'));
+const btnExportJson = document.getElementById('btnExportChatJson');
+if (btnExportJson) btnExportJson.addEventListener('click', () => eksporChatHistory('json'));
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    const p = document.getElementById('chatHistoryPanel');
+    if (p && p.classList.contains('visible')) bukaChatHistory(false);
+  }
+});
 
 /* ===== Press feedback untuk touch device: :active sering tidak fire di tablet,
    jadi kelas .is-pressed di-toggle manual lewat Pointer Events. ===== */
