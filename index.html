@@ -5830,6 +5830,130 @@ html.perf-lite .guide-body { contain: content; }
     color: #ef4444;
   }
 
+  /* ============================================================
+     AURA NEXT GEN: REMINDER ALERT BANNER & CONTROLS
+     ============================================================ */
+  .reminder-alert-banner {
+    position: fixed !important;
+    top: 24px !important;
+    left: 50% !important;
+    transform: translateX(-50%) translateY(-30px) scale(0.95) !important;
+    min-width: 320px !important;
+    max-width: min(520px, calc(100vw - 32px)) !important;
+    padding: 14px 18px !important;
+    border-radius: 18px !important;
+    background: rgba(13, 16, 26, 0.94) !important;
+    border: 1px solid rgba(93, 202, 165, 0.4) !important;
+    backdrop-filter: blur(32px) saturate(150%) !important;
+    -webkit-backdrop-filter: blur(32px) saturate(150%) !important;
+    box-shadow: 0 24px 60px -8px rgba(0, 0, 0, 0.85), 0 0 24px rgba(93, 202, 165, 0.25) !important;
+    z-index: 50 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 16px !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  }
+  .reminder-alert-banner.visible {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    transform: translateX(-50%) translateY(0) scale(1) !important;
+  }
+  .alert-banner-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .alert-bell-ring {
+    width: 38px; height: 38px;
+    border-radius: 12px;
+    background: rgba(93, 202, 165, 0.15);
+    border: 1px solid rgba(93, 202, 165, 0.3);
+    color: #5DCAA5;
+    display: flex; align-items: center; justify-content: center;
+    animation: bellShake 1.2s ease infinite;
+  }
+  @keyframes bellShake {
+    0%, 100% { transform: rotate(0deg); }
+    20%, 60% { transform: rotate(12deg); }
+    40%, 80% { transform: rotate(-12deg); }
+  }
+  .alert-banner-title {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: #5DCAA5;
+    text-transform: uppercase;
+  }
+  .alert-banner-text {
+    font-size: 13px;
+    font-weight: 600;
+    color: #f8fafc;
+    margin-top: 2px;
+  }
+  .alert-dismiss-btn {
+    padding: 6px 14px;
+    font-size: 11.5px;
+    font-weight: 600;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #f1f5f9;
+    cursor: pointer;
+    transition: all 0.16s ease;
+  }
+  .alert-dismiss-btn:hover {
+    background: #5DCAA5;
+    border-color: #5DCAA5;
+    color: #08080a;
+  }
+  .reminder-form-box {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 12px;
+    padding: 12px;
+  }
+  .reminder-chip {
+    padding: 3px 8px;
+    font-size: 10.5px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #e2e8f0;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+  .reminder-chip:hover {
+    background: rgba(93, 202, 165, 0.2);
+    border-color: #5DCAA5;
+    color: #5DCAA5;
+  }
+  .reminder-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 10px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    transition: all 0.16s ease;
+  }
+  .reminder-item:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.09);
+  }
+  .reminder-time-tag {
+    font-size: 10px;
+    font-weight: 600;
+    padding: 2px 6px;
+    border-radius: 5px;
+    background: rgba(56, 189, 248, 0.15);
+    color: #38bdf8;
+    margin-right: 8px;
+  }
+
 </style>
 </head>
 <body>
@@ -6157,6 +6281,7 @@ html.perf-lite .guide-body { contain: content; }
     <div class="notepad-tabs">
       <button type="button" class="notepad-tab-btn active" id="tabBtnNotes" data-tab="notes">Catatan &amp; Ide</button>
       <button type="button" class="notepad-tab-btn" id="tabBtnGoals" data-tab="goals">Goals &amp; Target</button>
+      <button type="button" class="notepad-tab-btn" id="tabBtnReminders" data-tab="reminders">Pengingat &amp; Alarm</button>
     </div>
 
     <!-- TAB 1: NOTES CONTENT -->
@@ -6195,6 +6320,52 @@ html.perf-lite .guide-body { contain: content; }
         <!-- Rendered dynamically -->
       </div>
     </div>
+
+    <!-- TAB 3: REMINDERS CONTENT -->
+    <div class="notepad-tab-content" id="contentTabReminders">
+      <!-- ADD REMINDER FORM -->
+      <div class="reminder-form-box">
+        <input type="text" class="goals-input" id="inpReminderText" placeholder="Mau diingatkan tentang apa? (misal: Minum air, istirahat)" autocomplete="off" style="margin-bottom:8px; width:100%;">
+        <div style="display:flex; align-items:center; gap:6px; flex-wrap:wrap; margin-bottom:10px;">
+          <span style="font-size:10.5px; color:#94a3b8;">Preset:</span>
+          <button type="button" class="reminder-chip" data-min="5">+5m</button>
+          <button type="button" class="reminder-chip" data-min="10">+10m</button>
+          <button type="button" class="reminder-chip" data-min="15">+15m</button>
+          <button type="button" class="reminder-chip" data-min="30">+30m</button>
+          <button type="button" class="reminder-chip" data-min="60">+1h</button>
+          <div style="display:flex; align-items:center; gap:4px; margin-left:auto;">
+            <span style="font-size:10.5px; color:#94a3b8;">Custom:</span>
+            <input type="number" id="inpCustomMin" placeholder="Menit" min="1" max="1440" style="width:58px; padding:3px 6px; font-size:11px; background:rgba(0,0,0,0.3); border:1px solid rgba(255,255,255,0.1); border-radius:6px; color:#fff;">
+          </div>
+        </div>
+        <button type="button" class="goals-add-btn" id="btnSetReminder" style="width:100%; padding:8px;">Pasang Pengingat ⏰</button>
+      </div>
+
+      <!-- ACTIVE REMINDERS LIST -->
+      <div style="font-size:11px; font-weight:600; color:#e2e8f0; margin:12px 0 6px;">Pengingat Aktif:</div>
+      <div class="goals-list" id="listReminders">
+        <!-- Rendered dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       AURA NEXT GEN: FLOATING REMINDER ALERT BANNER
+       ========================================== -->
+  <div class="reminder-alert-banner glass" id="reminderAlertBanner">
+    <div class="alert-banner-left">
+      <div class="alert-bell-ring">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+          <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+        </svg>
+      </div>
+      <div>
+        <div class="alert-banner-title">PENGINGAT AURA</div>
+        <div class="alert-banner-text" id="txtAlertBannerMsg">Waktunya melakukan tugas!</div>
+      </div>
+    </div>
+    <button type="button" class="alert-dismiss-btn" id="btnDismissReminder">Dismiss</button>
   </div>
 
   <!-- ==========================================
@@ -7984,6 +8155,35 @@ async function kirimPertanyaan() {
   terapkanEkspresi('mikir', 'none');
 
   try {
+    // AURA NEXT GEN: Natural Language Reminder Intent Intercept
+    const polaIngatkan = /ingatkan(?:\s+saya|\s+aku)?\s+(.+?)\s+(\d+)\s*(menit|jam|detik)?/i;
+    const matchIngat = teks.match(polaIngatkan);
+    if (matchIngat) {
+      const pesanIngat = matchIngat[1].trim();
+      const angka = parseInt(matchIngat[2], 10);
+      const satuan = (matchIngat[3] || 'menit').toLowerCase();
+      let durasiMenit = angka;
+      if (satuan.startsWith('jam')) durasiMenit = angka * 60;
+      else if (satuan.startsWith('detik')) durasiMenit = Math.max(1, Math.round(angka / 60));
+
+      const resReminder = tambahReminder(pesanIngat, durasiMenit);
+      const balas = `Siap! Aku sudah mencatat pengingat untuk: **${pesanIngat}** (${resReminder.menit} menit lagi, sekitar jam ${resReminder.timeStr}). Nanti aku ingatkan kamu! ⏰`;
+
+      auraMsg.classList.remove('loading');
+      pasangBadgeMode(auraMsg, 'local', 'Reminder');
+
+      const itemDirect = { tanya: teks, jawab: balas, mode: 'local', waktu: Date.now() };
+      riwayat.push(itemDirect);
+      cacheLokal(riwayat);
+      simpanPercakapanKeFirebase(itemDirect);
+
+      resetEkspresiMode('local');
+      ucapkanDiBrowser(balas);
+      getar([12, 40, 12]);
+      await efekMengetik(auraMsg.querySelector('.msg-body'), balas);
+      return;
+    }
+
     // JALUR LANGSUNG: mode Local + Ollama terjangkau dari browser -> skip ESP32.
     // `return` di sini tetap lewat blok finally (buka kunci UI). Gagal -> lanjut ke jalur ESP32.
     if (modeDipilih === 'local' && await cekOllamaDirect()) {
@@ -8607,27 +8807,29 @@ if (btnCloseNotepad) btnCloseNotepad.addEventListener('click', () => bukaNotepad
 const bgNotepad = document.getElementById('notepadBackdrop');
 if (bgNotepad) bgNotepad.addEventListener('click', () => bukaNotepad(false));
 
-// Tab Switcher Notes vs Goals
+// Tab Switcher Notes vs Goals vs Reminders
 const tabBtnNotes = document.getElementById('tabBtnNotes');
 const tabBtnGoals = document.getElementById('tabBtnGoals');
+const tabBtnReminders = document.getElementById('tabBtnReminders');
 const contentTabNotes = document.getElementById('contentTabNotes');
 const contentTabGoals = document.getElementById('contentTabGoals');
+const contentTabReminders = document.getElementById('contentTabReminders');
 
-if (tabBtnNotes && tabBtnGoals) {
-  tabBtnNotes.addEventListener('click', () => {
-    tabBtnNotes.classList.add('active');
-    tabBtnGoals.classList.remove('active');
-    if (contentTabNotes) contentTabNotes.classList.add('active');
-    if (contentTabGoals) contentTabGoals.classList.remove('active');
-  });
+function aktifkanNotepadTab(tabName) {
+  if (tabBtnNotes) tabBtnNotes.classList.toggle('active', tabName === 'notes');
+  if (tabBtnGoals) tabBtnGoals.classList.toggle('active', tabName === 'goals');
+  if (tabBtnReminders) tabBtnReminders.classList.toggle('active', tabName === 'reminders');
 
-  tabBtnGoals.addEventListener('click', () => {
-    tabBtnGoals.classList.add('active');
-    tabBtnNotes.classList.remove('active');
-    if (contentTabGoals) contentTabGoals.classList.add('active');
-    if (contentTabNotes) contentTabNotes.classList.remove('active');
-  });
+  if (contentTabNotes) contentTabNotes.classList.toggle('active', tabName === 'notes');
+  if (contentTabGoals) contentTabGoals.classList.toggle('active', tabName === 'goals');
+  if (contentTabReminders) contentTabReminders.classList.toggle('active', tabName === 'reminders');
+
+  if (tabName === 'reminders') renderRemindersList();
 }
+
+if (tabBtnNotes) tabBtnNotes.addEventListener('click', () => aktifkanNotepadTab('notes'));
+if (tabBtnGoals) tabBtnGoals.addEventListener('click', () => aktifkanNotepadTab('goals'));
+if (tabBtnReminders) tabBtnReminders.addEventListener('click', () => aktifkanNotepadTab('reminders'));
 
 // Autosave Textarea Catatan
 const txtCatatan = document.getElementById('txtCatatan');
@@ -8724,6 +8926,200 @@ if (widgetCard) widgetCard.addEventListener('click', () => bukaNotepad(true));
 
 // Initial preview update
 try { perbaruiWidgetPreview(); } catch (e) {}
+
+/* ============================================================
+   AURA NEXT GEN: NOTIFICATION & REMINDER SCHEDULER
+   ============================================================ */
+const AURA_REMINDERS_KEY = 'aura_reminders';
+
+function muatReminders() {
+  try {
+    const raw = localStorage.getItem(AURA_REMINDERS_KEY);
+    return raw ? JSON.parse(raw) : [];
+  } catch (e) {
+    return [];
+  }
+}
+
+function simpanReminders(list) {
+  try {
+    localStorage.setItem(AURA_REMINDERS_KEY, JSON.stringify(list));
+    renderRemindersList();
+  } catch (e) {
+    console.error('Gagal simpan reminders:', e);
+  }
+}
+
+function mintaIzinNotifikasi() {
+  if ('Notification' in window && Notification.permission === 'default') {
+    Notification.requestPermission().catch(() => {});
+  }
+}
+
+function tambahReminder(pesan, durasiMenit) {
+  mintaIzinNotifikasi();
+  const menit = Math.max(1, parseInt(durasiMenit, 10) || 5);
+  const targetTime = Date.now() + (menit * 60 * 1000);
+  const timeStr = new Date(targetTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+  const reminders = muatReminders();
+  reminders.push({
+    id: 'rem_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6),
+    text: pesan || 'Pengingat dari AURA',
+    time: targetTime,
+    timeStr: timeStr,
+    created: Date.now()
+  });
+
+  simpanReminders(reminders);
+  return { timeStr, menit };
+}
+
+function hapusReminder(id) {
+  const reminders = muatReminders().filter(r => r.id !== id);
+  simpanReminders(reminders);
+}
+
+function renderRemindersList() {
+  const container = document.getElementById('listReminders');
+  if (!container) return;
+  const reminders = muatReminders();
+  container.innerHTML = '';
+
+  if (reminders.length === 0) {
+    container.innerHTML = '<div style="font-size:11.5px; color:#64748b; text-align:center; padding:16px 0;">Tidak ada pengingat aktif.</div>';
+    return;
+  }
+
+  reminders.sort((a, b) => a.time - b.time);
+  reminders.forEach(r => {
+    const sisaMs = r.time - Date.now();
+    const sisaMenit = Math.max(0, Math.ceil(sisaMs / 60000));
+
+    const item = document.createElement('div');
+    item.className = 'reminder-item';
+
+    const left = document.createElement('div');
+    left.style.display = 'flex';
+    left.style.alignItems = 'center';
+
+    const tag = document.createElement('span');
+    tag.className = 'reminder-time-tag';
+    tag.textContent = r.timeStr + ` (${sisaMenit}m)`;
+
+    const text = document.createElement('span');
+    text.style.fontSize = '12px';
+    text.style.color = '#e2e8f0';
+    text.textContent = r.text;
+
+    left.appendChild(tag);
+    left.appendChild(text);
+
+    const delBtn = document.createElement('button');
+    delBtn.type = 'button';
+    delBtn.className = 'goal-del-btn';
+    delBtn.innerHTML = '✕';
+    delBtn.title = 'Batalkan pengingat';
+    delBtn.addEventListener('click', () => hapusReminder(r.id));
+
+    item.appendChild(left);
+    item.appendChild(delBtn);
+    container.appendChild(item);
+  });
+}
+
+function picuAlertReminder(reminder) {
+  // 1. Audio TTS voice
+  const voiceMsg = 'Pengingat untukmu: ' + reminder.text;
+  ucapkanDiBrowser(voiceMsg);
+
+  // 2. Browser Desktop Notification
+  if ('Notification' in window && Notification.permission === 'granted') {
+    try {
+      new Notification('AURA Reminder ⏰', {
+        body: reminder.text,
+        icon: 'assets/icons/rtc.png'
+      });
+    } catch (e) {}
+  }
+
+  // 3. Floating Banner Toast
+  const banner = document.getElementById('reminderAlertBanner');
+  const txtMsg = document.getElementById('txtAlertBannerMsg');
+  if (banner && txtMsg) {
+    txtMsg.textContent = reminder.text;
+    banner.classList.add('visible');
+    getar([50, 100, 50, 100]);
+    setTimeout(() => {
+      banner.classList.remove('visible');
+    }, 15000);
+  }
+}
+
+// Dismiss button for banner
+const btnDismiss = document.getElementById('btnDismissReminder');
+if (btnDismiss) {
+  btnDismiss.addEventListener('click', () => {
+    const banner = document.getElementById('reminderAlertBanner');
+    if (banner) banner.classList.remove('visible');
+  });
+}
+
+// Background scheduler ticker (cek tiap 1 detik)
+setInterval(() => {
+  const reminders = muatReminders();
+  if (!reminders.length) return;
+
+  const now = Date.now();
+  const masihAktif = [];
+
+  reminders.forEach(r => {
+    if (now >= r.time) {
+      picuAlertReminder(r);
+    } else {
+      masihAktif.push(r);
+    }
+  });
+
+  if (masihAktif.length !== reminders.length) {
+    simpanReminders(masihAktif);
+  }
+}, 1000);
+
+// Preset Chips and Manual Add
+let selectedReminderMin = 5;
+document.querySelectorAll('.reminder-chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    document.querySelectorAll('.reminder-chip').forEach(c => c.style.borderColor = 'rgba(255,255,255,0.1)');
+    chip.style.borderColor = '#5DCAA5';
+    selectedReminderMin = parseInt(chip.getAttribute('data-min'), 10) || 5;
+    const inpCustom = document.getElementById('inpCustomMin');
+    if (inpCustom) inpCustom.value = '';
+  });
+});
+
+const btnSetReminder = document.getElementById('btnSetReminder');
+if (btnSetReminder) {
+  btnSetReminder.addEventListener('click', () => {
+    const inpText = document.getElementById('inpReminderText');
+    const inpCustom = document.getElementById('inpCustomMin');
+    const text = (inpText?.value || '').trim();
+    if (!text) {
+      alert('Tulis pesan pengingat terlebih dahulu!');
+      return;
+    }
+    let durasi = selectedReminderMin;
+    if (inpCustom && inpCustom.value) {
+      durasi = parseInt(inpCustom.value, 10) || durasi;
+    }
+    const res = tambahReminder(text, durasi);
+    if (inpText) inpText.value = '';
+    renderRemindersList();
+    alert(`Pengingat disetel untuk jam ${res.timeStr} (${res.menit} menit lagi)!`);
+  });
+}
+
+try { renderRemindersList(); } catch (e) {}
 
 /* ===== Press feedback untuk touch device: :active sering tidak fire di tablet,
    jadi kelas .is-pressed di-toggle manual lewat Pointer Events. ===== */
