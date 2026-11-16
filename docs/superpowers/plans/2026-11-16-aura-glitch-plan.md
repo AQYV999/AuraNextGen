@@ -35,23 +35,23 @@
 - Consumes: `now` (DOMHighResTimeStamp from `requestAnimationFrame`), `textBuffer`, `tCtx`, `bufW`, `bufH`, `startX`, `padX`, `cy`
 - Produces: Visual glitch effect on `ctx`
 
-- [ ] **Step 1: Inspect the target code lines in `index.html`**
+- [x] **Step 1: Inspect the target code lines in `index.html`**
 Verify line numbers and syntax around `textBuffer` declaration and Step 5D draw call.
 
-- [ ] **Step 2: Add timing state variables near `textBuffer` declaration**
+- [x] **Step 2: Add timing state variables near `textBuffer` declaration**
 Tambahkan `nextGlitchTime` dan `glitchEndTime` pada inisialisasi visual canvas orb.
 
-- [ ] **Step 3: Implement glitch burst logic (RGB split, horizontal slicing, and micro-flicker) in Step 5D**
+- [x] **Step 3: Implement glitch burst logic (RGB split, horizontal slicing, and micro-flicker) in Step 5D**
 Implementasikan pengecekan `now >= nextGlitchTime` dan render logic glitch di Step 5D dengan `ctx.save()` / `ctx.restore()`.
 
-- [ ] **Step 4: Verify syntax and JavaScript validity using Node.js**
+- [x] **Step 4: Verify syntax and JavaScript validity using Node.js**
 Run: `node --check index.html` (or extract script to verify syntax)
 Expected: No syntax errors.
 
-- [ ] **Step 5: Test rendering in browser and verify glitch appearance**
+- [x] **Step 5: Test rendering in browser and verify glitch appearance**
 Buka `index.html` di browser dan pastikan tulisan AURA mengalami glitch berkala yang mulus setiap ~3 detik.
 
-- [ ] **Step 6: Commit changes**
+- [x] **Step 6: Commit changes**
 ```bash
 git add index.html docs/superpowers/
 git commit -m "feat(visual): add cyberpunk glitch animation to AURA wordmark"
