@@ -5288,6 +5288,209 @@ html.perf-lite .guide-body { contain: content; }
     display: none !important;
   }
 
+  /* ============================================================
+     AURA NEXT GEN: MULTI-API KEY & FALLBACK MODAL STYLES
+     ============================================================ */
+  .api-modal-backdrop {
+    position: fixed !important;
+    inset: 0 !important;
+    background: rgba(4, 6, 12, 0.72) !important;
+    backdrop-filter: blur(14px) !important;
+    -webkit-backdrop-filter: blur(14px) !important;
+    z-index: 28 !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    transition: opacity 0.24s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  }
+  .api-modal-backdrop.visible {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+  }
+  .api-modal-panel {
+    position: fixed !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) scale(0.96) !important;
+    width: min(580px, calc(100vw - 28px)) !important;
+    max-height: min(88vh, 700px) !important;
+    padding: 22px 24px 20px !important;
+    border-radius: 24px !important;
+    background: rgba(13, 16, 26, 0.94) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    backdrop-filter: blur(36px) saturate(150%) !important;
+    -webkit-backdrop-filter: blur(36px) saturate(150%) !important;
+    box-shadow: 0 32px 80px -16px rgba(0, 0, 0, 0.9), inset 0 1px 0 rgba(255, 255, 255, 0.12) !important;
+    z-index: 29 !important;
+    overflow-y: auto !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    transition: opacity 0.24s ease, transform 0.28s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  }
+  .api-modal-panel.visible {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    transform: translate(-50%, -50%) scale(1) !important;
+  }
+  .api-modal-head {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    margin-bottom: 18px !important;
+    padding-bottom: 14px !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+  }
+  .api-icon-wrap {
+    width: 32px; height: 32px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(93, 202, 165, 0.14);
+    border: 1px solid rgba(93, 202, 165, 0.25);
+    color: #5DCAA5;
+  }
+  .api-provider-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 14px;
+    padding: 12px 14px;
+    margin-bottom: 12px;
+    transition: border-color 0.2s ease;
+  }
+  .api-provider-card:hover {
+    border-color: rgba(255, 255, 255, 0.12);
+  }
+  .api-provider-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+  }
+  .provider-tag {
+    font-size: 11.5px;
+    font-weight: 600;
+    padding: 2px 7px;
+    border-radius: 6px;
+  }
+  .tag-gemini { background: rgba(56, 189, 248, 0.15); color: #38bdf8; }
+  .tag-openrouter { background: rgba(192, 132, 252, 0.15); color: #c084fc; }
+  .tag-direct { background: rgba(251, 191, 36, 0.15); color: #fbbf24; }
+  .api-provider-desc {
+    font-size: 10.5px;
+    color: #64748b;
+  }
+  .api-input-group {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+  .api-text-input {
+    width: 100%;
+    padding: 7px 34px 7px 11px;
+    font-size: 11.5px;
+    font-family: monospace;
+    background: rgba(0, 0, 0, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: #f1f5f9;
+    outline: none;
+    transition: border-color 0.16s ease, box-shadow 0.16s ease;
+  }
+  .api-text-input:focus {
+    border-color: #5DCAA5;
+    box-shadow: 0 0 0 2px rgba(93, 202, 165, 0.2);
+  }
+  .api-toggle-eye {
+    position: absolute;
+    right: 6px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 13px;
+    color: #64748b;
+    padding: 4px;
+    transition: color 0.15s ease;
+  }
+  .api-toggle-eye:hover { color: #f1f5f9; }
+  .api-row-opt {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    color: #94a3b8;
+  }
+  .api-select {
+    flex: 1;
+    padding: 4px 8px;
+    font-size: 11px;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 6px;
+    color: #e2e8f0;
+    outline: none;
+  }
+  .api-status-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: #64748b;
+    display: inline-block;
+  }
+  .api-status-dot.active { background: #10b981; box-shadow: 0 0 8px #10b981; }
+  .api-fallback-box {
+    margin: 14px 0;
+    padding: 10px 12px;
+    background: rgba(93, 202, 165, 0.06);
+    border: 1px solid rgba(93, 202, 165, 0.18);
+    border-radius: 12px;
+  }
+  .api-switch-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 11px;
+    color: #cbd5e1;
+    cursor: pointer;
+  }
+  .api-foot-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .api-btn-test {
+    padding: 6px 14px;
+    font-size: 11.5px;
+    font-weight: 500;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #e2e8f0;
+    cursor: pointer;
+    transition: all 0.16s ease;
+  }
+  .api-btn-test:hover { background: rgba(255, 255, 255, 0.12); color: #fff; }
+  .api-btn-save {
+    padding: 6px 18px;
+    font-size: 11.5px;
+    font-weight: 600;
+    border-radius: 8px;
+    background: #5DCAA5;
+    border: none;
+    color: #08080a;
+    cursor: pointer;
+    transition: all 0.16s ease;
+  }
+  .api-btn-save:hover { background: #71ddb6; transform: translateY(-1px); }
+  .api-test-result {
+    font-size: 11px;
+    color: #94a3b8;
+    max-width: 220px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
 </style>
 </head>
 <body>
@@ -5435,6 +5638,16 @@ html.perf-lite .guide-body { contain: content; }
             <button type="button" class="toggle-btn" id="btnTtsCloud">Cloud</button>
           </div>
         </div>
+
+        <div class="control-row">
+          <span class="control-label">AI Key</span>
+          <button type="button" class="toggle-btn" id="btnOpenApiModal" style="flex:1; padding: 3.5px 8px; font-size: 11px; display:inline-flex; align-items:center; justify-content:center; gap:5px;">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/>
+            </svg>
+            <span id="txtApiKeyStatus">Configure</span>
+          </button>
+        </div>
       </div>
     </div>
 
@@ -5546,6 +5759,106 @@ html.perf-lite .guide-body { contain: content; }
       <canvas id="chartHistori"></canvas>
       <div class="trend-empty" id="trenKosong">No history data yet.<br>Data arrives every 5 minutes from ESP32.</div>
       <div class="trend-tooltip" id="trendTooltip"></div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       AURA NEXT GEN: MULTI-API KEY & FALLBACK MODAL
+       ========================================== -->
+  <div class="api-modal-backdrop" id="apiModalBackdrop"></div>
+  <div class="api-modal-panel glass" id="apiModalPanel" role="dialog" aria-labelledby="apiModalTitle">
+    <div class="api-modal-head">
+      <div style="display:flex; align-items:center; gap:10px;">
+        <div class="api-icon-wrap">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/>
+          </svg>
+        </div>
+        <div>
+          <h3 id="apiModalTitle" style="margin:0; font-size:14px; font-weight:600; color:#f8fafc;">AURA Multi-API Key Manager</h3>
+          <p style="margin:2px 0 0; font-size:11px; color:#94a3b8;">Direct browser AI engine with auto-fallback combo</p>
+        </div>
+      </div>
+      <button type="button" class="clear-btn" id="btnTutupApiModal">Close</button>
+    </div>
+
+    <div class="api-modal-body">
+      <!-- PROVIDER 1: GEMINI -->
+      <div class="api-provider-card">
+        <div class="api-provider-head">
+          <div style="display:flex; align-items:center; gap:6px;">
+            <span class="provider-tag tag-gemini">1. Google Gemini (Primary)</span>
+            <span class="api-status-dot" id="dotGemini"></span>
+          </div>
+          <span class="api-provider-desc">Super cepat &amp; gratis (aistudio.google.com)</span>
+        </div>
+        <div class="api-input-group">
+          <input type="password" class="api-text-input" id="inpGeminiKey" placeholder="Paste Gemini API Key (AIzaSy...)" autocomplete="off">
+          <button type="button" class="api-toggle-eye" data-target="inpGeminiKey" title="Toggle visibility">👁</button>
+        </div>
+        <div class="api-row-opt">
+          <label for="selGeminiModel">Model:</label>
+          <select class="api-select" id="selGeminiModel">
+            <option value="gemini-2.5-flash">Gemini 2.5 Flash (Terbaru &amp; Cerdas)</option>
+            <option value="gemini-1.5-flash">Gemini 1.5 Flash (Stabil)</option>
+            <option value="gemini-2.0-flash">Gemini 2.0 Flash</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- PROVIDER 2: OPENROUTER -->
+      <div class="api-provider-card">
+        <div class="api-provider-head">
+          <div style="display:flex; align-items:center; gap:6px;">
+            <span class="provider-tag tag-openrouter">2. OpenRouter (Secondary / Fallback)</span>
+            <span class="api-status-dot" id="dotOpenRouter"></span>
+          </div>
+          <span class="api-provider-desc">Multi-model router (openrouter.ai)</span>
+        </div>
+        <div class="api-input-group">
+          <input type="password" class="api-text-input" id="inpOpenRouterKey" placeholder="Paste OpenRouter API Key (sk-or-v1-...)" autocomplete="off">
+          <button type="button" class="api-toggle-eye" data-target="inpOpenRouterKey" title="Toggle visibility">👁</button>
+        </div>
+        <div class="api-row-opt">
+          <label for="selOpenRouterModel">Model:</label>
+          <select class="api-select" id="selOpenRouterModel">
+            <option value="google/gemini-2.0-flash-001">Gemini 2.0 Flash (OpenRouter)</option>
+            <option value="deepseek/deepseek-chat">DeepSeek V3 (Chat)</option>
+            <option value="anthropic/claude-3.5-sonnet">Claude 3.5 Sonnet</option>
+            <option value="meta-llama/llama-3.3-70b-instruct">Llama 3.3 70B</option>
+            <option value="openai/gpt-4o-mini">GPT-4o Mini</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- PROVIDER 3: CLAUDE / OPENAI DIRECT -->
+      <div class="api-provider-card">
+        <div class="api-provider-head">
+          <div style="display:flex; align-items:center; gap:6px;">
+            <span class="provider-tag tag-direct">3. Custom / OpenAI Direct (Opsional)</span>
+            <span class="api-status-dot" id="dotCustom"></span>
+          </div>
+          <span class="api-provider-desc">Direct OpenAI-compatible API</span>
+        </div>
+        <div class="api-input-group">
+          <input type="password" class="api-text-input" id="inpCustomKey" placeholder="API Key (sk-...)" autocomplete="off">
+          <button type="button" class="api-toggle-eye" data-target="inpCustomKey" title="Toggle visibility">👁</button>
+        </div>
+      </div>
+
+      <!-- AUTO FALLBACK TOGGLE & CONTROLS -->
+      <div class="api-fallback-box">
+        <label class="api-switch-label">
+          <input type="checkbox" id="chkAutoFallback" checked>
+          <span><strong>Auto-Fallback Combo:</strong> Jika provider 1 error atau limit (429), otomatis oper ke provider cadangan. Jika semua gagal, oper ke ESP32.</span>
+        </label>
+      </div>
+
+      <div class="api-foot-actions">
+        <button type="button" class="api-btn-test" id="btnTestApiKey">Test Connection</button>
+        <span class="api-test-result" id="txtApiTestResult"></span>
+        <button type="button" class="api-btn-save" id="btnSimpanApiKey">Save Keys</button>
+      </div>
     </div>
   </div>
 
@@ -6089,6 +6402,221 @@ function ucapkanDiBrowser(teks) {
   u.onend = u.onerror = () => { _browserTtsAktif = false; berhentiBicara(); };
   speechSynthesis.speak(u);
 }
+
+/* ============================================================
+   AURA NEXT GEN: MULTI-API KEY & COMBO FALLBACK ENGINE
+   ============================================================ */
+const AURA_API_STORAGE_KEY = 'aura_api_keys';
+
+function muatApiKeys() {
+  try {
+    const raw = localStorage.getItem(AURA_API_STORAGE_KEY);
+    if (!raw) return {
+      geminiKey: '',
+      geminiModel: 'gemini-2.5-flash',
+      openRouterKey: '',
+      openRouterModel: 'google/gemini-2.0-flash-001',
+      customKey: '',
+      autoFallback: true
+    };
+    return Object.assign({
+      geminiKey: '',
+      geminiModel: 'gemini-2.5-flash',
+      openRouterKey: '',
+      openRouterModel: 'google/gemini-2.0-flash-001',
+      customKey: '',
+      autoFallback: true
+    }, JSON.parse(raw));
+  } catch (e) {
+    return {
+      geminiKey: '',
+      geminiModel: 'gemini-2.5-flash',
+      openRouterKey: '',
+      openRouterModel: 'google/gemini-2.0-flash-001',
+      customKey: '',
+      autoFallback: true
+    };
+  }
+}
+
+function simpanApiKeys(data) {
+  try {
+    localStorage.setItem(AURA_API_STORAGE_KEY, JSON.stringify(data));
+    perbaruiIndikatorApiKeys();
+    return true;
+  } catch (e) {
+    console.error('Gagal simpan API keys:', e);
+    return false;
+  }
+}
+
+function adaApiKeyTersedia() {
+  const k = muatApiKeys();
+  return Boolean(k.geminiKey || k.openRouterKey || k.customKey);
+}
+
+function perbaruiIndikatorApiKeys() {
+  const k = muatApiKeys();
+  const txtStatus = document.getElementById('txtApiKeyStatus');
+  const dotGemini = document.getElementById('dotGemini');
+  const dotOpenRouter = document.getElementById('dotOpenRouter');
+  const dotCustom = document.getElementById('dotCustom');
+
+  if (dotGemini) dotGemini.classList.toggle('active', Boolean(k.geminiKey));
+  if (dotOpenRouter) dotOpenRouter.classList.toggle('active', Boolean(k.openRouterKey));
+  if (dotCustom) dotCustom.classList.toggle('active', Boolean(k.customKey));
+
+  if (txtStatus) {
+    if (k.geminiKey && k.openRouterKey) txtStatus.textContent = 'Combo Ready';
+    else if (k.geminiKey) txtStatus.textContent = 'Gemini Set';
+    else if (k.openRouterKey) txtStatus.textContent = 'Router Set';
+    else if (k.customKey) txtStatus.textContent = 'Custom Set';
+    else txtStatus.textContent = 'Configure';
+  }
+}
+
+// 1. Google Gemini Direct Call
+async function tanyaGeminiDirect(teks, riwayatArr, apiKey, model = 'gemini-2.5-flash') {
+  if (!apiKey) throw new Error('Gemini API Key belum diisi');
+  const url = 'https://generativelanguage.googleapis.com/v1beta/models/' + encodeURIComponent(model) + ':generateContent?key=' + encodeURIComponent(apiKey);
+
+  const contents = [];
+  const sensor = await ambilKonteksSensor();
+  let sysPrompt = KEPRIBADIAN_AURA_JS;
+  if (sensor) sysPrompt += ' ' + sensor;
+
+  if (Array.isArray(riwayatArr)) {
+    riwayatArr.slice(-5).forEach(r => {
+      if (r.tanya) contents.push({ role: 'user', parts: [{ text: r.tanya.slice(0, 400) }] });
+      if (r.jawab) contents.push({ role: 'model', parts: [{ text: r.jawab.slice(0, 500) }] });
+    });
+  }
+  contents.push({ role: 'user', parts: [{ text: teks }] });
+
+  const payload = {
+    contents: contents,
+    systemInstruction: { parts: [{ text: sysPrompt }] },
+    generationConfig: {
+      temperature: 0.7,
+      maxOutputTokens: 350
+    }
+  };
+
+  const res = await fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload),
+    signal: AbortSignal.timeout(30000)
+  });
+
+  if (!res.ok) {
+    const errText = await res.text().catch(() => '');
+    throw new Error('Gemini HTTP ' + res.status + ': ' + (errText.slice(0, 120) || res.statusText));
+  }
+
+  const data = await res.json();
+  const candidate = data.candidates && data.candidates[0];
+  const out = candidate && candidate.content && candidate.content.parts && candidate.content.parts[0] && candidate.content.parts[0].text;
+  if (!out) throw new Error('Gemini mengembalikan teks kosong');
+  return out.trim();
+}
+
+// 2. OpenRouter Direct Call
+async function tanyaOpenRouterDirect(teks, riwayatArr, apiKey, model = 'google/gemini-2.0-flash-001') {
+  if (!apiKey) throw new Error('OpenRouter API Key belum diisi');
+  const url = 'https://openrouter.ai/api/v1/chat/completions';
+
+  const sensor = await ambilKonteksSensor();
+  let sysPrompt = KEPRIBADIAN_AURA_JS;
+  if (sensor) sysPrompt += ' ' + sensor;
+
+  const messages = [{ role: 'system', content: sysPrompt }];
+  if (Array.isArray(riwayatArr)) {
+    riwayatArr.slice(-5).forEach(r => {
+      if (r.tanya) messages.push({ role: 'user', content: r.tanya.slice(0, 400) });
+      if (r.jawab) messages.push({ role: 'assistant', content: r.jawab.slice(0, 500) });
+    });
+  }
+  messages.push({ role: 'user', content: teks });
+
+  const payload = {
+    model: model || 'google/gemini-2.0-flash-001',
+    messages: messages,
+    max_tokens: 350,
+    temperature: 0.7
+  };
+
+  const res = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + apiKey.trim(),
+      'HTTP-Referer': window.location.origin || 'http://localhost',
+      'X-Title': 'AURA NEXT GEN'
+    },
+    body: JSON.stringify(payload),
+    signal: AbortSignal.timeout(30000)
+  });
+
+  if (!res.ok) {
+    const errText = await res.text().catch(() => '');
+    throw new Error('OpenRouter HTTP ' + res.status + ': ' + (errText.slice(0, 120) || res.statusText));
+  }
+
+  const data = await res.json();
+  const choice = data.choices && data.choices[0];
+  const out = choice && choice.message && choice.message.content;
+  if (!out) throw new Error('OpenRouter mengembalikan teks kosong');
+  return out.trim();
+}
+
+// 3. Auto-Fallback Combo Router
+async function tanyaCloudDirect(teks, riwayatArr) {
+  const k = muatApiKeys();
+  const errors = [];
+
+  // Urutan 1: Gemini
+  if (k.geminiKey) {
+    try {
+      console.log('[AI Router] Memanggil Gemini (' + (k.geminiModel || 'Flash') + ')...');
+      const ans = await tanyaGeminiDirect(teks, riwayatArr, k.geminiKey, k.geminiModel);
+      return { answer: ans, provider: 'Gemini' };
+    } catch (e) {
+      console.warn('[AI Router] Gemini gagal:', e.message);
+      errors.push('Gemini (' + e.message + ')');
+      if (!k.autoFallback) throw e;
+    }
+  }
+
+  // Urutan 2: OpenRouter Fallback
+  if (k.openRouterKey) {
+    try {
+      console.log('[AI Router] Fallback memanggil OpenRouter (' + (k.openRouterModel || 'AI') + ')...');
+      const ans = await tanyaOpenRouterDirect(teks, riwayatArr, k.openRouterKey, k.openRouterModel);
+      const provName = (k.openRouterModel || '').split('/')[1] || 'OpenRouter';
+      return { answer: ans, provider: 'Router:' + provName };
+    } catch (e) {
+      console.warn('[AI Router] OpenRouter gagal:', e.message);
+      errors.push('OpenRouter (' + e.message + ')');
+      if (!k.autoFallback) throw e;
+    }
+  }
+
+  // Urutan 3: Custom / OpenAI Direct
+  if (k.customKey) {
+    try {
+      console.log('[AI Router] Fallback memanggil Custom Key...');
+      const ans = await tanyaOpenRouterDirect(teks, riwayatArr, k.customKey, 'gpt-4o-mini');
+      return { answer: ans, provider: 'Custom AI' };
+    } catch (e) {
+      console.warn('[AI Router] Custom API gagal:', e.message);
+      errors.push('Custom (' + e.message + ')');
+    }
+  }
+
+  throw new Error('Semua provider Cloud Direct gagal: ' + errors.join('; '));
+}
+/* ===== END MULTI-API KEY & FALLBACK ENGINE ===== */
 /* ===== END LOCAL AI LANGSUNG ===== */
 let ekspresiOtomatisAktif = true;
 let timerEkspresi = null;
@@ -6785,14 +7313,15 @@ function buatPesan(siapa, teks, mode) {
 
 /* Update label AURA di bubble yang sudah ada — tambahkan badge mode.
    Dipakai saat placeholder loading berubah jadi jawaban asli. */
-function pasangBadgeMode(msgEl, mode) {
+function pasangBadgeMode(msgEl, mode, subText) {
   const label = msgEl.querySelector('.msg-label');
   if (!label) return;
   label.innerHTML = 'AURA';
   if (!mode) return;
   const badge = document.createElement('span');
   badge.className = 'msg-mode-badge msg-mode-badge--' + mode;
-  badge.textContent = mode === 'cloud' ? 'Cloud AI'
+  badge.textContent = subText ? ('Cloud (' + subText + ')')
+                    : mode === 'cloud' ? 'Cloud AI'
                     : mode === 'local' ? 'Local AI'
                     : 'Standalone';
   label.appendChild(badge);
@@ -7042,6 +7571,28 @@ async function kirimPertanyaan() {
         console.warn('[Ollama Direct] gagal, fallback ke ESP32:', e);
         ollamaLangsungAktif = false;
         cekOllamaTerakhir = Date.now();
+      }
+    }
+
+    // JALUR CLOUD DIRECT: mode Cloud + ada API key (Gemini / OpenRouter) tersimpan di browser
+    if (modeDipilih === 'cloud' && adaApiKeyTersedia()) {
+      try {
+        const hasil = await tanyaCloudDirect(teks, riwayat);
+        auraMsg.classList.remove('loading');
+        pasangBadgeMode(auraMsg, 'cloud', hasil.provider);
+
+        const itemCloud = { tanya: teks, jawab: hasil.answer, mode: 'cloud', provider: hasil.provider, waktu: Date.now() };
+        riwayat.push(itemCloud);
+        cacheLokal(riwayat);
+        simpanPercakapanKeFirebase(itemCloud);
+
+        resetEkspresiMode('cloud');
+        ucapkanDiBrowser(hasil.answer);
+        getar([12, 40, 12]);
+        await efekMengetik(auraMsg.querySelector('.msg-body'), hasil.answer);
+        return;
+      } catch (e) {
+        console.warn('[Cloud Direct Combo Gagal, Fallback ke ESP32]:', e.message);
       }
     }
 
@@ -7325,6 +7876,144 @@ document.getElementById('trendBackdrop').addEventListener('click', () => bukaTre
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape' && document.getElementById('trendPanel').classList.contains('visible')) bukaTren(false);
 });
+
+/* ============================================================
+   AURA NEXT GEN: API KEY MODAL CONTROLLER
+   ============================================================ */
+function bukaApiModal(buka) {
+  const modal = document.getElementById('apiModalPanel');
+  const backdrop = document.getElementById('apiModalBackdrop');
+  if (!modal || !backdrop) return;
+  modal.classList.toggle('visible', buka);
+  backdrop.classList.toggle('visible', buka);
+
+  if (buka) {
+    const k = muatApiKeys();
+    const inpG = document.getElementById('inpGeminiKey');
+    const selGM = document.getElementById('selGeminiModel');
+    const inpOR = document.getElementById('inpOpenRouterKey');
+    const selORM = document.getElementById('selOpenRouterModel');
+    const inpC = document.getElementById('inpCustomKey');
+    const chkF = document.getElementById('chkAutoFallback');
+    const resTxt = document.getElementById('txtApiTestResult');
+
+    if (inpG) inpG.value = k.geminiKey || '';
+    if (selGM) selGM.value = k.geminiModel || 'gemini-2.5-flash';
+    if (inpOR) inpOR.value = k.openRouterKey || '';
+    if (selORM) selORM.value = k.openRouterModel || 'google/gemini-2.0-flash-001';
+    if (inpC) inpC.value = k.customKey || '';
+    if (chkF) chkF.checked = (k.autoFallback !== false);
+    if (resTxt) resTxt.textContent = '';
+    perbaruiIndikatorApiKeys();
+  }
+}
+
+const btnOpenApi = document.getElementById('btnOpenApiModal');
+if (btnOpenApi) btnOpenApi.addEventListener('click', () => bukaApiModal(true));
+const btnCloseApi = document.getElementById('btnTutupApiModal');
+if (btnCloseApi) btnCloseApi.addEventListener('click', () => bukaApiModal(false));
+const bgApi = document.getElementById('apiModalBackdrop');
+if (bgApi) bgApi.addEventListener('click', () => bukaApiModal(false));
+
+// Toggle eye visibility
+document.querySelectorAll('.api-toggle-eye').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const targetId = btn.getAttribute('data-target');
+    const inp = document.getElementById(targetId);
+    if (!inp) return;
+    if (inp.type === 'password') {
+      inp.type = 'text';
+      btn.textContent = '🔒';
+    } else {
+      inp.type = 'password';
+      btn.textContent = '👁';
+    }
+  });
+});
+
+// Save button
+const btnSaveApi = document.getElementById('btnSimpanApiKey');
+if (btnSaveApi) {
+  btnSaveApi.addEventListener('click', () => {
+    const data = {
+      geminiKey: (document.getElementById('inpGeminiKey')?.value || '').trim(),
+      geminiModel: document.getElementById('selGeminiModel')?.value || 'gemini-2.5-flash',
+      openRouterKey: (document.getElementById('inpOpenRouterKey')?.value || '').trim(),
+      openRouterModel: document.getElementById('selOpenRouterModel')?.value || 'google/gemini-2.0-flash-001',
+      customKey: (document.getElementById('inpCustomKey')?.value || '').trim(),
+      autoFallback: Boolean(document.getElementById('chkAutoFallback')?.checked)
+    };
+    simpanApiKeys(data);
+    const resTxt = document.getElementById('txtApiTestResult');
+    if (resTxt) {
+      resTxt.style.color = '#10b981';
+      resTxt.textContent = 'Keys saved successfully!';
+    }
+    setTimeout(() => bukaApiModal(false), 800);
+  });
+}
+
+// Test Connection Button
+const btnTestApi = document.getElementById('btnTestApiKey');
+if (btnTestApi) {
+  btnTestApi.addEventListener('click', async () => {
+    const resTxt = document.getElementById('txtApiTestResult');
+    if (!resTxt) return;
+    resTxt.style.color = '#38bdf8';
+    resTxt.textContent = 'Testing connection...';
+
+    const gemKey = (document.getElementById('inpGeminiKey')?.value || '').trim();
+    const gemModel = document.getElementById('selGeminiModel')?.value || 'gemini-2.5-flash';
+    const orKey = (document.getElementById('inpOpenRouterKey')?.value || '').trim();
+    const orModel = document.getElementById('selOpenRouterModel')?.value || 'google/gemini-2.0-flash-001';
+
+    if (!gemKey && !orKey) {
+      resTxt.style.color = '#ef4444';
+      resTxt.textContent = 'Please paste at least one key!';
+      return;
+    }
+
+    let successCount = 0;
+    let errMsgs = [];
+
+    if (gemKey) {
+      try {
+        await tanyaGeminiDirect('Halo, jawab "OK"', [], gemKey, gemModel);
+        successCount++;
+      } catch (e) {
+        errMsgs.push('Gemini: ' + e.message);
+      }
+    }
+
+    if (orKey) {
+      try {
+        await tanyaOpenRouterDirect('Halo, jawab "OK"', [], orKey, orModel);
+        successCount++;
+      } catch (e) {
+        errMsgs.push('OpenRouter: ' + e.message);
+      }
+    }
+
+    if (successCount > 0) {
+      resTxt.style.color = '#10b981';
+      resTxt.textContent = (successCount === 2 || (!gemKey || !orKey)) ? 'Connection OK!' : 'Partial OK';
+    } else {
+      resTxt.style.color = '#ef4444';
+      resTxt.textContent = errMsgs.join('; ').slice(0, 50);
+    }
+  });
+}
+
+// Escape key to close modal
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    const m = document.getElementById('apiModalPanel');
+    if (m && m.classList.contains('visible')) bukaApiModal(false);
+  }
+});
+
+// Update status button on initial page load
+try { perbaruiIndikatorApiKeys(); } catch (e) {}
 
 /* ===== Press feedback untuk touch device: :active sering tidak fire di tablet,
    jadi kelas .is-pressed di-toggle manual lewat Pointer Events. ===== */
