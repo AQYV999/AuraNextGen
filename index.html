@@ -7152,6 +7152,323 @@ html.perf-lite .guide-body { contain: content; }
     color: #f87171;
   }
 
+  /* ============================================================
+     AURA NEXT GEN: CLOUD PHOTO STORAGE & GALLERY STYLES
+     ============================================================ */
+  .chat-bar-btn-cam {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    color: #94a3b8;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+  }
+  .chat-bar-btn-cam:hover {
+    color: #38bdf8;
+    background: rgba(56, 189, 248, 0.12);
+  }
+
+  .gallery-modal-backdrop {
+    position: fixed !important;
+    inset: 0 !important;
+    background: rgba(4, 6, 12, 0.65) !important;
+    backdrop-filter: blur(14px) !important;
+    -webkit-backdrop-filter: blur(14px) !important;
+    z-index: 38 !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    transition: opacity 0.25s ease !important;
+  }
+  .gallery-modal-backdrop.visible {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+  }
+  .gallery-modal-panel {
+    position: fixed !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) scale(0.96) !important;
+    width: min(680px, calc(100vw - 24px)) !important;
+    max-height: min(88vh, 760px) !important;
+    padding: 22px 24px !important;
+    border-radius: 24px !important;
+    background: rgba(13, 16, 26, 0.94) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    backdrop-filter: blur(36px) saturate(150%) !important;
+    -webkit-backdrop-filter: blur(36px) saturate(150%) !important;
+    box-shadow: 0 32px 80px -16px rgba(0, 0, 0, 0.95), inset 0 1px 0 rgba(255, 255, 255, 0.12) !important;
+    z-index: 39 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    transition: opacity 0.24s ease, transform 0.28s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    box-sizing: border-box !important;
+  }
+  .gallery-modal-panel.visible {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    transform: translate(-50%, -50%) scale(1) !important;
+  }
+  .gallery-scroll-body {
+    overflow-y: auto;
+    max-height: calc(88vh - 120px);
+    padding-right: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-top: 14px;
+  }
+
+  /* Dropzone */
+  .gallery-dropzone {
+    border: 1.5px dashed rgba(56, 189, 248, 0.3);
+    background: rgba(56, 189, 248, 0.03);
+    border-radius: 14px;
+    padding: 16px;
+    text-align: center;
+    transition: all 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+  }
+  .gallery-dropzone.dragover {
+    border-color: #38bdf8;
+    background: rgba(56, 189, 248, 0.1);
+    transform: scale(1.01);
+  }
+  .gallery-dropzone-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    background: rgba(56, 189, 248, 0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #38bdf8;
+  }
+  .gallery-dropzone-title {
+    font-size: 12px;
+    font-weight: 600;
+    color: #e2e8f0;
+  }
+  .gallery-dropzone-sub {
+    font-size: 10.5px;
+    color: #94a3b8;
+  }
+  .gallery-upload-form {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+    max-width: 440px;
+    margin-top: 4px;
+  }
+  .gallery-caption-inp {
+    flex: 1;
+    padding: 7px 11px;
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #f1f5f9;
+    font-size: 11px;
+    outline: none;
+  }
+  .gallery-caption-inp:focus {
+    border-color: #38bdf8;
+  }
+  .gallery-pick-btn {
+    padding: 7px 14px;
+    border-radius: 8px;
+    background: rgba(56, 189, 248, 0.18);
+    border: 1px solid rgba(56, 189, 248, 0.35);
+    color: #38bdf8;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+  }
+  .gallery-pick-btn:hover {
+    background: #0284c7;
+    color: #ffffff;
+  }
+
+  /* Grid */
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 12px;
+    margin-top: 4px;
+  }
+  .gallery-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.2s ease;
+    position: relative;
+    group: relative;
+  }
+  .gallery-card:hover {
+    border-color: rgba(56, 189, 248, 0.35);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px -6px rgba(0, 0, 0, 0.6);
+  }
+  .gallery-thumb-wrap {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    position: relative;
+    background: rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+  }
+  .gallery-thumb-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+  .gallery-card:hover .gallery-thumb-img {
+    transform: scale(1.05);
+  }
+  .gallery-thumb-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.7) 100%);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  .gallery-card:hover .gallery-thumb-overlay {
+    opacity: 1;
+  }
+  .gallery-action-icon-btn {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+  .gallery-action-icon-btn:hover {
+    background: #38bdf8;
+    color: #000000;
+    transform: scale(1.1);
+  }
+  .gallery-action-icon-btn.btn-del:hover {
+    background: #ef4444;
+    color: #ffffff;
+    border-color: #ef4444;
+  }
+  .gallery-card-info {
+    padding: 8px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+  .gallery-card-title {
+    font-size: 11px;
+    font-weight: 600;
+    color: #f1f5f9;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .gallery-card-meta {
+    font-size: 9.5px;
+    color: #64748b;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  /* Lightbox */
+  .gallery-lightbox {
+    position: fixed !important;
+    inset: 0 !important;
+    background: rgba(3, 5, 10, 0.94) !important;
+    backdrop-filter: blur(28px) !important;
+    -webkit-backdrop-filter: blur(28px) !important;
+    z-index: 48 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    transition: opacity 0.25s ease !important;
+    padding: 20px !important;
+    box-sizing: border-box !important;
+  }
+  .gallery-lightbox.visible {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+  }
+  .gallery-lightbox-img {
+    max-width: min(92vw, 900px);
+    max-height: min(78vh, 700px);
+    border-radius: 14px;
+    object-fit: contain;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.9), 0 0 20px rgba(56, 189, 248, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+  }
+  .gallery-lightbox-caption {
+    margin-top: 14px;
+    font-size: 13px;
+    color: #f1f5f9;
+    font-weight: 500;
+    text-align: center;
+  }
+  .gallery-lightbox-meta {
+    font-size: 11px;
+    color: #64748b;
+    margin-top: 3px;
+  }
+  .gallery-lightbox-bar {
+    position: absolute;
+    top: 20px;
+    right: 24px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .gallery-lightbox-btn {
+    padding: 6px 12px;
+    border-radius: 9999px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #f1f5f9;
+    font-size: 11.5px;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.15s ease;
+  }
+  .gallery-lightbox-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.02);
+  }
+
 </style>
 </head>
 <body>
@@ -7388,6 +7705,18 @@ html.perf-lite .guide-body { contain: content; }
               <line x1="6" y1="18" x2="6.01" y2="18"/>
             </svg>
             <span>Control Center</span>
+          </button>
+        </div>
+
+        <div class="control-row">
+          <span class="control-label">Gallery</span>
+          <button type="button" class="toggle-btn" id="btnOpenGalleryModal" title="Buka Galeri Foto Cloud AURA" style="flex:1; padding: 3.5px 8px; font-size: 11px; display:inline-flex; align-items:center; justify-content:center; gap:5px; background:rgba(245, 158, 11, 0.1); border-color:rgba(245, 158, 11, 0.25); color:#f59e0b;">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+              <circle cx="8.5" cy="8.5" r="1.5"/>
+              <polyline points="21 15 16 10 5 21"/>
+            </svg>
+            <span>Cloud Gallery</span>
           </button>
         </div>
       </div>
@@ -8134,6 +8463,79 @@ html.perf-lite .guide-body { contain: content; }
     </div>
   </div>
 
+  <!-- ==========================================
+       AURA NEXT GEN: CLOUD PHOTO STORAGE & GALLERY MODAL
+       ========================================== -->
+  <div class="gallery-modal-backdrop" id="galleryModalBackdrop"></div>
+  <div class="gallery-modal-panel glass" id="galleryModalPanel" role="dialog" aria-labelledby="galleryModalTitle">
+    <!-- Header -->
+    <div style="display:flex; align-items:center; justify-content:space-between; padding-bottom:12px; border-bottom:1px solid rgba(255,255,255,0.08);">
+      <div style="display:flex; align-items:center; gap:10px;">
+        <div style="width:36px; height:36px; border-radius:10px; display:flex; align-items:center; justify-content:center; background:rgba(245,158,11,0.15); border:1px solid rgba(245,158,11,0.3); color:#f59e0b;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+            <circle cx="8.5" cy="8.5" r="1.5"/>
+            <polyline points="21 15 16 10 5 21"/>
+          </svg>
+        </div>
+        <div>
+          <div style="display:flex; align-items:center; gap:8px;">
+            <h3 id="galleryModalTitle" style="margin:0; font-size:14px; font-weight:600; color:#f8fafc;">AURA Cloud Gallery</h3>
+            <span class="acc-card-badge" id="galleryCountBadge" style="background:rgba(245,158,11,0.12); color:#f59e0b; border-color:rgba(245,158,11,0.25);">0 Foto</span>
+          </div>
+          <span style="font-size:10.5px; color:#94a3b8;">Simpan foto aman ke cloud &amp; sinkron multi-perangkat</span>
+        </div>
+      </div>
+      <div style="display:flex; align-items:center; gap:8px;">
+        <button type="button" class="clear-btn" id="btnToggleUploadArea" style="color:#38bdf8;">+ Upload</button>
+        <button type="button" class="clear-btn" id="btnTutupGalleryModal">Close</button>
+      </div>
+    </div>
+
+    <!-- Scroll Body -->
+    <div class="gallery-scroll-body">
+      <!-- UPLOAD DROPZONE -->
+      <div class="gallery-dropzone" id="galleryDropzone">
+        <input type="file" id="inpGalleryFile" accept="image/*" style="display:none;">
+        <div class="gallery-dropzone-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="17 8 12 3 7 8"/>
+            <line x1="12" y1="3" x2="12" y2="15"/>
+          </svg>
+        </div>
+        <div class="gallery-dropzone-title">Tarik &amp; lepas foto di sini, atau klik untuk memilih</div>
+        <div class="gallery-dropzone-sub">Mendukung kamera HP, JPG, PNG, WEBP (Otomatis dikompresi cloud)</div>
+        <div class="gallery-upload-form" onclick="event.stopPropagation()">
+          <input type="text" class="gallery-caption-inp" id="inpGalleryCaption" placeholder="Beri judul / catatan foto (opsional)..." autocomplete="off">
+          <button type="button" class="gallery-pick-btn" id="btnPilihFoto">Pilih Foto</button>
+        </div>
+      </div>
+
+      <!-- GALLERY PHOTO GRID -->
+      <div class="gallery-grid" id="galleryGrid">
+        <!-- Rendered dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- FULLSCREEN LIGHTBOX VIEWER -->
+  <div class="gallery-lightbox" id="galleryLightbox">
+    <div class="gallery-lightbox-bar">
+      <button type="button" class="gallery-lightbox-btn" id="btnLightboxDownload">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        <span>Download</span>
+      </button>
+      <button type="button" class="gallery-lightbox-btn" id="btnLightboxClose">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        <span>Tutup</span>
+      </button>
+    </div>
+    <img id="lightboxImg" class="gallery-lightbox-img" src="" alt="Fullscreen preview">
+    <div class="gallery-lightbox-caption" id="lightboxCaption"></div>
+    <div class="gallery-lightbox-meta" id="lightboxMeta"></div>
+  </div>
+
   <div class="speaking-badge" id="speakingBadge" aria-live="polite">
     <div class="wave">
       <span></span><span></span><span></span><span></span>
@@ -8145,6 +8547,12 @@ html.perf-lite .guide-body { contain: content; }
   <div class="bottom-area">
     <div class="chat-log glass" id="chatLog"></div>
     <div class="chat-bar glass">
+      <button type="button" class="chat-bar-btn-cam" id="btnKameraChat" title="Simpan Foto / Buka Galeri Cloud" aria-label="Upload Foto / Galeri">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+          <circle cx="12" cy="13" r="4"/>
+        </svg>
+      </button>
       <textarea id="inpTanya" rows="1" placeholder="Ask AURA..."></textarea>
       <button class="send-btn" id="btnKirim" aria-label="Send">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
@@ -9898,6 +10306,48 @@ async function kirimPertanyaan() {
 
       auraMsg.classList.remove('loading');
       pasangBadgeMode(auraMsg, 'local', 'Hardware ACC');
+
+      const itemDirect = { tanya: teks, jawab: balas, mode: 'local', waktu: Date.now() };
+      riwayat.push(itemDirect);
+      simpanRiwayatKeStorage();
+      tambahRiwayatKeServer(itemDirect);
+
+      auraMsg.innerHTML = `<div class="msg-body"><p>${balas}</p></div>`;
+      log.scrollTop = log.scrollHeight;
+
+      if (typeof ucapkanDiBrowser === 'function') {
+        ucapkanDiBrowser(balas);
+      }
+
+      ekspresiTerkunci = false;
+      kembaliKeDefault(2600);
+      sedangMenunggu = false;
+      btnKirim.classList.remove('loading');
+      inpTanya.disabled = false;
+      inpTanya.focus();
+      return;
+    }
+
+    // AURA NEXT GEN: Cloud Photo Storage & Gallery Intent
+    const galleryIntent = typeof deteksiIntentGaleri === 'function' ? deteksiIntentGaleri(teks) : null;
+    if (galleryIntent) {
+      let balas = '';
+      if (galleryIntent.tipe === 'buka_galeri') {
+        if (typeof bukaGalleryModal === 'function') bukaGalleryModal();
+        balas = 'Membuka AURA Cloud Gallery untuk melihat koleksi foto tersimpan.';
+      } else if (galleryIntent.tipe === 'upload_foto') {
+        if (typeof bukaGalleryModal === 'function') {
+          bukaGalleryModal();
+          setTimeout(() => {
+            const inp = document.getElementById('inpGalleryFile');
+            if (inp) inp.click();
+          }, 300);
+        }
+        balas = 'Membuka pemilih foto untuk mengunggah gambar ke cloud.';
+      }
+
+      auraMsg.classList.remove('loading');
+      pasangBadgeMode(auraMsg, 'local', 'Cloud Gallery');
 
       const itemDirect = { tanya: teks, jawab: balas, mode: 'local', waktu: Date.now() };
       riwayat.push(itemDirect);
@@ -11877,6 +12327,8 @@ function getAppSvgIcon(iconType, size = 20) {
       return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="#03AC0E" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><circle cx="9" cy="11" r="2"/><circle cx="15" cy="11" r="2"/></svg>`;
     case 'acc':
       return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>`;
+    case 'gallery':
+      return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>`;
     default:
       return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="#5DCAA5" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>`;
   }
@@ -12125,6 +12577,7 @@ function buatAppCardHtml(appInfo) {
 // Preset Daftar Aplikasi untuk Quick Launcher Modal
 const PRESET_APPS_LIST = [
   { name: 'Control Center', icon: 'acc', badge: 'Hardware', color: '#38bdf8', isInternal: true, action: 'acc' },
+  { name: 'Cloud Gallery', icon: 'gallery', badge: 'Foto', color: '#f59e0b', isInternal: true, action: 'gallery' },
   { name: 'Netflix', icon: 'netflix', badge: 'Streaming', color: '#E50914', searchUrl: 'https://www.netflix.com/search?q=', homeUrl: 'https://www.netflix.com' },
   { name: 'YouTube', icon: 'youtube', badge: 'Video', color: '#FF0000', searchUrl: 'https://www.youtube.com/results?search_query=', homeUrl: 'https://www.youtube.com' },
   { name: 'Spotify', icon: 'spotify', badge: 'Musik', color: '#1DB954', searchUrl: 'https://open.spotify.com/search/', homeUrl: 'https://open.spotify.com' },
@@ -12195,6 +12648,11 @@ function tutupQuickAppsModal() {
       if (app.isInternal && app.action === 'acc') {
         tutupQuickAppsModal();
         if (typeof bukaAccModal === 'function') bukaAccModal();
+        return;
+      }
+      if (app.isInternal && app.action === 'gallery') {
+        tutupQuickAppsModal();
+        if (typeof bukaGalleryModal === 'function') bukaGalleryModal();
         return;
       }
 
@@ -13276,6 +13734,413 @@ function deteksiIntentACC(teks) {
 
   // Initial Sync
   sinkronAccDariFirebase();
+})();
+
+/* ============================================================
+   AURA NEXT GEN: CLOUD PHOTO STORAGE & GALLERY CONTROLLER
+   - Image Compression to WebP/JPEG Base64 (Max 800px)
+   - Firebase Realtime Database Sync (/galeri.json)
+   - LocalStorage Cache Fallback
+   - Fullscreen Lightbox Viewer & Download
+   ============================================================ */
+const AURA_GALLERY_KEY = 'aura_cloud_gallery_v1';
+let _galleryPhotos = [];
+let _currentLightboxIdx = -1;
+
+function muatGaleriDariCache() {
+  try {
+    const raw = localStorage.getItem(AURA_GALLERY_KEY);
+    return raw ? JSON.parse(raw) : [];
+  } catch (e) {
+    return [];
+  }
+}
+
+function simpanGaleriKeCache(list) {
+  try {
+    localStorage.setItem(AURA_GALLERY_KEY, JSON.stringify(list));
+  } catch (e) {
+    try {
+      const ringkas = list.map(item => ({ id: item.id, caption: item.caption, timestamp: item.timestamp, size: item.size }));
+      localStorage.setItem(AURA_GALLERY_KEY, JSON.stringify(ringkas));
+    } catch (err) {}
+  }
+}
+
+async function sinkronGaleriDariFirebase() {
+  try {
+    if (typeof FIREBASE_DB_URL === 'undefined') return;
+    const res = await fetch(FIREBASE_DB_URL + '/galeri.json', { signal: AbortSignal.timeout(6000) });
+    if (!res.ok) return;
+    const data = await res.json();
+    if (!data) {
+      _galleryPhotos = [];
+      simpanGaleriKeCache([]);
+      renderGalleryGrid();
+      return;
+    }
+
+    const list = Object.keys(data).map(k => {
+      const item = data[k];
+      return {
+        fbKey: k,
+        id: item.id || k,
+        caption: item.caption || 'Foto AURA',
+        data: item.data || '',
+        timestamp: item.timestamp || Date.now(),
+        size: item.size || '35 KB'
+      };
+    });
+
+    list.sort((a, b) => b.timestamp - a.timestamp);
+    _galleryPhotos = list;
+    simpanGaleriKeCache(list);
+    renderGalleryGrid();
+  } catch (e) {
+    _galleryPhotos = muatGaleriDariCache();
+    renderGalleryGrid();
+  }
+}
+
+function bukaGalleryModal() {
+  const backdrop = document.getElementById('galleryModalBackdrop');
+  const panel = document.getElementById('galleryModalPanel');
+  if (!backdrop || !panel) return;
+
+  _galleryPhotos = muatGaleriDariCache();
+  renderGalleryGrid();
+  sinkronGaleriDariFirebase();
+
+  backdrop.classList.add('visible');
+  panel.classList.add('visible');
+}
+
+function tutupGalleryModal() {
+  const backdrop = document.getElementById('galleryModalBackdrop');
+  const panel = document.getElementById('galleryModalPanel');
+  if (backdrop) backdrop.classList.remove('visible');
+  if (panel) panel.classList.remove('visible');
+}
+
+function renderGalleryGrid() {
+  const grid = document.getElementById('galleryGrid');
+  const badge = document.getElementById('galleryCountBadge');
+  if (badge) badge.textContent = `${_galleryPhotos.length} Foto`;
+  if (!grid) return;
+
+  if (_galleryPhotos.length === 0) {
+    grid.innerHTML = `
+      <div style="grid-column: 1 / -1; padding: 36px 16px; text-align: center; color: #94a3b8;">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color: #64748b; margin-bottom: 8px;">
+          <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+          <circle cx="8.5" cy="8.5" r="1.5"/>
+          <polyline points="21 15 16 10 5 21"/>
+        </svg>
+        <div style="font-size: 13px; font-weight: 500; color: #cbd5e1;">Belum Ada Foto di Cloud</div>
+        <div style="font-size: 11px; color: #64748b; margin-top: 4px;">Unggah foto lewat tombol di atas atau klik ikon kamera di kolom chat.</div>
+      </div>
+    `;
+    return;
+  }
+
+  grid.innerHTML = _galleryPhotos.map((photo, idx) => {
+    const d = new Date(photo.timestamp);
+    const tgl = d.toLocaleDateString('id-ID', { day: 'numeric', month: 'short' });
+    const jam = d.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+    const safeCaption = (photo.caption || 'Foto').replace(/"/g, '&quot;');
+
+    return `
+      <div class="gallery-card" data-idx="${idx}">
+        <div class="gallery-thumb-wrap" onclick="bukaLightbox(${idx})">
+          <img class="gallery-thumb-img" src="${photo.data}" alt="${safeCaption}" loading="lazy">
+          <div class="gallery-thumb-overlay">
+            <button type="button" class="gallery-action-icon-btn" title="Lihat Layar Penuh" onclick="event.stopPropagation(); bukaLightbox(${idx});">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            </button>
+            <button type="button" class="gallery-action-icon-btn" title="Download Foto" onclick="event.stopPropagation(); unduhFoto(${idx});">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            </button>
+            <button type="button" class="gallery-action-icon-btn btn-del" title="Hapus dari Cloud" onclick="event.stopPropagation(); hapusFotoDariCloud(${idx});">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="gallery-card-info">
+          <span class="gallery-card-title" title="${safeCaption}">${safeCaption}</span>
+          <div class="gallery-card-meta">
+            <span>${tgl} · ${jam}</span>
+            <span style="color:#5DCAA5;">${photo.size || ''}</span>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function kompresGambar(file, maxDim = 800, quality = 0.8) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onerror = reject;
+    reader.onload = (e) => {
+      const img = new Image();
+      img.onerror = reject;
+      img.onload = () => {
+        let w = img.width;
+        let h = img.height;
+
+        if (w > maxDim || h > maxDim) {
+          if (w > h) {
+            h = Math.round((h * maxDim) / w);
+            w = maxDim;
+          } else {
+            w = Math.round((w * maxDim) / h);
+            h = maxDim;
+          }
+        }
+
+        const canvas = document.createElement('canvas');
+        canvas.width = w;
+        canvas.height = h;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, w, h);
+
+        let dataUrl = canvas.toDataURL('image/webp', quality);
+        if (!dataUrl.startsWith('data:image/webp')) {
+          dataUrl = canvas.toDataURL('image/jpeg', quality);
+        }
+
+        const byteLen = Math.round((dataUrl.length * 3) / 4);
+        const sizeStr = byteLen > 1024 * 1024
+          ? (byteLen / (1024 * 1024)).toFixed(1) + ' MB'
+          : Math.round(byteLen / 1024) + ' KB';
+
+        resolve({ data: dataUrl, size: sizeStr });
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+async function prosesUploadFoto(file) {
+  if (!file || !file.type.startsWith('image/')) {
+    alert('Silakan pilih file gambar yang valid.');
+    return;
+  }
+
+  const captionInp = document.getElementById('inpGalleryCaption');
+  const caption = (captionInp && captionInp.value.trim()) || file.name.replace(/\.[^.]+$/, '') || 'Foto AURA';
+
+  const btnPilih = document.getElementById('btnPilihFoto');
+  if (btnPilih) {
+    btnPilih.textContent = 'Mengompres...';
+    btnPilih.disabled = true;
+  }
+
+  try {
+    const hasil = await kompresGambar(file);
+    if (btnPilih) btnPilih.textContent = 'Mengunggah...';
+
+    const itemFoto = {
+      id: 'img_' + Date.now(),
+      caption: caption,
+      data: hasil.data,
+      timestamp: Date.now(),
+      size: hasil.size
+    };
+
+    if (typeof FIREBASE_DB_URL !== 'undefined') {
+      const res = await fetch(FIREBASE_DB_URL + '/galeri.json', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(itemFoto)
+      });
+      const resData = await res.json();
+      if (resData && resData.name) {
+        itemFoto.fbKey = resData.name;
+      }
+    }
+
+    _galleryPhotos.unshift(itemFoto);
+    simpanGaleriKeCache(_galleryPhotos);
+    renderGalleryGrid();
+
+    if (captionInp) captionInp.value = '';
+    if (typeof getar === 'function') getar(30);
+  } catch (err) {
+    alert('Gagal mengunggah foto ke cloud. Silakan coba lagi.');
+  } finally {
+    if (btnPilih) {
+      btnPilih.textContent = 'Pilih Foto';
+      btnPilih.disabled = false;
+    }
+  }
+}
+
+async function hapusFotoDariCloud(idx) {
+  const foto = _galleryPhotos[idx];
+  if (!foto) return;
+
+  if (!confirm(`Hapus foto "${foto.caption}" dari Cloud Gallery?`)) return;
+
+  _galleryPhotos.splice(idx, 1);
+  simpanGaleriKeCache(_galleryPhotos);
+  renderGalleryGrid();
+  if (typeof getar === 'function') getar(20);
+
+  try {
+    const key = foto.fbKey || foto.id;
+    if (typeof FIREBASE_DB_URL !== 'undefined' && key) {
+      await fetch(FIREBASE_DB_URL + `/galeri/${key}.json`, { method: 'DELETE' });
+    }
+  } catch (e) {}
+}
+
+function unduhFoto(idx) {
+  const foto = _galleryPhotos[idx];
+  if (!foto || !foto.data) return;
+
+  const a = document.createElement('a');
+  a.href = foto.data;
+  const safeName = (foto.caption || 'aura_foto').replace(/[^a-z0-9_-]/gi, '_');
+  a.download = `${safeName}_${Date.now()}.jpg`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+}
+
+function bukaLightbox(idx) {
+  const foto = _galleryPhotos[idx];
+  if (!foto) return;
+  _currentLightboxIdx = idx;
+
+  const lb = document.getElementById('galleryLightbox');
+  const img = document.getElementById('lightboxImg');
+  const cap = document.getElementById('lightboxCaption');
+  const meta = document.getElementById('lightboxMeta');
+  if (!lb || !img) return;
+
+  img.src = foto.data;
+  if (cap) cap.textContent = foto.caption || 'Foto AURA';
+  if (meta) {
+    const d = new Date(foto.timestamp);
+    meta.textContent = `${d.toLocaleString('id-ID')} · ${foto.size || ''}`;
+  }
+
+  lb.classList.add('visible');
+}
+
+function tutupLightbox() {
+  const lb = document.getElementById('galleryLightbox');
+  if (lb) lb.classList.remove('visible');
+  _currentLightboxIdx = -1;
+}
+
+function deteksiIntentGaleri(teks) {
+  if (!teks) return null;
+  const t = teks.trim().toLowerCase();
+
+  if (/(?:buka\s+galeri|lihat\s+foto|galeri\s+cloud|koleksi\s+foto|album\s+foto)/i.test(t)) {
+    return { tipe: 'buka_galeri' };
+  }
+
+  if (/(?:simpan\s+foto|unggah\s+foto|upload\s+foto|ambil\s+foto|tambah\s+foto|kirim\s+foto)/i.test(t)) {
+    return { tipe: 'upload_foto' };
+  }
+
+  return null;
+}
+
+// Inisialisasi Event Listener Cloud Gallery
+(() => {
+  // Trigger di System Controls Drawer & Chat Bar
+  const btnOpen = document.getElementById('btnOpenGalleryModal');
+  if (btnOpen) btnOpen.addEventListener('click', bukaGalleryModal);
+
+  const btnCam = document.getElementById('btnKameraChat');
+  if (btnCam) btnCam.addEventListener('click', bukaGalleryModal);
+
+  // Close buttons & backdrop
+  const btnClose = document.getElementById('btnTutupGalleryModal');
+  if (btnClose) btnClose.addEventListener('click', tutupGalleryModal);
+
+  const backdrop = document.getElementById('galleryModalBackdrop');
+  if (backdrop) backdrop.addEventListener('click', tutupGalleryModal);
+
+  // Upload picker
+  const btnPilih = document.getElementById('btnPilihFoto');
+  const inpFile = document.getElementById('inpGalleryFile');
+  if (btnPilih && inpFile) {
+    btnPilih.addEventListener('click', () => inpFile.click());
+    inpFile.addEventListener('change', (e) => {
+      if (e.target.files && e.target.files[0]) {
+        prosesUploadFoto(e.target.files[0]);
+      }
+    });
+  }
+
+  // Dropzone drag and drop
+  const dropzone = document.getElementById('galleryDropzone');
+  if (dropzone && inpFile) {
+    dropzone.addEventListener('click', () => inpFile.click());
+    dropzone.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      dropzone.classList.add('dragover');
+    });
+    dropzone.addEventListener('dragleave', () => dropzone.classList.remove('dragover'));
+    dropzone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      dropzone.classList.remove('dragover');
+      if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+        prosesUploadFoto(e.dataTransfer.files[0]);
+      }
+    });
+  }
+
+  // Toggle Upload Area
+  const btnToggleUpload = document.getElementById('btnToggleUploadArea');
+  if (btnToggleUpload && dropzone) {
+    btnToggleUpload.addEventListener('click', () => {
+      dropzone.style.display = dropzone.style.display === 'none' ? 'flex' : 'none';
+    });
+  }
+
+  // Lightbox Events
+  const btnLbClose = document.getElementById('btnLightboxClose');
+  if (btnLbClose) btnLbClose.addEventListener('click', tutupLightbox);
+
+  const lightbox = document.getElementById('galleryLightbox');
+  if (lightbox) {
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) tutupLightbox();
+    });
+  }
+
+  const btnLbDownload = document.getElementById('btnLightboxDownload');
+  if (btnLbDownload) {
+    btnLbDownload.addEventListener('click', () => {
+      if (_currentLightboxIdx >= 0) unduhFoto(_currentLightboxIdx);
+    });
+  }
+
+  // Esc key to close gallery / lightbox
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      const lb = document.getElementById('galleryLightbox');
+      if (lb && lb.classList.contains('visible')) {
+        tutupLightbox();
+        return;
+      }
+      const panel = document.getElementById('galleryModalPanel');
+      if (panel && panel.classList.contains('visible')) {
+        tutupGalleryModal();
+      }
+    }
+  });
+
+  // Initial load
+  _galleryPhotos = muatGaleriDariCache();
+  renderGalleryGrid();
 })();
 </script>
 
