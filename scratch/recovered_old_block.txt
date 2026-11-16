@@ -1,0 +1,229 @@
+ if (document.fonts) {
+    document.fonts.load('800 156px "Bodoni Moda"').catch(() => {});
+    document.fonts.load('800 64px "Cinzel"').catch(() => {});
+    document.fonts.load('800 64px "Playfair Display"').catch(() => {});
+  }
+
+  function resize() {
+    const rect = canvas.getBoundingClientRect();
+    W = rect.width; H = rect.height;
+    canvas.width  = Math.max(1, Math.floor(W * DPR));
+    canvas.height = Math.max(1, Math.floor(H * DPR));
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    // SVG pakai viewBox 100x100 + meet → skala mengikuti sisi terpendek
+    scale = Math.min(W, H) / 100;
+    cx = W / 2;
+    cy = H / 2 - 2 * scale; // pusat wajah di y=48 dari 100
+    rebuildNodes();
+    PARTICLES.length = 0;
+  }
+
+  function refreshColor() {
+    const st = faceSvg.getAttribute('data-state') || '';
+    if (st === F.lastStateAttr) return;
+    F.lastStateAttr = st;
+    const rgb = parseRGB(getComputedStyle(faceSvg).color);
+    if (rgb) F.rgb = rgb;
+  }
+
+  function readState(dt) {
+    const st = faceSvg.getAttribute('data-state') || 'netral';
+    const speaking = faceSvg.getAttribute('data-bicara') === 'on';
+    const online = dotEl ? dotEl.classList.contains('online') : false;
+
+    let target;
+    if (!online || st === 'offline') target = 0.18;
+    else if (st === 'mikir') target = 1.0;
+    else if (speaking) target = 0.75;
+    else if (st === 'senang' || st === 'cinta' || st === 'kaget') target = 0.7;
+    else target = 0.48;
+    F.level += (target - F.level) * Math.min(1, dt * 3);
+
+    const flowTarget = (st === 'mikir' && online) ? 1 : 0;
+    F.flow += (flowTarget - F.flow) * Math.min(1, dt * 2.5);
+    F.speak += ((speaking ? 1 : 0) - F.speak) * Math.min(1, dt * 6);
+
+    let period = 3.4;
+    if (!online || st === 'offline') period = 0;
+    else if (st === 'mikir') period = 1.25;
+    else if (speaking) period = 0.9;
+    else if (st === 'senang' || st === 'cinta') period = 2.4;
+    else if (st === 'ngantuk') period = 5.2;
+    F.heartPeriod = period;
+    if (period > 0) F.heartPhase = (F.heartPhase + dt / period) % 1;
+
+    // Radar: cek teks tiap ~0.4s, bukan tiap frame
+    F.radarTick += dt;
+    if (radarEl && F.radarTick > 0.4) {
+      F.radarTick = 0;
+      const txt = (radarEl.textContent || '').toLowerCase();
+      if (txt !== F.lastRadarText) {
+        F.lastRadarText = txt;
+        const has = /person|human|motion|moving|still|target|detected/.test(txt)
+                    && !/no target|no person|no motion|empty|^--/.test(txt);
+        if (has && !F.targetPresent) {
+          F.targetAngle = Math.random() * Math.PI * 2;
+          F.reaction = 1.0;
+        }
+        F.targetPresent = has;
+      }
+    }
+    F.target += ((F.targetPresent ? 1 : 0) - F.target) * Math.min(1, dt * 3);
+    F.reaction *= Math.pow(0.25, dt);
+  }
+
+  let _hbCache = { key: '', grd: null };
+  function drawHeartbeat() {
+    const { r, g, b } = F.rgb;
+    if (F.heartPeriod <= 0) return;
+    const pulse = 0.5 + 0.5 * Math.sin(F.heartPhase * Math.PI * 2);
+    const alpha = (0.045 + 0.075 * pulse) * F.level * (1 + F.reaction * 1.6);
+    if (alpha <= 0.002) return;
+    const rad = scale * 32;
+    const key = r + ',' + g + ',' + b + '|' + rad.toFixed(1) + '|' + cx.toFixed(1) + '|' + cy.toFixed(1);
+    if (_hbCache.key !== key) {
+      const grd = ctx.createRadialGradient(cx, cy, 0, cx, cy, rad);
+      grd.addColorStop(0,    `rgba(${r},${g},${b},1)`);
+      grd.addColorStop(0.55, `rgba(${r},${g},${b},0.32)`);
+      grd.addColorStop(1,    `rgba(${r},${g},${b},0)`);
+      _hbCache = { key, grd };
+    }
+    ctx.save();
+    ctx.globalAlpha = Math.min(1, alpha);
+    ctx.fillStyle = _hbCache.grd;
+    ctx.beginPath(); ctx.arc(cx, cy, rad, 0, Math.PI * 2); ctx.fill();
+    ctx.restore();
+  }
+
+  function drawRadar(t) {
+    const online = dotEl ? dotEl.classList.contains('online') : false;
+    if (!online) return;
+    const { r, g, b } = F.rgb;
+    const baseA = 0.05 + F.target * 0.13;
+
+    const rings = [30, 38, 46];
+    ctx.lineWidth = 1;
+    for (let i = 0; i < rings.length; i++) {
+      ctx.strokeStyle = `rgba(${r},${g},${b},${baseA * (1 - i * 0.16)})`;
+      ctx.beginPath(); ctx.arc(cx, cy, scale * rings[i], 0, Math.PI * 2); ctx.stroke();
+    }
+
+    if (F.target > 0.05) {
+      const pulse = 0.55 + 0.45 * Math.sin(t * 4.5);
+      const tr = scale * (20 + 7 * Math.sin(t * 0.55));
+      const tx = cx + Math.cos(F.targetAngle) * tr;
+      const ty = cy + Math.sin(F.targetAngle) * tr;
+      const a = F.target * pulse;
+      ctx.beginPath(); ctx.arc(tx, ty, 5 + pulse * 4, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${r},${g},${b},${a * 0.14})`; ctx.fill();
+      ctx.beginPath(); ctx.arc(tx, ty, 2 + pulse * 0.8, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${r},${g},${b},${a * 0.95})`; ctx.fill();
+    }
+
+    if (F.reaction > 0.02) {
+      ctx.beginPath();
+      ctx.arc(cx, cy, (1 - F.reaction) * scale * 55, 0, Math.PI * 2);
+      ctx.str
+<truncated 8265 of 18149 bytes from the middle of the output>
+set="0" stop-color="#ffffff" stop-opacity="0.98"/>
+        <stop offset="0.35" stop-color="#ffffff" stop-opacity="0.5"/>
+        <stop offset="0.7" stop-color="#ffffff" stop-opacity="0.12"/>
+        <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+      </radialGradient>
+      <linearGradient id="c-rim" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0" stop-color="#ffffff"/>
+        <stop offset="0.4" stop-color="#c7d2fe"/>
+        <stop offset="0.7" stop-color="#ffffff"/>
+        <stop offset="1" stop-color="#a5b4fc"/>
+      </linearGradient>
+      <radialGradient id="c-deep" cx="50%" cy="80%" r="55%">
+        <stop offset="0" stop-color="#ec4899" stop-opacity="0.55"/>
+        <stop offset="1" stop-color="#ec4899" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+    <path d="M2 2 L2 27 L7.5 21.5 L10.5 30 L13.5 28.5 L10.5 20 L19.5 20 Z" fill="url(#c-edge)" transform="translate(3.2,3.2)"/>
+    <path d="M2 2 L2 27 L7.5 21.5 L10.5 30 L13.5 28.5 L10.5 20 L19.5 20 Z" fill="url(#c-edge)" transform="translate(2.6,2.6)"/>
+    <path d="M2 2 L2 27 L7.5 21.5 L10.5 30 L13.5 28.5 L10.5 20 L19.5 20 Z" fill="url(#c-edge)" transform="translate(2.1,2.1)"/>
+    <path d="M2 2 L2 27 L7.5 21.5 L10.5 30 L13.5 28.5 L10.5 20 L19.5 20 Z" fill="url(#c-edge)" transform="translate(1.5,1.5)"/>
+    <path d="M2 2 L2 27 L7.5 21.5 L10.5 30 L13.5 28.5 L10.5 20 L19.5 20 Z" fill="url(#c-edge)" transform="translate(1,1)"/>
+    <path d="M2 2 L2 27 L7.5 21.5 L10.5 30 L13.5 28.5 L10.5 20 L19.5 20 Z" fill="url(#c-edge)" transform="translate(0.5,0.5)"/>
+    <path d="M2 2 L2 27 L7.5 21.5 L10.5 30 L13.5 28.5 L10.5 20 L19.5 20 Z" fill="url(#c-face)"/>
+    <path d="M2 2 L2 27 L7.5 21.5 L10.5 20 L19.5 20 Z" fill="url(#c-deep)"/>
+    <path d="M2 2 L2 27 L7.5 21.5 L10.5 20 L2 2 Z" fill="url(#c-refl)"/>
+    <path d="M2 2 L2 27 L7.5 21.5 L10.5 30 L13.5 28.5 L10.5 20 L19.5 20 Z" fill="none" stroke="url(#c-rim)" stroke-width="0.95" stroke-linejoin="round"/>
+    <ellipse cx="4.8" cy="6.5" rx="1.7" ry="0.75" fill="#ffffff" opacity="0.98" transform="rotate(-42 4.8 6.5)"/>
+    <circle cx="5.2" cy="5" r="0.55" fill="#ffffff"/>
+    <circle cx="15.5" cy="19" r="0.65" fill="#ffffff" opacity="0.78"/>
+    <ellipse cx="8.5" cy="22" rx="0.75" ry="0.35" fill="#ffffff" opacity="0.6"/>
+  </svg>`;
+
+  const el = document.createElement('div');
+  el.id = 'aura-cursor';
+  el.setAttribute('aria-hidden', 'true');
+  el.innerHTML = SVG;
+  document.body.appendChild(el);
+
+  // 1:1 Instant Tracking: langsung mengikuti posisi mouse hardware tanpa lerp / damping
+  window.addEventListener('pointermove', (e) => {
+    el.style.transform = 'translate3d(' + e.clientX + 'px, ' + e.clientY + 'px, 0)';
+  }, { passive: true });
+
+  window.addEventListener('pointerdown', () => {
+    el.classList.add('is-down');
+  }, { passive: true });
+
+  window.addEventListener('pointerup', () => {
+    el.classList.remove('is-down');
+  }, { passive: true });
+
+  // Sembunyikan custom cursor saat hover di field teks biar caret native kelihatan
+  const TEXT = 'input, textarea, select, [contenteditable="true"]';
+  document.addEventListener('mouseover', (e) => {
+    if (e.target.closest && e.target.closest(TEXT)) el.classList.add('is-hidden');
+    else el.classList.remove('is-hidden');
+  }, { passive: true });
+
+  // Sembunyiin pas keluar window
+  document.documentElement.addEventListener('mouseleave', () => { el.classList.add('is-away'); });
+  document.documentElement.addEventListener('mouseenter', () => { el.classList.remove('is-away'); });
+})()
+</script>
+
+<script>
+/* ============================================================
+   REFINED AURA TYPOGRAPHY CORE ENGINE (Ultra-Clean & Minimal)
+   - Crisp, sharp, white-cyan "AURA" Wordmark
+   - 50-60% Reduced Atmospheric Cyan Glow (No Solid Orb Appearance)
+   - Zero Dark Blurry Spot Behind Text
+   - Highly Readable "PERSONAL AI SYSTEM" Subtext
+   - 16 Minimal Celestial Particles & Hairline Subtle Orbital Rings
+   ============================================================ */
+(() => {
+  const canvas = document.getElementById('auraOrbCanvas');
+  const faceProxy = document.getElementById('faceSvg');
+  const inpTanya = document.getElementById('inpTanya');
+  if (!canvas) return;
+
+  const ctx = canvas.getContext('2d', { alpha: true });
+  if (!ctx) return;
+
+  // Dedicated High-Performance Offscreen Buffer for Liquid Specular Caustics
+  let textBuffer = null;
+  let tCtx = null;
+  try {
+    textBuffer = document.createElement('canvas');
+    tCtx = textBuffer ? textBuffer.getContext('2d', { alpha: true }) : null;
+  } catch (e) {
+    textBuffer = null;
+    tCtx = null;
+  }
+
+  // Pre-load web fonts into canvas memory
+  if (document.fonts) {
+    document.fonts.load('400 156px "Instrument Serif"').catch(() => {});
+    document.fonts.load('500 12px "Space Grotesk"').catch(() => {});
+  });
+    document.fonts.load('800 156px "Cinzel"').catch(() => {});
+  }
+
+  

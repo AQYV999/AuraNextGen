@@ -1,0 +1,103 @@
+function rebuildNodes() {
+    NODES.length = 0;
+    const rMin = scale * 27, rMax = scale * 48;
+    for (let i = 0; i < NODE_COUNT; i++) {
+      const a = (i / NODE_COUNT) * Math.PI * 2 + (Math.random() - 0.5) * 0.35;
+      NODES.push({
+        angle: a, radius: rMin + Math.random() * (rMax - rMin),
+        vAng: (Math.random() - 0.5) * 0.09,
+        vRad: (Math.random() - 0.5) * 6,
+        phase: Math.random() * Math.PI * 2,
+        pulseSpd: 0.4 + Math.random() * 0.9,
+        size: 0.8 + Math.random() * 0.9,
+        active: Math.random() < 0.28, x: 0, y: 0,
+      });
+    }
+  }
+
+  function resize() {
+    const rect = canvas.getBoundingClientRect();
+    W = rect.width; H = rect.height;
+    canvas.width  = Math.max(1, Math.floor(W * DPR));
+    canvas.height = Math.max(1, Math.floor(H * DPR));
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    // SVG pakai viewBox 100x100 + meet → skala mengikuti sisi terpendek
+    scale = Math.min(W, H) / 100;
+    cx = W / 2;
+    cy = H / 2 - 2 * scale; // pusat wajah di y=48 dari 100
+    rebuildNodes();
+    PARTICLES.length = 0;
+  }
+
+  function refreshColor() {
+    const st = faceSvg.getAttribute('data-state') || '';
+    if (st === F.lastStateAttr) return;
+    F.lastStateAttr = st;
+    const rgb = parseRGB(getComputedStyle(faceSvg).color);
+    if (rgb) F.rgb = rgb;
+  }
+
+  function readState(dt) {
+    const st = faceSvg.getAttribute('data-state') || 'netral';
+    const speaking = faceSvg.getAttribute('data-bicara') === 'on';
+    const online = dotEl ? dotEl.classList.contains('online') : false;
+
+    let target;
+    if (!online || st === 'offline') target = 0.18;
+    else if (st === 'mikir') target = 1.0;
+    else if (speaking) target = 0.75;
+    else if (st === 'senang' || st === 'cinta' || st === 'kaget') target = 0.7;
+    else target = 0.48;
+    F.level += (target - F.level) 
+<truncated 30 bytes>
+nst flowTarget = (st === 'mikir' && online) ? 1 : 0;
+    F.flow += (flowTarget - F.flow) * Math.min(1, dt * 2.5);
+    F.speak += ((speaking ? 1 : 0) - F.speak) * Math.min(1, dt * 6);
+
+    let period = 3.4;
+    if (!online || st === 'offline') period = 0;
+    else if (st === 'mikir') period = 1.25;
+    else if (speaking) period = 0.9;
+    else if (st === 'senang' || st === 'cinta') period = 2.4;
+    else if (st === 'ngantuk') period = 5.2;
+    F.heartPeriod = period;
+    if (period > 0) F.heartPhase = (F.heartPhase + dt / period) % 1;
+
+    // Radar: cek teks tiap ~0.4s, bukan tiap frame
+    F.radarTick += dt;
+    if (radarEl && F.radarTick > 0.4) {
+      F.radarTick = 0;
+      const txt = (radarEl.textContent || '').toLowerCase();
+      if (txt !== F.lastRadarText) {
+        F.lastRadarText = txt;
+        const has = /person|human|motion|moving|still|target|detected/.test(txt)
+                    && !/no target|no person|no motion|empty|^--/.test(txt);
+        if (has && !F.targetPresent) {
+          F.targetAngle = Math.random() * Math.PI * 2;
+          F.reaction = 1.0;
+        }
+        F.targetPresent = has;
+      }
+    }
+    F.target += ((F.targetPresent ? 1 : 0) - F.target) * Math.min(1, dt * 3);
+    F.reaction *= Math.pow(0.25, dt);
+  }
+
+  let _hbCache = { key: '', grd: null };
+  function drawHeartbeat() {
+    const { r, g, b } = F.rgb;
+    if (F.heartPeriod <= 0) return;
+    const pulse = 0.5 + 0.5 * Math.sin(F.heartPhase * Math.PI * 2);
+    const alpha = (0.045 + 0.075 * pulse) * F.level * (1 + F.reaction * 1.6);
+    if (alpha <= 0.002) return;
+    const rad = scale * 32;
+    const key = r + ',' + g + ',' + b + '|' + rad.toFixed(1) + '|' + cx.toFixed(1) + '|' + cy.toFixed(1);
+    if (_hbCache.key !== key) {
+      const grd = ctx.createRadialGradient(cx, cy, 0, cx, cy, rad);
+      grd.addColorStop(0,    `rgba(${r},${g},${b},1)`);
+      grd.addColorStop(0.55, `rgba(${r},${g},${b},0.32)`);
+      grd.addColorStop(1,    `rgba(${r},${g},${b},0)`);
+      _hbCache = { key, grd };
+    }
+    ctx.save();
+    ctx.gl
