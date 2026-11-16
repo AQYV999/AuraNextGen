@@ -2174,6 +2174,22 @@
   white-space: nowrap;
 }
 
+.weather.clickable-weather {
+  cursor: pointer;
+  padding: 1.5px 6px;
+  border-radius: 6px;
+  user-select: none;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.weather.clickable-weather:hover {
+  background: rgba(255, 255, 255, 0.09);
+  color: #5DCAA5 !important;
+  text-shadow: 0 0 10px rgba(93, 202, 165, 0.45);
+}
+.weather.clickable-weather:active {
+  transform: scale(0.95);
+}
+
 /* Cuaca ikut mengikuti status pill (online hijau / offline abu) */
 .top-left.online  .weather { color: #cfd8d5; }
 .top-left.offline .weather { color: #8a8383; }
@@ -6101,6 +6117,502 @@ html.perf-lite .guide-body { contain: content; }
     text-decoration: underline;
   }
 
+  /* ============================================================
+     AURA NEXT GEN: ADVANCED WEATHER RADAR & DASHBOARD
+     ============================================================ */
+  .weather-modal-backdrop {
+    position: fixed !important;
+    inset: 0 !important;
+    background: rgba(0, 0, 0, 0.68) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    z-index: 38 !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    transition: opacity 0.24s ease !important;
+  }
+  .weather-modal-backdrop.visible {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+  }
+  .weather-modal-panel {
+    position: fixed !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) scale(0.96) !important;
+    width: min(780px, calc(100vw - 24px)) !important;
+    max-height: min(88vh, 790px) !important;
+    padding: 22px 24px !important;
+    border-radius: 24px !important;
+    background: rgba(13, 16, 26, 0.96) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    backdrop-filter: blur(36px) saturate(150%) !important;
+    -webkit-backdrop-filter: blur(36px) saturate(150%) !important;
+    box-shadow: 0 32px 80px -16px rgba(0, 0, 0, 0.95), inset 0 1px 0 rgba(255, 255, 255, 0.12) !important;
+    z-index: 39 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    transition: opacity 0.24s ease, transform 0.28s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  }
+  .weather-modal-panel.visible {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    transform: translate(-50%, -50%) scale(1) !important;
+  }
+  .weather-modal-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    gap: 12px;
+  }
+  .weather-head-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+  }
+  .weather-icon-badge {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(93, 202, 165, 0.15);
+    border: 1px solid rgba(93, 202, 165, 0.3);
+    color: #5DCAA5;
+    flex-shrink: 0;
+  }
+  .weather-title {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 600;
+    color: #f8fafc;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+  }
+  .weather-city-badge {
+    font-size: 11px;
+    font-weight: 500;
+    padding: 2px 7px;
+    border-radius: 6px;
+    background: rgba(93, 202, 165, 0.15);
+    border: 1px solid rgba(93, 202, 165, 0.3);
+    color: #5DCAA5;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 170px;
+  }
+  .weather-updated-txt {
+    font-size: 10.5px;
+    color: #94a3b8;
+    display: block;
+    margin-top: 2px;
+  }
+  .weather-head-actions {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+  .weather-btn-pill {
+    padding: 5px 9px;
+    font-size: 11px;
+    font-weight: 500;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #cbd5e1;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    transition: all 0.16s ease;
+    white-space: nowrap;
+  }
+  .weather-btn-pill:hover {
+    background: rgba(93, 202, 165, 0.18);
+    border-color: rgba(93, 202, 165, 0.35);
+    color: #5DCAA5;
+  }
+  .weather-btn-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #cbd5e1;
+    cursor: pointer;
+    font-size: 14px;
+    line-height: 1;
+    transition: all 0.16s ease;
+  }
+  .weather-btn-icon:hover {
+    background: rgba(255, 255, 255, 0.12);
+    color: #fff;
+    transform: rotate(45deg);
+  }
+  .weather-city-tray {
+    background: rgba(0, 0, 0, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 10px 12px;
+    margin-bottom: 12px;
+    animation: fadeInTray 0.2s ease;
+  }
+  @keyframes fadeInTray {
+    from { opacity: 0; transform: translateY(-4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .weather-city-tray-title {
+    font-size: 11px;
+    color: #94a3b8;
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+  .weather-chips-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .weather-chip {
+    padding: 4px 9px;
+    font-size: 10.5px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: #cbd5e1;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+  .weather-chip:hover {
+    background: rgba(93, 202, 165, 0.15);
+    border-color: rgba(93, 202, 165, 0.3);
+    color: #5DCAA5;
+  }
+  .weather-chip.active {
+    background: rgba(93, 202, 165, 0.25);
+    border-color: rgba(93, 202, 165, 0.45);
+    color: #5DCAA5;
+    font-weight: 600;
+  }
+  .weather-body-scroll {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .weather-body-scroll::-webkit-scrollbar {
+    width: 5px;
+  }
+  .weather-body-scroll::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 4px;
+  }
+  .weather-hero-card {
+    background: linear-gradient(135deg, rgba(30, 41, 59, 0.5), rgba(15, 23, 42, 0.65));
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    position: relative;
+    overflow: hidden;
+  }
+  .weather-hero-card::after {
+    content: '';
+    position: absolute;
+    top: -40px;
+    right: -40px;
+    width: 140px;
+    height: 140px;
+    background: radial-gradient(circle, rgba(93, 202, 165, 0.12), transparent 70%);
+    pointer-events: none;
+  }
+  .weather-hero-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .weather-hero-icon-wrap {
+    width: 56px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+  }
+  .weather-hero-temp {
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    color: #ffffff;
+    font-variant-numeric: tabular-nums;
+  }
+  .weather-hero-cond {
+    font-size: 13px;
+    font-weight: 500;
+    color: #5DCAA5;
+    margin-top: 4px;
+  }
+  .weather-hero-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    min-width: 220px;
+  }
+  .weather-stat-chip {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 8px;
+    padding: 6px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .weather-stat-chip-lbl {
+    font-size: 10px;
+    color: #94a3b8;
+  }
+  .weather-stat-chip-val {
+    font-size: 12px;
+    font-weight: 600;
+    color: #f1f5f9;
+    font-variant-numeric: tabular-nums;
+  }
+  .weather-telemetry-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+  }
+  @media (max-width: 680px) {
+    .weather-telemetry-grid {
+      grid-template-columns: repeat(2, 1fr) !important;
+    }
+  }
+  .weather-telem-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 12px;
+    padding: 10px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .weather-telem-card-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px;
+  }
+  .weather-telem-card-lbl {
+    font-size: 11px;
+    font-weight: 500;
+    color: #94a3b8;
+  }
+  .weather-telem-card-badge {
+    font-size: 9.5px;
+    font-weight: 600;
+    padding: 1px 5px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.06);
+    color: #cbd5e1;
+  }
+  .weather-telem-card-val {
+    font-size: 16px;
+    font-weight: 600;
+    color: #f8fafc;
+    font-variant-numeric: tabular-nums;
+    margin-top: 2px;
+  }
+  .weather-telem-progress-track {
+    height: 4px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 2px;
+    overflow: hidden;
+    margin: 4px 0 2px;
+  }
+  .weather-telem-progress-bar {
+    height: 100%;
+    background: #5DCAA5;
+    border-radius: 2px;
+    transition: width 0.3s ease;
+  }
+  .weather-telem-progress-bar.uv-bar {
+    background: linear-gradient(90deg, #5DCAA5, #facc15, #fb923c, #f87171);
+  }
+  .weather-telem-card-sub {
+    font-size: 10px;
+    color: #64748b;
+    line-height: 1.3;
+  }
+  .weather-section-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 11.5px;
+    font-weight: 600;
+    color: #cbd5e1;
+    letter-spacing: 0.02em;
+    margin-top: 4px;
+  }
+  .weather-hourly-slider {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding-bottom: 6px;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+  .weather-hourly-slider::-webkit-scrollbar {
+    height: 4px;
+  }
+  .weather-hourly-slider::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 3px;
+  }
+  .weather-hour-col {
+    flex: 0 0 70px;
+    scroll-snap-align: start;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 10px;
+    padding: 8px 6px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    text-align: center;
+    font-size: 11px;
+    transition: all 0.15s ease;
+  }
+  .weather-hour-col:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.12);
+  }
+  .weather-hour-col.now {
+    border-color: rgba(93, 202, 165, 0.45);
+    background: rgba(93, 202, 165, 0.09);
+  }
+  .weather-hour-time {
+    font-size: 10.5px;
+    color: #94a3b8;
+    font-weight: 500;
+  }
+  .weather-hour-temp {
+    font-size: 12.5px;
+    font-weight: 600;
+    color: #f8fafc;
+    font-variant-numeric: tabular-nums;
+  }
+  .weather-hour-precip {
+    font-size: 9.5px;
+    color: #38bdf8;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+  }
+  .weather-daily-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .weather-day-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.025);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    padding: 8px 12px;
+    font-size: 11.5px;
+    transition: background 0.15s ease;
+  }
+  .weather-day-row:hover {
+    background: rgba(255, 255, 255, 0.045);
+  }
+  .weather-day-name {
+    width: 85px;
+    font-weight: 500;
+    color: #f1f5f9;
+  }
+  .weather-day-cond-wrap {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    width: 140px;
+    color: #cbd5e1;
+    font-size: 11px;
+  }
+  .weather-day-bar-wrap {
+    flex: 1;
+    max-width: 140px;
+    height: 5px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 3px;
+    position: relative;
+    overflow: hidden;
+    margin: 0 8px;
+  }
+  .weather-day-bar-fill {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, #38bdf8, #fb923c);
+    border-radius: 3px;
+  }
+  .weather-day-temp-range {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-variant-numeric: tabular-nums;
+    font-size: 11.5px;
+  }
+  .weather-day-precip-col {
+    width: 50px;
+    text-align: right;
+    font-size: 10.5px;
+    color: #38bdf8;
+    font-weight: 500;
+  }
+  .weather-ai-advice {
+    background: rgba(93, 202, 165, 0.08);
+    border: 1px solid rgba(93, 202, 165, 0.2);
+    border-radius: 12px;
+    padding: 10px 14px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 11.5px;
+    color: #cbd5e1;
+    line-height: 1.5;
+  }
+  .weather-ai-advice-icon {
+    font-size: 16px;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
 </style>
 </head>
 <body>
@@ -6201,7 +6713,7 @@ html.perf-lite .guide-body { contain: content; }
     <span class="pill-sep"></span>
     <span class="clock" id="txtJam">--:--</span>
     <span class="pill-sep weather-sep"></span>
-    <span class="weather" id="txtCuaca">--°C</span>
+    <span class="weather clickable-weather" id="txtCuaca" role="button" tabindex="0" title="Klik untuk membuka Monitor Cuaca Canggih">--°C</span>
   </div>
 
   <!-- AURA NEXT GEN: NOTEPAD & GOALS QUICK PREVIEW CARD -->
@@ -6293,13 +6805,21 @@ html.perf-lite .guide-body { contain: content; }
     <div class="panel-section panel-section--telemetry">
       <div class="section-header">
         <span class="section-title">Telemetry</span>
-        <button type="button" class="trend-trigger-btn" id="btnTren" title="View 24h Trend Chart">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
-            <polyline points="17 6 23 6 23 12"/>
-          </svg>
-          <span>Trend</span>
-        </button>
+        <div style="display:flex; align-items:center; gap:5px;">
+          <button type="button" class="trend-trigger-btn" id="btnCuacaRadar" title="Buka Monitor Cuaca Canggih">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/>
+            </svg>
+            <span>Weather</span>
+          </button>
+          <button type="button" class="trend-trigger-btn" id="btnTren" title="View 24h Trend Chart">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
+              <polyline points="17 6 23 6 23 12"/>
+            </svg>
+            <span>Trend</span>
+          </button>
+        </div>
       </div>
 
       <div class="telemetry-list">
@@ -6647,6 +7167,158 @@ html.perf-lite .guide-body { contain: content; }
     <!-- CARDS CONTAINER -->
     <div class="history-cards-container" id="containerHistoryCards">
       <!-- Cards rendered dynamically -->
+    </div>
+  </div>
+
+  <!-- ==========================================
+       AURA NEXT GEN: ADVANCED WEATHER RADAR MODAL
+       ========================================== -->
+  <div class="weather-modal-backdrop" id="weatherModalBackdrop"></div>
+  <div class="weather-modal-panel glass" id="weatherModalPanel" role="dialog" aria-labelledby="weatherModalTitle">
+    <!-- Header -->
+    <div class="weather-modal-head">
+      <div class="weather-head-left">
+        <div class="weather-icon-badge">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/>
+          </svg>
+        </div>
+        <div>
+          <div style="display:flex; align-items:center; gap:8px;">
+            <h3 id="weatherModalTitle" class="weather-title">AURA Weather Radar</h3>
+            <span class="weather-city-badge" id="weatherCityBadge">Pemalang, ID</span>
+          </div>
+          <span class="weather-updated-txt" id="weatherLastUpdated">Update otomatis tiap 15 m</span>
+        </div>
+      </div>
+      <div class="weather-head-actions">
+        <button type="button" class="weather-btn-pill" id="btnWeatherGPS" title="Deteksi lokasi GPS saat ini">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M2 12h20"/><circle cx="12" cy="12" r="7"/></svg>
+          <span>GPS Auto</span>
+        </button>
+        <button type="button" class="weather-btn-pill" id="btnToggleCityPicker" title="Pilih kota lain">Kota ▾</button>
+        <button type="button" class="weather-btn-pill" id="btnWeatherSpeak" title="Dengarkan ringkasan suara AURA">🔊 Suara</button>
+        <button type="button" class="weather-btn-icon" id="btnWeatherRefresh" title="Segarkan Data Cuaca">↻</button>
+        <button type="button" class="clear-btn" id="btnTutupWeatherModal">Close</button>
+      </div>
+    </div>
+
+    <!-- City Selector Tray (collapsible) -->
+    <div class="weather-city-tray" id="weatherCityTray" style="display:none;">
+      <div class="weather-city-tray-title">Pilih Preset Kota Populer:</div>
+      <div class="weather-chips-wrap" id="weatherCityChips">
+        <button type="button" class="weather-chip" data-name="Pemalang, ID" data-lat="-6.8899" data-lon="109.3797">Pemalang</button>
+        <button type="button" class="weather-chip" data-name="Jakarta, ID" data-lat="-6.2088" data-lon="106.8456">Jakarta</button>
+        <button type="button" class="weather-chip" data-name="Bandung, ID" data-lat="-6.9175" data-lon="107.6191">Bandung</button>
+        <button type="button" class="weather-chip" data-name="Semarang, ID" data-lat="-7.0051" data-lon="110.4381">Semarang</button>
+        <button type="button" class="weather-chip" data-name="Yogyakarta, ID" data-lat="-7.7956" data-lon="110.3695">Yogyakarta</button>
+        <button type="button" class="weather-chip" data-name="Surabaya, ID" data-lat="-7.2575" data-lon="112.7521">Surabaya</button>
+        <button type="button" class="weather-chip" data-name="Denpasar, Bali" data-lat="-8.6705" data-lon="115.2126">Bali (Denpasar)</button>
+        <button type="button" class="weather-chip" data-name="Medan, ID" data-lat="3.5952" data-lon="98.6722">Medan</button>
+        <button type="button" class="weather-chip" data-name="Makassar, ID" data-lat="-5.1477" data-lon="119.4327">Makassar</button>
+      </div>
+    </div>
+
+    <!-- Scrollable Body Content -->
+    <div class="weather-body-scroll">
+      <!-- HERO CURRENT WEATHER -->
+      <div class="weather-hero-card">
+        <div class="weather-hero-left">
+          <div class="weather-hero-icon-wrap" id="weatherHeroIcon">
+            <!-- Dynamic SVG weather icon -->
+          </div>
+          <div>
+            <div class="weather-hero-temp" id="weatherHeroTemp">--°C</div>
+            <div class="weather-hero-cond" id="weatherHeroCond">Memuat data cuaca...</div>
+          </div>
+        </div>
+        <div class="weather-hero-stats">
+          <div class="weather-stat-chip">
+            <span class="weather-stat-chip-lbl">Terasa Seperti</span>
+            <span class="weather-stat-chip-val" id="weatherHeroFeels">--°C</span>
+          </div>
+          <div class="weather-stat-chip">
+            <span class="weather-stat-chip-lbl">Rentang Hari Ini</span>
+            <span class="weather-stat-chip-val" id="weatherHeroRange">--° / --°</span>
+          </div>
+          <div class="weather-stat-chip">
+            <span class="weather-stat-chip-lbl">Peluang Hujan</span>
+            <span class="weather-stat-chip-val" id="weatherHeroPrecip">--%</span>
+          </div>
+          <div class="weather-stat-chip">
+            <span class="weather-stat-chip-lbl">Tekanan Udara</span>
+            <span class="weather-stat-chip-val" id="weatherHeroPressure">-- hPa</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- TELEMETRY 4-METRICS GRID -->
+      <div class="weather-telemetry-grid">
+        <div class="weather-telem-card">
+          <div class="weather-telem-card-head">
+            <span class="weather-telem-card-lbl">💧 Kelembaban</span>
+            <span class="weather-telem-card-badge" id="weatherBadgeHumidity">--</span>
+          </div>
+          <div class="weather-telem-card-val" id="weatherValHumidity">--%</div>
+          <div class="weather-telem-progress-track">
+            <div class="weather-telem-progress-bar" id="weatherBarHumidity" style="width:0%;"></div>
+          </div>
+          <div class="weather-telem-card-sub" id="weatherSubHumidity">Kondisi kelembaban relatif</div>
+        </div>
+
+        <div class="weather-telem-card">
+          <div class="weather-telem-card-head">
+            <span class="weather-telem-card-lbl">💨 Kecepatan Angin</span>
+            <span class="weather-telem-card-badge" id="weatherBadgeWind">--</span>
+          </div>
+          <div class="weather-telem-card-val" id="weatherValWind">-- km/h</div>
+          <div class="weather-telem-card-sub" id="weatherSubWind">Arah mata angin: --</div>
+        </div>
+
+        <div class="weather-telem-card">
+          <div class="weather-telem-card-head">
+            <span class="weather-telem-card-lbl">☀️ Indeks UV Maks</span>
+            <span class="weather-telem-card-badge" id="weatherBadgeUV">--</span>
+          </div>
+          <div class="weather-telem-card-val" id="weatherValUV">--</div>
+          <div class="weather-telem-progress-track">
+            <div class="weather-telem-progress-bar uv-bar" id="weatherBarUV" style="width:0%;"></div>
+          </div>
+          <div class="weather-telem-card-sub" id="weatherSubUV">Proteksi sinar matahari</div>
+        </div>
+
+        <div class="weather-telem-card">
+          <div class="weather-telem-card-head">
+            <span class="weather-telem-card-lbl">🌧️ Curah Hujan</span>
+            <span class="weather-telem-card-badge" id="weatherBadgeRain">--</span>
+          </div>
+          <div class="weather-telem-card-val" id="weatherValRainSum">-- mm</div>
+          <div class="weather-telem-card-sub" id="weatherSubRainSum">Total presipitasi hari ini</div>
+        </div>
+      </div>
+
+      <!-- 24-HOUR HOURLY FORECAST -->
+      <div class="weather-section-title">
+        <span>Prakiraan Per Jam (24 Jam)</span>
+        <span style="font-size:10px; color:#64748b;">Geser horizontal ➔</span>
+      </div>
+      <div class="weather-hourly-slider" id="weatherHourlySlider">
+        <!-- Rendered dynamically -->
+      </div>
+
+      <!-- 7-DAY DAILY FORECAST -->
+      <div class="weather-section-title" style="margin-top:4px;">
+        <span>Prakiraan 7 Hari Ke Depan</span>
+      </div>
+      <div class="weather-daily-list" id="weatherDailyList">
+        <!-- Rendered dynamically -->
+      </div>
+
+      <!-- AI ASSISTANT SUMMARY BANNER -->
+      <div class="weather-ai-advice" id="weatherAiAdvice">
+        <div class="weather-ai-advice-icon">💡</div>
+        <div class="weather-ai-advice-txt" id="weatherAiAdviceTxt">Memeriksa kondisi lingkungan dan prakiraan cuaca...</div>
+      </div>
     </div>
   </div>
 
@@ -8343,6 +9015,45 @@ async function kirimPertanyaan() {
   terapkanEkspresi('mikir', 'none');
 
   try {
+    // AURA NEXT GEN: Weather Query Intent Intercept
+    const polaCuaca = /(?:bagaimana\s+)?cuaca(?:\s+hari\s+ini|\s+sekarang|\s+besok)?|ramalan\s+cuaca|prakiraan\s+cuaca|hujan\s+nggak|apakah\s+(?:akan\s+)?hujan/i;
+    if (polaCuaca.test(teks.toLowerCase())) {
+      if (typeof bukaWeatherModal === 'function') bukaWeatherModal();
+      const loc = typeof getSavedWeatherLocation === 'function' ? getSavedWeatherLocation() : { name: 'Pemalang' };
+      let balas = '';
+      if (_weatherDataCache && _weatherDataCache.current) {
+        const cur = _weatherDataCache.current;
+        const cond = typeof getDeskripsiCuaca === 'function' ? getDeskripsiCuaca(cur.weather_code) : 'Normal';
+        const temp = Math.round(cur.temperature_2m);
+        const feels = Math.round(cur.apparent_temperature);
+        const daily = _weatherDataCache.daily || {};
+        const pMax = daily.precipitation_probability_max ? daily.precipitation_probability_max[0] : 0;
+        balas = `Laporan cuaca untuk **${loc.name}**: Saat ini **${cond}** dengan suhu **${temp}°C** (terasa seperti ${feels}°C). Peluang hujan hari ini sekitar **${pMax}%**. Aku sudah membuka dashboard radar cuaca lengkap di layarmu! 🌤️`;
+      } else {
+        balas = `Aku sedang mengambil data cuaca terbaru untuk **${loc.name}** dari stasiun radar. Dashboard cuaca sudah dibuka di layarmu! 🌤️`;
+      }
+
+      auraMsg.classList.remove('loading');
+      pasangBadgeMode(auraMsg, 'local', 'Weather');
+
+      const itemDirect = { tanya: teks, jawab: balas, mode: 'local', waktu: Date.now() };
+      riwayat.push(itemDirect);
+      simpanRiwayatKeStorage();
+      tambahRiwayatKeServer(itemDirect);
+
+      auraMsg.innerHTML = formatMarkdown(balas);
+      log.scrollTop = log.scrollHeight;
+      if (typeof bicaraRingkasanCuaca === 'function') bicaraRingkasanCuaca();
+
+      ekspresiTerkunci = false;
+      kembaliKeDefault(2800);
+      sedangMenunggu = false;
+      btnKirim.classList.remove('loading');
+      inpTanya.disabled = false;
+      inpTanya.focus();
+      return;
+    }
+
     // AURA NEXT GEN: Natural Language Reminder Intent Intercept
     const polaIngatkan = /ingatkan(?:\s+saya|\s+aku)?\s+(.+?)\s+(\d+)\s*(menit|jam|detik)?/i;
     const matchIngat = teks.match(polaIngatkan);
@@ -9641,63 +10352,505 @@ document.addEventListener('keydown', (e) => {
 })();
 
 /* ============================================================
-   CUACA — open-meteo.com (gratis, tanpa API key)
-   Ganti WEATHER_LAT/LON sesuai lokasi kamu.
+   AURA NEXT GEN: ADVANCED WEATHER RADAR & DASHBOARD
+   Open-Meteo API (gratis, tanpa API key, akurat & lengkap)
    ============================================================ */
-const WEATHER_LAT = -6.8899;   // Pemalang  ← change to your city
-const WEATHER_LON = 109.3797;  // Pemalang
-const WEATHER_INTERVAL = 15 * 60 * 1000;   // update tiap 15 menit
-let _weatherLastFetch = 0;
 
-// WMO weather code → English label
-const KODE_CUACA = {
-  0: 'Clear', 1: 'Mostly clear', 2: 'Partly cloudy', 3: 'Overcast',
-  45: 'Foggy', 48: 'Foggy',
-  51: 'Light drizzle', 53: 'Drizzle', 55: 'Heavy drizzle',
-  56: 'Freezing drizzle', 57: 'Freezing drizzle',
-  61: 'Light rain', 63: 'Rain', 65: 'Heavy rain',
-  66: 'Freezing rain', 67: 'Freezing rain',
-  71: 'Light snow', 73: 'Snow', 75: 'Heavy snow',
-  77: 'Snow grains',
-  80: 'Rain showers', 81: 'Rain showers', 82: 'Heavy rain showers',
-  85: 'Snow showers', 86: 'Heavy snow showers',
-  95: 'Thunderstorm', 96: 'Thunderstorm with hail', 99: 'Thunderstorm with hail',
+let _weatherDataCache = null;
+let _weatherLastFetch = 0;
+const WEATHER_INTERVAL = 15 * 60 * 1000; // update tiap 15 menit
+
+function getSavedWeatherLocation() {
+  try {
+    const raw = localStorage.getItem('aura_weather_location');
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if (parsed && typeof parsed.lat === 'number' && typeof parsed.lon === 'number') {
+        return parsed;
+      }
+    }
+  } catch (e) {}
+  return { name: 'Pemalang, ID', lat: -6.8899, lon: 109.3797 };
+}
+
+function saveWeatherLocation(name, lat, lon) {
+  try {
+    localStorage.setItem('aura_weather_location', JSON.stringify({ name, lat, lon }));
+  } catch (e) {}
+}
+
+// Kamus Kode Cuaca WMO
+const KODE_CUACA_INFO = {
+  0: { label: 'Cerah', icon: 'sun' },
+  1: { label: 'Cerah Berawan', icon: 'cloud-sun' },
+  2: { label: 'Sebagian Berawan', icon: 'cloud-sun' },
+  3: { label: 'Mendung Berawan', icon: 'cloud' },
+  45: { label: 'Berkabut Tebal', icon: 'fog' },
+  48: { label: 'Kabut Berembun', icon: 'fog' },
+  51: { label: 'Gerimis Ringan', icon: 'drizzle' },
+  53: { label: 'Gerimis Sedang', icon: 'drizzle' },
+  55: { label: 'Gerimis Lebat', icon: 'drizzle' },
+  56: { label: 'Gerimis Beku', icon: 'snow' },
+  57: { label: 'Gerimis Beku Lebat', icon: 'snow' },
+  61: { label: 'Hujan Ringan', icon: 'rain' },
+  63: { label: 'Hujan Sedang', icon: 'rain' },
+  65: { label: 'Hujan Lebat', icon: 'heavy-rain' },
+  66: { label: 'Hujan Es Dingin', icon: 'snow' },
+  67: { label: 'Hujan Es Lebat', icon: 'snow' },
+  71: { label: 'Salju Ringan', icon: 'snow' },
+  73: { label: 'Salju Sedang', icon: 'snow' },
+  75: { label: 'Salju Lebat', icon: 'snow' },
+  77: { label: 'Kepingan Salju', icon: 'snow' },
+  80: { label: 'Hujan Rintik Lokal', icon: 'rain' },
+  81: { label: 'Hujan Deras Lokal', icon: 'rain' },
+  82: { label: 'Hujan Sangat Deras', icon: 'heavy-rain' },
+  85: { label: 'Hujan Salju Ringan', icon: 'snow' },
+  86: { label: 'Hujan Salju Deras', icon: 'snow' },
+  95: { label: 'Badai Petir', icon: 'thunder' },
+  96: { label: 'Badai Petir + Es', icon: 'thunder' },
+  99: { label: 'Badai Petir Hebat', icon: 'thunder' }
 };
 
-async function updateCuaca() {
-  if (Date.now() - _weatherLastFetch < WEATHER_INTERVAL) return;
+// Kompatibilitas mundur dengan nama lama
+const KODE_CUACA = {
+  0: 'Cerah', 1: 'Cerah Berawan', 2: 'Sebagian Berawan', 3: 'Mendung Berawan',
+  45: 'Berkabut', 48: 'Berkabut', 51: 'Gerimis', 53: 'Gerimis', 55: 'Gerimis Lebat',
+  61: 'Hujan', 63: 'Hujan', 65: 'Hujan Lebat', 80: 'Hujan Lokal', 81: 'Hujan Deras',
+  95: 'Badai Petir', 96: 'Badai Petir', 99: 'Badai Petir'
+};
+
+function getDeskripsiCuaca(code) {
+  return KODE_CUACA_INFO[code]?.label || 'Kondisi Normal';
+}
+
+function getIconSvgCuaca(code, isDay = 1, size = 24) {
+  const iconType = KODE_CUACA_INFO[code]?.icon || (isDay ? 'sun' : 'moon');
+  if (iconType === 'sun') {
+    if (!isDay) {
+      return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>`;
+    }
+    return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="#facc15" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>`;
+  }
+  if (iconType === 'cloud-sun') {
+    return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="M20 12h2"/><path d="m19.07 4.93-1.41 1.41"/><path d="M15.947 12.65a4 4 0 0 0-5.925-4.128"/><path d="M13 22H7a5 5 0 1 1 4.9-6H13a3 3 0 0 1 0 6Z"/></svg>`;
+  }
+  if (iconType === 'cloud') {
+    return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></svg>`;
+  }
+  if (iconType === 'drizzle' || iconType === 'rain') {
+    return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 13v8"/><path d="M8 13v8"/><path d="M12 15v8"/><path d="M20 16.58A5 5 0 0 0 18 7h-1.26A8 8 0 1 0 4 15.25"/></svg>`;
+  }
+  if (iconType === 'heavy-rain') {
+    return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="#0ea5e9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="13" x2="6" y2="21"/><line x1="12" y1="13" x2="10" y2="21"/><line x1="16" y1="13" x2="14" y2="21"/><path d="M20 16.58A5 5 0 0 0 18 7h-1.26A8 8 0 1 0 4 15.25"/></svg>`;
+  }
+  if (iconType === 'thunder') {
+    return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="#facc15" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 16.9A5 5 0 0 0 18 7h-1.26a8 8 0 1 0-11.62 9"/><polyline points="13 11 9 17 15 17 11 23"/></svg>`;
+  }
+  if (iconType === 'fog') {
+    return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14h16"/><path d="M4 18h16"/><path d="M4 10h16"/><path d="M6 6h12"/></svg>`;
+  }
+  if (iconType === 'snow') {
+    return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="#cbd5e1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 17.58A5 5 0 0 0 18 8h-1.26A8 8 0 1 0 4 16.25"/><line x1="8" y1="16" x2="8.01" y2="16"/><line x1="8" y1="20" x2="8.01" y2="20"/><line x1="12" y1="18" x2="12.01" y2="18"/><line x1="12" y1="22" x2="12.01" y2="22"/><line x1="16" y1="16" x2="16.01" y2="16"/><line x1="16" y1="20" x2="16.01" y2="20"/></svg>`;
+  }
+  return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="#5DCAA5" stroke-width="2"><circle cx="12" cy="12" r="8"/></svg>`;
+}
+
+function hitungArahMataAngin(deg) {
+  if (typeof deg !== 'number') return 'Utara (N)';
+  const comp = [
+    { label: 'Utara (N)', min: 337.5, max: 360 },
+    { label: 'Utara (N)', min: 0, max: 22.5 },
+    { label: 'Timur Laut (NE)', min: 22.5, max: 67.5 },
+    { label: 'Timur (E)', min: 67.5, max: 112.5 },
+    { label: 'Tenggara (SE)', min: 112.5, max: 157.5 },
+    { label: 'Selatan (S)', min: 157.5, max: 202.5 },
+    { label: 'Barat Daya (SW)', min: 202.5, max: 247.5 },
+    { label: 'Barat (W)', min: 247.5, max: 292.5 },
+    { label: 'Barat Laut (NW)', min: 292.5, max: 337.5 }
+  ];
+  for (const c of comp) {
+    if (deg >= c.min && deg < c.max) return c.label;
+  }
+  return 'Utara (N)';
+}
+
+function hitungStatusUV(uv) {
+  const val = typeof uv === 'number' ? uv : 0;
+  if (val < 3) return { text: 'Rendah (Aman)', badge: 'Aman', pct: Math.min(100, Math.round(val / 11 * 100)) };
+  if (val < 6) return { text: 'Sedang', badge: 'Sedang', pct: Math.min(100, Math.round(val / 11 * 100)) };
+  if (val < 8) return { text: 'Tinggi (Proteksi)', badge: 'Tinggi', pct: Math.min(100, Math.round(val / 11 * 100)) };
+  if (val < 11) return { text: 'Sangat Tinggi', badge: 'Ekstrem', pct: Math.min(100, Math.round(val / 11 * 100)) };
+  return { text: 'Bahaya Ekstrem', badge: 'Bahaya', pct: 100 };
+}
+
+function hitungStatusLembab(h) {
+  const val = typeof h === 'number' ? h : 50;
+  if (val < 35) return { text: 'Udara Kering', badge: 'Kering' };
+  if (val <= 68) return { text: 'Ideal & Nyaman', badge: 'Optimal' };
+  if (val <= 85) return { text: 'Cukup Lembap', badge: 'Lembap' };
+  return { text: 'Sangat Lembap', badge: 'Tinggi' };
+}
+
+async function updateCuaca(force = false) {
+  if (!force && Date.now() - _weatherLastFetch < WEATHER_INTERVAL && _weatherDataCache) {
+    return;
+  }
   _weatherLastFetch = Date.now();
 
+  const loc = getSavedWeatherLocation();
+  const badgeCity = document.getElementById('weatherCityBadge');
+  if (badgeCity) badgeCity.textContent = loc.name;
+
   try {
-    const url = 'https://api.open-meteo.com/v1/forecast'
-      + `?latitude=${WEATHER_LAT}&longitude=${WEATHER_LON}`
-      + '&current=temperature_2m,weather_code&timezone=auto';
-    const res = await fetch(url, { signal: AbortSignal.timeout(8000) });
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${loc.lat}&longitude=${loc.lon}`
+      + '&current=temperature_2m,relative_humidity_2m,apparent_temperature,is_day,precipitation,weather_code,surface_pressure,wind_speed_10m,wind_direction_10m'
+      + '&hourly=temperature_2m,weather_code,precipitation_probability'
+      + '&daily=weather_code,temperature_2m_max,temperature_2m_min,uv_index_max,precipitation_probability_max'
+      + '&timezone=auto&forecast_days=7';
+
+    const res = await fetch(url, { signal: AbortSignal.timeout(9000) });
     if (!res.ok) return;
 
     const data = await res.json();
+    _weatherDataCache = data;
+
+    // 1) Update Top Bar (#txtCuaca)
     const t = data.current?.temperature_2m;
     const code = data.current?.weather_code;
-    if (typeof t !== 'number') return;
+    if (typeof t === 'number') {
+      const label = getDeskripsiCuaca(code);
+      const teksBaru = `${Math.round(t)}°C · ${label}`;
+      const el = document.getElementById('txtCuaca');
+      if (el && el.textContent !== teksBaru) {
+        el.textContent = teksBaru;
+        el.classList.remove('flash');
+        void el.offsetWidth;
+        el.classList.add('flash');
+        setTimeout(() => el.classList.remove('flash'), 680);
+      }
+    }
 
-    const label = KODE_CUACA[code] || '—';
-    const teksBaru = `${Math.round(t)}°C · ${label}`;
-
-    const el = document.getElementById('txtCuaca');
-    if (!el) return;
-    if (el.textContent === teksBaru) return;
-
-    el.textContent = teksBaru;
-    el.classList.remove('flash');
-    void el.offsetWidth;
-    el.classList.add('flash');
-    setTimeout(() => el.classList.remove('flash'), 680);
+    // 2) Render Full Weather Modal
+    renderWeatherModal(data, loc);
   } catch (e) {
-    // offline atau API lambat: biarkan nilai lama, coba lagi di polling berikutnya
+    console.warn('Weather fetch warning:', e);
   }
 }
 
-// Panggil sekali saat buka, lalu tiap 15 menit
+function renderWeatherModal(data, loc) {
+  if (!data || !data.current) return;
+  const cur = data.current;
+  const daily = data.daily || {};
+  const hourly = data.hourly || {};
+
+  // Badge city
+  const badgeCity = document.getElementById('weatherCityBadge');
+  if (badgeCity) badgeCity.textContent = loc.name;
+
+  // Last update time
+  const elUpdated = document.getElementById('weatherLastUpdated');
+  if (elUpdated) {
+    const now = new Date();
+    elUpdated.textContent = `Update: ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')} · Auto 15m`;
+  }
+
+  // Hero Card
+  const elHeroTemp = document.getElementById('weatherHeroTemp');
+  if (elHeroTemp) elHeroTemp.textContent = `${Math.round(cur.temperature_2m)}°C`;
+
+  const elHeroCond = document.getElementById('weatherHeroCond');
+  if (elHeroCond) elHeroCond.textContent = getDeskripsiCuaca(cur.weather_code);
+
+  const elHeroIcon = document.getElementById('weatherHeroIcon');
+  if (elHeroIcon) elHeroIcon.innerHTML = getIconSvgCuaca(cur.weather_code, cur.is_day, 36);
+
+  const elHeroFeels = document.getElementById('weatherHeroFeels');
+  if (elHeroFeels) elHeroFeels.textContent = `${Math.round(cur.apparent_temperature)}°C`;
+
+  const max0 = daily.temperature_2m_max ? Math.round(daily.temperature_2m_max[0]) : '--';
+  const min0 = daily.temperature_2m_min ? Math.round(daily.temperature_2m_min[0]) : '--';
+  const elHeroRange = document.getElementById('weatherHeroRange');
+  if (elHeroRange) elHeroRange.textContent = `${min0}° / ${max0}°`;
+
+  const precip0 = daily.precipitation_probability_max ? daily.precipitation_probability_max[0] : 0;
+  const elHeroPrecip = document.getElementById('weatherHeroPrecip');
+  if (elHeroPrecip) elHeroPrecip.textContent = `${precip0}%`;
+
+  const elHeroPressure = document.getElementById('weatherHeroPressure');
+  if (elHeroPressure) elHeroPressure.textContent = `${Math.round(cur.surface_pressure || 1012)} hPa`;
+
+  // Telemetry 4-cards
+  const humInfo = hitungStatusLembab(cur.relative_humidity_2m);
+  const elValHumidity = document.getElementById('weatherValHumidity');
+  if (elValHumidity) elValHumidity.textContent = `${Math.round(cur.relative_humidity_2m)}%`;
+  const elBadgeHumidity = document.getElementById('weatherBadgeHumidity');
+  if (elBadgeHumidity) elBadgeHumidity.textContent = humInfo.badge;
+  const elBarHumidity = document.getElementById('weatherBarHumidity');
+  if (elBarHumidity) elBarHumidity.style.width = `${Math.min(100, Math.round(cur.relative_humidity_2m))}%`;
+  const elSubHumidity = document.getElementById('weatherSubHumidity');
+  if (elSubHumidity) elSubHumidity.textContent = humInfo.text;
+
+  const windDirStr = hitungArahMataAngin(cur.wind_direction_10m);
+  const elValWind = document.getElementById('weatherValWind');
+  if (elValWind) elValWind.textContent = `${Math.round(cur.wind_speed_10m)} km/h`;
+  const elBadgeWind = document.getElementById('weatherBadgeWind');
+  if (elBadgeWind) elBadgeWind.textContent = cur.wind_speed_10m > 25 ? 'Kencang' : 'Normal';
+  const elSubWind = document.getElementById('weatherSubWind');
+  if (elSubWind) elSubWind.textContent = `Arah: ${windDirStr}`;
+
+  const uvVal = daily.uv_index_max ? daily.uv_index_max[0] : 0;
+  const uvInfo = hitungStatusUV(uvVal);
+  const elValUV = document.getElementById('weatherValUV');
+  if (elValUV) elValUV.textContent = `${uvVal}`;
+  const elBadgeUV = document.getElementById('weatherBadgeUV');
+  if (elBadgeUV) elBadgeUV.textContent = uvInfo.badge;
+  const elBarUV = document.getElementById('weatherBarUV');
+  if (elBarUV) elBarUV.style.width = `${uvInfo.pct}%`;
+  const elSubUV = document.getElementById('weatherSubUV');
+  if (elSubUV) elSubUV.textContent = uvInfo.text;
+
+  const rainSum = cur.precipitation || 0;
+  const elValRainSum = document.getElementById('weatherValRainSum');
+  if (elValRainSum) elValRainSum.textContent = `${rainSum.toFixed(1)} mm`;
+  const elBadgeRain = document.getElementById('weatherBadgeRain');
+  if (elBadgeRain) elBadgeRain.textContent = rainSum > 0 ? 'Ada Hujan' : 'Kering';
+
+  // 24h Hourly Forecast
+  const hourlySlider = document.getElementById('weatherHourlySlider');
+  if (hourlySlider && hourly.time && hourly.time.length) {
+    const curHourIso = (cur.time || '').slice(0, 13);
+    let startIdx = hourly.time.findIndex(t => t.startsWith(curHourIso));
+    if (startIdx < 0) startIdx = 0;
+
+    let hourlyHtml = '';
+    for (let i = startIdx; i < Math.min(startIdx + 24, hourly.time.length); i++) {
+      const isNow = i === startIdx;
+      const tIso = hourly.time[i];
+      const hourLabel = isNow ? 'Sekarang' : (tIso.split('T')[1] || '').slice(0, 5);
+      const tempVal = Math.round(hourly.temperature_2m[i]);
+      const wCode = hourly.weather_code[i];
+      const pProb = hourly.precipitation_probability ? hourly.precipitation_probability[i] : 0;
+      const hIsDay = parseInt((tIso.split('T')[1] || '12').slice(0, 2), 10) >= 6 && parseInt((tIso.split('T')[1] || '12').slice(0, 2), 10) < 18 ? 1 : 0;
+
+      hourlyHtml += `
+        <div class="weather-hour-col ${isNow ? 'now' : ''}">
+          <span class="weather-hour-time">${hourLabel}</span>
+          <div style="display:flex; justify-content:center; height:24px;">${getIconSvgCuaca(wCode, hIsDay, 20)}</div>
+          <span class="weather-hour-temp">${tempVal}°</span>
+          <span class="weather-hour-precip">💧 ${pProb}%</span>
+        </div>`;
+    }
+    hourlySlider.innerHTML = hourlyHtml;
+  }
+
+  // 7-Day Forecast List
+  const dailyList = document.getElementById('weatherDailyList');
+  if (dailyList && daily.time && daily.time.length) {
+    let dailyHtml = '';
+    const namaHariList = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+
+    for (let i = 0; i < daily.time.length; i++) {
+      const dStr = daily.time[i];
+      let dayName = i === 0 ? 'Hari ini' : (i === 1 ? 'Besok' : '');
+      if (!dayName) {
+        const dObj = new Date(dStr + 'T00:00:00');
+        dayName = namaHariList[dObj.getDay()] || dStr;
+      }
+
+      const wCode = daily.weather_code[i];
+      const minT = Math.round(daily.temperature_2m_min[i]);
+      const maxT = Math.round(daily.temperature_2m_max[i]);
+      const pMax = daily.precipitation_probability_max ? daily.precipitation_probability_max[i] : 0;
+      const labelW = getDeskripsiCuaca(wCode);
+
+      dailyHtml += `
+        <div class="weather-day-row">
+          <div class="weather-day-name">${dayName}</div>
+          <div class="weather-day-cond-wrap">
+            ${getIconSvgCuaca(wCode, 1, 16)}
+            <span style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${labelW}</span>
+          </div>
+          <div class="weather-day-temp-range">
+            <span style="color:#94a3b8;">${minT}°</span>
+            <div class="weather-day-bar-wrap">
+              <div class="weather-day-bar-fill" style="left:10%; right:10%;"></div>
+            </div>
+            <span style="color:#f8fafc; font-weight:600;">${maxT}°</span>
+          </div>
+          <div class="weather-day-precip-col">💧 ${pMax}%</div>
+        </div>`;
+    }
+    dailyList.innerHTML = dailyHtml;
+  }
+
+  // AI Assistant Advice
+  const adviceEl = document.getElementById('weatherAiAdviceTxt');
+  if (adviceEl) {
+    let advice = `Kondisi di ${loc.name} saat ini ${getDeskripsiCuaca(cur.weather_code)} (${Math.round(cur.temperature_2m)}°C). `;
+    if (precip0 >= 50) {
+      advice += `Peluang hujan tinggi (${precip0}%). Sebaiknya siapkan payung atau jas hujan jika bepergian. `;
+    } else {
+      advice += `Cuaca cenderung bersahabat dengan peluang hujan ${precip0}%. `;
+    }
+    if (uvVal >= 6) {
+      advice += `Indeks UV tergolong tinggi (${uvVal}), gunakan pelindung sinar matahari. `;
+    }
+    advice += `Kelembaban udara saat ini ${Math.round(cur.relative_humidity_2m)}% (${humInfo.text}).`;
+    adviceEl.textContent = advice;
+  }
+}
+
+function bukaWeatherModal() {
+  const backdrop = document.getElementById('weatherModalBackdrop');
+  const panel = document.getElementById('weatherModalPanel');
+  if (!backdrop || !panel) return;
+
+  // Highlight active city chip
+  const loc = getSavedWeatherLocation();
+  const chips = document.querySelectorAll('.weather-chip');
+  chips.forEach(chip => {
+    if (chip.getAttribute('data-name') === loc.name) chip.classList.add('active');
+    else chip.classList.remove('active');
+  });
+
+  backdrop.classList.add('visible');
+  panel.classList.add('visible');
+  updateCuaca(false);
+}
+
+function tutupWeatherModal() {
+  const backdrop = document.getElementById('weatherModalBackdrop');
+  const panel = document.getElementById('weatherModalPanel');
+  if (backdrop) backdrop.classList.remove('visible');
+  if (panel) panel.classList.remove('visible');
+  const cityTray = document.getElementById('weatherCityTray');
+  if (cityTray) cityTray.style.display = 'none';
+}
+
+function bicaraRingkasanCuaca() {
+  if (!_weatherDataCache || !_weatherDataCache.current) {
+    if (typeof ucapkanDiBrowser === 'function') {
+      ucapkanDiBrowser('Data cuaca sedang dimuat, mohon tunggu sebentar.');
+    }
+    return;
+  }
+  const cur = _weatherDataCache.current;
+  const loc = getSavedWeatherLocation();
+  const cond = getDeskripsiCuaca(cur.weather_code);
+  const temp = Math.round(cur.temperature_2m);
+  const feels = Math.round(cur.apparent_temperature);
+  const daily = _weatherDataCache.daily || {};
+  const precip = daily.precipitation_probability_max ? daily.precipitation_probability_max[0] : 0;
+
+  let kalimat = `Laporan cuaca untuk ${loc.name}. Saat ini ${cond}, suhu ${temp} derajat celcius, terasa seperti ${feels} derajat. Peluang hujan hari ini ${precip} persen.`;
+  if (typeof ucapkanDiBrowser === 'function') {
+    ucapkanDiBrowser(kalimat);
+  }
+}
+
+// Inisialisasi Event Listener Weather Dashboard
+(() => {
+  const elCuacaPill = document.getElementById('txtCuaca');
+  if (elCuacaPill) {
+    elCuacaPill.addEventListener('click', bukaWeatherModal);
+  }
+
+  const btnCuacaRadar = document.getElementById('btnCuacaRadar');
+  if (btnCuacaRadar) {
+    btnCuacaRadar.addEventListener('click', () => {
+      const panelDrawer = document.querySelector('.top-right');
+      if (panelDrawer && panelDrawer.classList.contains('drawer-aktif')) {
+        const btnDrawer = document.getElementById('btnDrawer');
+        const backdropDrawer = document.getElementById('drawerBackdrop');
+        if (btnDrawer) btnDrawer.classList.remove('aktif');
+        if (backdropDrawer) backdropDrawer.classList.remove('aktif');
+        panelDrawer.classList.remove('drawer-aktif');
+      }
+      bukaWeatherModal();
+    });
+  }
+
+  const btnClose = document.getElementById('btnTutupWeatherModal');
+  if (btnClose) btnClose.addEventListener('click', tutupWeatherModal);
+
+  const backdrop = document.getElementById('weatherModalBackdrop');
+  if (backdrop) backdrop.addEventListener('click', tutupWeatherModal);
+
+  const btnRefresh = document.getElementById('btnWeatherRefresh');
+  if (btnRefresh) {
+    btnRefresh.addEventListener('click', () => {
+      btnRefresh.style.transform = 'rotate(360deg)';
+      updateCuaca(true);
+      setTimeout(() => { btnRefresh.style.transform = 'none'; }, 600);
+    });
+  }
+
+  const btnToggleCity = document.getElementById('btnToggleCityPicker');
+  const cityTray = document.getElementById('weatherCityTray');
+  if (btnToggleCity && cityTray) {
+    btnToggleCity.addEventListener('click', () => {
+      cityTray.style.display = cityTray.style.display === 'none' ? 'block' : 'none';
+    });
+  }
+
+  // City chips
+  const chips = document.querySelectorAll('.weather-chip');
+  chips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      chips.forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      const name = chip.getAttribute('data-name');
+      const lat = parseFloat(chip.getAttribute('data-lat'));
+      const lon = parseFloat(chip.getAttribute('data-lon'));
+      saveWeatherLocation(name, lat, lon);
+      cityTray.style.display = 'none';
+      updateCuaca(true);
+    });
+  });
+
+  // GPS Auto Button
+  const btnGPS = document.getElementById('btnWeatherGPS');
+  if (btnGPS) {
+    btnGPS.addEventListener('click', () => {
+      if (!('geolocation' in navigator)) {
+        alert('Browser ini tidak mendukung GPS Geolocation.');
+        return;
+      }
+      btnGPS.textContent = '📍 Mendeteksi...';
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          btnGPS.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M2 12h20"/><circle cx="12" cy="12" r="7"/></svg><span>GPS Auto</span>';
+          const lat = pos.coords.latitude;
+          const lon = pos.coords.longitude;
+          saveWeatherLocation('Lokasi GPS Anda', lat, lon);
+          updateCuaca(true);
+        },
+        (err) => {
+          btnGPS.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M2 12h20"/><circle cx="12" cy="12" r="7"/></svg><span>GPS Auto</span>';
+          alert('Gagal mendapatkan lokasi GPS: ' + (err.message || 'Izin ditolak'));
+        },
+        { timeout: 10000, enableHighAccuracy: true }
+      );
+    });
+  }
+
+  const btnSpeak = document.getElementById('btnWeatherSpeak');
+  if (btnSpeak) {
+    btnSpeak.addEventListener('click', bicaraRingkasanCuaca);
+  }
+
+  // Esc key to close
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      const panel = document.getElementById('weatherModalPanel');
+      if (panel && panel.classList.contains('visible')) {
+        tutupWeatherModal();
+      }
+    }
+  });
+})();
+
+// Panggil sekali saat buka
 updateCuaca();
 // (interval cuaca dipindah ke _mulaiPolling di bawah, supaya ikut pause saat tab hidden)
 
