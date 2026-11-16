@@ -6808,6 +6808,350 @@ html.perf-lite .guide-body { contain: content; }
     color: #f1f5f9;
   }
 
+  /* ============================================================
+     AURA NEXT GEN: ACC (AURA CONTROL CENTER) STYLES
+     ============================================================ */
+  .acc-modal-backdrop {
+    position: fixed !important;
+    inset: 0 !important;
+    background: rgba(4, 6, 12, 0.65) !important;
+    backdrop-filter: blur(14px) !important;
+    -webkit-backdrop-filter: blur(14px) !important;
+    z-index: 38 !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    transition: opacity 0.25s ease !important;
+  }
+  .acc-modal-backdrop.visible {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+  }
+  .acc-modal-panel {
+    position: fixed !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) scale(0.96) !important;
+    width: min(560px, calc(100vw - 24px)) !important;
+    max-height: min(88vh, 740px) !important;
+    padding: 22px 24px !important;
+    border-radius: 24px !important;
+    background: rgba(13, 16, 26, 0.94) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    backdrop-filter: blur(36px) saturate(150%) !important;
+    -webkit-backdrop-filter: blur(36px) saturate(150%) !important;
+    box-shadow: 0 32px 80px -16px rgba(0, 0, 0, 0.95), inset 0 1px 0 rgba(255, 255, 255, 0.12) !important;
+    z-index: 39 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    transition: opacity 0.24s ease, transform 0.28s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    box-sizing: border-box !important;
+  }
+  .acc-modal-panel.visible {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    transform: translate(-50%, -50%) scale(1) !important;
+  }
+  .acc-scroll-body {
+    overflow-y: auto;
+    max-height: calc(88vh - 120px);
+    padding-right: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 14px;
+  }
+  .acc-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 16px;
+    position: relative;
+    overflow: hidden;
+  }
+  .acc-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+  }
+  .acc-card-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: #f1f5f9;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .acc-card-badge {
+    font-size: 10px;
+    padding: 2px 7px;
+    border-radius: 9999px;
+    background: rgba(93, 202, 165, 0.12);
+    color: #5DCAA5;
+    border: 1px solid rgba(93, 202, 165, 0.25);
+  }
+
+  /* SERVO SECTION */
+  .acc-servo-dial-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 0;
+  }
+  .acc-servo-readout {
+    font-size: 34px;
+    font-weight: 700;
+    color: #38bdf8;
+    text-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.02em;
+    display: flex;
+    align-items: baseline;
+    gap: 2px;
+  }
+  .acc-servo-readout small {
+    font-size: 16px;
+    font-weight: 500;
+    color: #94a3b8;
+  }
+  .acc-servo-sub {
+    font-size: 11px;
+    color: #64748b;
+    margin-top: 2px;
+  }
+  .acc-servo-slider-wrap {
+    margin-top: 14px;
+    width: 100%;
+  }
+  .acc-slider {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 8px;
+    border-radius: 4px;
+    background: linear-gradient(90deg, #38bdf8, #5DCAA5, #f59e0b);
+    outline: none;
+    cursor: pointer;
+  }
+  .acc-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #ffffff;
+    border: 2px solid #0284c7;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.6), 0 0 12px rgba(56, 189, 248, 0.6);
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .acc-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.15);
+    box-shadow: 0 2px 14px rgba(0, 0, 0, 0.7), 0 0 18px rgba(56, 189, 248, 0.9);
+  }
+  .acc-slider::-moz-range-thumb {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #ffffff;
+    border: 2px solid #0284c7;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.6), 0 0 12px rgba(56, 189, 248, 0.6);
+    cursor: pointer;
+  }
+  .acc-presets-row {
+    display: flex;
+    gap: 6px;
+    justify-content: space-between;
+    margin-top: 12px;
+  }
+  .acc-preset-btn {
+    flex: 1;
+    padding: 5px 4px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    color: #cbd5e1;
+    font-size: 11px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+  .acc-preset-btn:hover {
+    background: rgba(56, 189, 248, 0.15);
+    border-color: rgba(56, 189, 248, 0.35);
+    color: #38bdf8;
+  }
+  .acc-preset-btn.active {
+    background: rgba(56, 189, 248, 0.22);
+    border-color: #38bdf8;
+    color: #ffffff;
+    box-shadow: 0 0 10px rgba(56, 189, 248, 0.25);
+  }
+  .acc-sweep-btn {
+    width: 100%;
+    margin-top: 10px;
+    padding: 7px 12px;
+    border-radius: 9px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: #94a3b8;
+    font-size: 11.5px;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    transition: all 0.2s ease;
+  }
+  .acc-sweep-btn:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: #e2e8f0;
+  }
+  .acc-sweep-btn.active {
+    background: rgba(245, 158, 11, 0.16);
+    border-color: rgba(245, 158, 11, 0.4);
+    color: #fbbf24;
+    box-shadow: 0 0 14px rgba(245, 158, 11, 0.2);
+  }
+
+  /* RELAY MATRIX (4 CHANNELS) */
+  .acc-relays-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  .acc-relay-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 10px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+  }
+  .acc-relay-card:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.15);
+  }
+  .acc-relay-card.active {
+    background: rgba(93, 202, 165, 0.08);
+    border-color: rgba(93, 202, 165, 0.35);
+    box-shadow: 0 0 20px -4px rgba(93, 202, 165, 0.25);
+  }
+  .acc-relay-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .acc-relay-icon-wrap {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #94a3b8;
+    transition: all 0.2s ease;
+  }
+  .acc-relay-card.active .acc-relay-icon-wrap {
+    background: rgba(93, 202, 165, 0.2);
+    color: #5DCAA5;
+  }
+  .acc-fan-spin {
+    animation: acc-fan-rotating 1.2s linear infinite;
+  }
+  @keyframes acc-fan-rotating {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  .acc-toggle-switch {
+    position: relative;
+    width: 38px;
+    height: 20px;
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 9999px;
+    transition: background 0.2s ease;
+  }
+  .acc-relay-card.active .acc-toggle-switch {
+    background: #10b981;
+  }
+  .acc-toggle-switch-thumb {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .acc-relay-card.active .acc-toggle-switch-thumb {
+    transform: translateX(18px);
+  }
+  .acc-relay-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .acc-relay-name {
+    font-size: 12px;
+    font-weight: 600;
+    color: #e2e8f0;
+  }
+  .acc-relay-meta {
+    font-size: 9.5px;
+    color: #64748b;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .acc-relay-state-lbl {
+    font-weight: 600;
+  }
+  .acc-relay-card.active .acc-relay-state-lbl {
+    color: #5DCAA5;
+  }
+
+  .acc-master-row {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+  }
+  .acc-master-btn {
+    flex: 1;
+    padding: 6px 10px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    color: #cbd5e1;
+    font-size: 11px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.18s ease;
+  }
+  .acc-master-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+  }
+  .acc-master-btn.btn-all-on:hover {
+    background: rgba(93, 202, 165, 0.15);
+    border-color: rgba(93, 202, 165, 0.35);
+    color: #5DCAA5;
+  }
+  .acc-master-btn.btn-all-off:hover {
+    background: rgba(239, 68, 68, 0.15);
+    border-color: rgba(239, 68, 68, 0.35);
+    color: #f87171;
+  }
+
 </style>
 </head>
 <body>
@@ -7031,6 +7375,19 @@ html.perf-lite .guide-body { contain: content; }
               <path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/>
             </svg>
             <span id="txtApiKeyStatus">Configure</span>
+          </button>
+        </div>
+
+        <div class="control-row">
+          <span class="control-label">ACC</span>
+          <button type="button" class="toggle-btn" id="btnOpenAccModal" title="Buka AURA Control Center (Servo & Relay)" style="flex:1; padding: 3.5px 8px; font-size: 11px; display:inline-flex; align-items:center; justify-content:center; gap:5px; background:rgba(56, 189, 248, 0.1); border-color:rgba(56, 189, 248, 0.25); color:#38bdf8;">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="2" width="20" height="8" rx="2" ry="2"/>
+              <rect x="2" y="14" width="20" height="8" rx="2" ry="2"/>
+              <line x1="6" y1="6" x2="6.01" y2="6"/>
+              <line x1="6" y1="18" x2="6.01" y2="18"/>
+            </svg>
+            <span>Control Center</span>
           </button>
         </div>
       </div>
@@ -7588,6 +7945,192 @@ html.perf-lite .guide-body { contain: content; }
 
     <div class="apps-grid" id="appsLauncherGrid">
       <!-- Grid items rendered dynamically in JS -->
+    </div>
+  </div>
+
+  <!-- ==========================================
+       AURA NEXT GEN: ACC (AURA CONTROL CENTER) MODAL
+       ========================================== -->
+  <div class="acc-modal-backdrop" id="accModalBackdrop"></div>
+  <div class="acc-modal-panel glass" id="accModalPanel" role="dialog" aria-labelledby="accModalTitle">
+    <!-- Header -->
+    <div style="display:flex; align-items:center; justify-content:space-between; padding-bottom:12px; border-bottom:1px solid rgba(255,255,255,0.08);">
+      <div style="display:flex; align-items:center; gap:10px;">
+        <div style="width:36px; height:36px; border-radius:10px; display:flex; align-items:center; justify-content:center; background:rgba(56,189,248,0.15); border:1px solid rgba(56,189,248,0.3); color:#38bdf8;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="8" rx="2" ry="2"/>
+            <rect x="2" y="14" width="20" height="8" rx="2" ry="2"/>
+            <line x1="6" y1="6" x2="6.01" y2="6"/>
+            <line x1="6" y1="18" x2="6.01" y2="18"/>
+          </svg>
+        </div>
+        <div>
+          <div style="display:flex; align-items:center; gap:8px;">
+            <h3 id="accModalTitle" style="margin:0; font-size:14px; font-weight:600; color:#f8fafc;">AURA Control Center</h3>
+            <span class="acc-card-badge" id="accSyncBadge">Firebase Live</span>
+          </div>
+          <span style="font-size:10.5px; color:#94a3b8;">Kendali Servo Motor &amp; 4-Channel Relays ESP32</span>
+        </div>
+      </div>
+      <button type="button" class="clear-btn" id="btnTutupAccModal">Close</button>
+    </div>
+
+    <!-- Scroll Body -->
+    <div class="acc-scroll-body">
+      <!-- 1. SERVO MOTOR CONTROLLER CARD -->
+      <div class="acc-card">
+        <div class="acc-card-header">
+          <div class="acc-card-title">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:#38bdf8;">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="12" y1="12" x2="12" y2="6"/>
+              <line x1="12" y1="12" x2="16" y2="14"/>
+            </svg>
+            <span>Servo Motor (Pin GPIO 18)</span>
+          </div>
+          <span id="txtServoPosDesc" style="font-size:10.5px; color:#5DCAA5; font-weight:500;">90° (Tengah)</span>
+        </div>
+
+        <div class="acc-servo-dial-area">
+          <div class="acc-servo-readout">
+            <span id="txtServoAngleVal">90</span><small>°</small>
+          </div>
+          <div class="acc-servo-sub" id="txtServoSub">Rentang gerak 0° - 180°</div>
+        </div>
+
+        <div class="acc-servo-slider-wrap">
+          <input type="range" class="acc-slider" id="rngServoAngle" min="0" max="180" value="90" step="1">
+        </div>
+
+        <div class="acc-presets-row">
+          <button type="button" class="acc-preset-btn" data-angle="0">0° Min</button>
+          <button type="button" class="acc-preset-btn" data-angle="45">45°</button>
+          <button type="button" class="acc-preset-btn active" data-angle="90">90° Mid</button>
+          <button type="button" class="acc-preset-btn" data-angle="135">135°</button>
+          <button type="button" class="acc-preset-btn" data-angle="180">180° Max</button>
+        </div>
+
+        <button type="button" class="acc-sweep-btn" id="btnAccSweep">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/>
+          </svg>
+          <span id="txtSweepBtnLabel">Auto-Sweep Patrol: OFF</span>
+        </button>
+      </div>
+
+      <!-- 2. RELAY & SWITCH MATRIX CARD -->
+      <div class="acc-card">
+        <div class="acc-card-header">
+          <div class="acc-card-title">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:#5DCAA5;">
+              <path d="M18.36 6.64a9 9 0 1 1-12.73 0"/>
+              <line x1="12" y1="2" x2="12" y2="12"/>
+            </svg>
+            <span>Relay Matrix (4 Channel Switches)</span>
+          </div>
+          <span style="font-size:10px; color:#94a3b8;">GPIO 25, 27, 5, 15</span>
+        </div>
+
+        <div class="acc-relays-grid">
+          <!-- RELAY 1: LAMPU -->
+          <div class="acc-relay-card" id="cardRelay1" data-relay="r1">
+            <div class="acc-relay-top">
+              <div class="acc-relay-icon-wrap" id="iconWrapRelay1">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M9 18h6"/>
+                  <path d="M10 22h4"/>
+                  <path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"/>
+                </svg>
+              </div>
+              <div class="acc-toggle-switch">
+                <div class="acc-toggle-switch-thumb"></div>
+              </div>
+            </div>
+            <div class="acc-relay-info">
+              <span class="acc-relay-name" id="nameRelay1">Lampu Utama</span>
+              <div class="acc-relay-meta">
+                <span>CH 1 (GPIO 25)</span>
+                <span class="acc-relay-state-lbl" id="lblStateRelay1">OFF</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- RELAY 2: KIPAS -->
+          <div class="acc-relay-card" id="cardRelay2" data-relay="r2">
+            <div class="acc-relay-top">
+              <div class="acc-relay-icon-wrap" id="iconWrapRelay2">
+                <svg id="svgFanRelay2" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 12c-2.5-3.5-6-3.5-7 0 1 3.5 4.5 3.5 7 0Z"/>
+                  <path d="M12 12c3.5-2.5 3.5-6 0-7-3.5 1-3.5 4.5 0 7Z"/>
+                  <path d="M12 12c2.5 3.5 6 3.5 7 0-1-3.5-4.5-3.5-7 0Z"/>
+                  <path d="M12 12c-3.5 2.5-3.5 6 0 7 3.5-1 3.5-4.5 0-7Z"/>
+                  <circle cx="12" cy="12" r="2"/>
+                </svg>
+              </div>
+              <div class="acc-toggle-switch">
+                <div class="acc-toggle-switch-thumb"></div>
+              </div>
+            </div>
+            <div class="acc-relay-info">
+              <span class="acc-relay-name" id="nameRelay2">Kipas Angin</span>
+              <div class="acc-relay-meta">
+                <span>CH 2 (GPIO 27)</span>
+                <span class="acc-relay-state-lbl" id="lblStateRelay2">OFF</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- RELAY 3: STOP KONTAK -->
+          <div class="acc-relay-card" id="cardRelay3" data-relay="r3">
+            <div class="acc-relay-top">
+              <div class="acc-relay-icon-wrap" id="iconWrapRelay3">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M18 6v4"/>
+                  <path d="M6 6v4"/>
+                  <rect x="4" y="10" width="16" height="8" rx="2"/>
+                  <line x1="12" y1="18" x2="12" y2="22"/>
+                </svg>
+              </div>
+              <div class="acc-toggle-switch">
+                <div class="acc-toggle-switch-thumb"></div>
+              </div>
+            </div>
+            <div class="acc-relay-info">
+              <span class="acc-relay-name" id="nameRelay3">Power Socket</span>
+              <div class="acc-relay-meta">
+                <span>CH 3 (GPIO 5)</span>
+                <span class="acc-relay-state-lbl" id="lblStateRelay3">OFF</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- RELAY 4: AKSESORI -->
+          <div class="acc-relay-card" id="cardRelay4" data-relay="r4">
+            <div class="acc-relay-top">
+              <div class="acc-relay-icon-wrap" id="iconWrapRelay4">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+                </svg>
+              </div>
+              <div class="acc-toggle-switch">
+                <div class="acc-toggle-switch-thumb"></div>
+              </div>
+            </div>
+            <div class="acc-relay-info">
+              <span class="acc-relay-name" id="nameRelay4">Aksesori Pompa</span>
+              <div class="acc-relay-meta">
+                <span>CH 4 (GPIO 15)</span>
+                <span class="acc-relay-state-lbl" id="lblStateRelay4">OFF</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-master-row">
+          <button type="button" class="acc-master-btn btn-all-on" id="btnRelayAllOn">⚡ Semua Nyala (ALL ON)</button>
+          <button type="button" class="acc-master-btn btn-all-off" id="btnRelayAllOff">⚪ Semua Mati (ALL OFF)</button>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -9323,6 +9866,53 @@ async function kirimPertanyaan() {
 
       ekspresiTerkunci = false;
       kembaliKeDefault(2800);
+      sedangMenunggu = false;
+      btnKirim.classList.remove('loading');
+      inpTanya.disabled = false;
+      inpTanya.focus();
+      return;
+    }
+
+    // AURA NEXT GEN: ACC (AURA Control Center) Hardware Intent Intercept
+    const accIntent = typeof deteksiIntentACC === 'function' ? deteksiIntentACC(teks) : null;
+    if (accIntent) {
+      let balas = '';
+      if (accIntent.tipe === 'buka_modal') {
+        if (typeof bukaAccModal === 'function') bukaAccModal();
+        balas = 'Membuka panel AURA Control Center (ACC) untuk kendali servo dan relay hardware.';
+      } else if (accIntent.tipe === 'servo_angle') {
+        if (typeof simpanServoKeFirebase === 'function') simpanServoKeFirebase(accIntent.angle);
+        balas = `Servo motor berhasil diarahkan ke sudut ${accIntent.angle}°.`;
+      } else if (accIntent.tipe === 'servo_sweep') {
+        if (typeof simpanServoKeFirebase === 'function') simpanServoKeFirebase(_accState.servo.angle, true);
+        balas = 'Mode Auto-Sweep Patrol servo diaktifkan (bolak-balik otomatis).';
+      } else if (accIntent.tipe === 'relay_single') {
+        if (typeof setRelayAccSingle === 'function') {
+          setRelayAccSingle(accIntent.key, accIntent.state);
+        }
+        balas = `${accIntent.name} berhasil ${accIntent.state ? 'dinyalakan (ON)' : 'dimatikan (OFF)'}.`;
+      } else if (accIntent.tipe === 'relay_all') {
+        if (typeof setSemuaRelayAcc === 'function') setSemuaRelayAcc(accIntent.state);
+        balas = `Semua relay dan perangkat berhasil ${accIntent.state ? 'dinyalakan (ALL ON)' : 'dimatikan (ALL OFF)'}.`;
+      }
+
+      auraMsg.classList.remove('loading');
+      pasangBadgeMode(auraMsg, 'local', 'Hardware ACC');
+
+      const itemDirect = { tanya: teks, jawab: balas, mode: 'local', waktu: Date.now() };
+      riwayat.push(itemDirect);
+      simpanRiwayatKeStorage();
+      tambahRiwayatKeServer(itemDirect);
+
+      auraMsg.innerHTML = `<div class="msg-body"><p>${balas}</p></div>`;
+      log.scrollTop = log.scrollHeight;
+
+      if (typeof ucapkanDiBrowser === 'function') {
+        ucapkanDiBrowser(balas);
+      }
+
+      ekspresiTerkunci = false;
+      kembaliKeDefault(2600);
       sedangMenunggu = false;
       btnKirim.classList.remove('loading');
       inpTanya.disabled = false;
@@ -11285,6 +11875,8 @@ function getAppSvgIcon(iconType, size = 20) {
       return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="#EE4D2D" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>`;
     case 'tokopedia':
       return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="#03AC0E" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><circle cx="9" cy="11" r="2"/><circle cx="15" cy="11" r="2"/></svg>`;
+    case 'acc':
+      return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>`;
     default:
       return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="#5DCAA5" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>`;
   }
@@ -11532,6 +12124,7 @@ function buatAppCardHtml(appInfo) {
 
 // Preset Daftar Aplikasi untuk Quick Launcher Modal
 const PRESET_APPS_LIST = [
+  { name: 'Control Center', icon: 'acc', badge: 'Hardware', color: '#38bdf8', isInternal: true, action: 'acc' },
   { name: 'Netflix', icon: 'netflix', badge: 'Streaming', color: '#E50914', searchUrl: 'https://www.netflix.com/search?q=', homeUrl: 'https://www.netflix.com' },
   { name: 'YouTube', icon: 'youtube', badge: 'Video', color: '#FF0000', searchUrl: 'https://www.youtube.com/results?search_query=', homeUrl: 'https://www.youtube.com' },
   { name: 'Spotify', icon: 'spotify', badge: 'Musik', color: '#1DB954', searchUrl: 'https://open.spotify.com/search/', homeUrl: 'https://open.spotify.com' },
@@ -11598,6 +12191,12 @@ function tutupQuickAppsModal() {
       const idx = parseInt(item.getAttribute('data-idx'), 10);
       const app = PRESET_APPS_LIST[idx];
       if (!app) return;
+
+      if (app.isInternal && app.action === 'acc') {
+        tutupQuickAppsModal();
+        if (typeof bukaAccModal === 'function') bukaAccModal();
+        return;
+      }
 
       const inp = document.getElementById('inpAppSearchQuery');
       const q = inp ? inp.value.trim() : '';
@@ -12325,7 +12924,359 @@ if (_btnPerf) {
   // Sembunyiin pas keluar window
   document.documentElement.addEventListener('mouseleave', () => { el.classList.add('is-away'); });
   document.documentElement.addEventListener('mouseenter', () => { el.classList.remove('is-away'); });
-})()
+})();
+
+/* ============================================================
+   AURA NEXT GEN: ACC (AURA CONTROL CENTER) CONTROLLER
+   - Servo Motor Smooth Slider (0° - 180°) & Presets
+   - 4-Channel Relays / GPIO Switches with Live Feedback
+   - Auto-Sweep Patrol Mode
+   - Realtime Firebase Sync (/acc.json)
+   - Chat & Voice Intent Handler
+   ============================================================ */
+let _accState = {
+  servo: {
+    angle: 90,
+    sweep: false,
+    updatedAt: Date.now()
+  },
+  relays: {
+    r1: false,
+    r2: false,
+    r3: false,
+    r4: false,
+    updatedAt: Date.now()
+  },
+  names: {
+    r1: 'Lampu Utama',
+    r2: 'Kipas Angin',
+    r3: 'Power Socket',
+    r4: 'Aksesori Pompa'
+  }
+};
+
+let _accDebounceTimer = null;
+let _accSyncInterval = null;
+
+function bukaAccModal() {
+  const backdrop = document.getElementById('accModalBackdrop');
+  const panel = document.getElementById('accModalPanel');
+  if (!backdrop || !panel) return;
+
+  sinkronAccDariFirebase();
+  backdrop.classList.add('visible');
+  panel.classList.add('visible');
+
+  if (!_accSyncInterval) {
+    _accSyncInterval = setInterval(sinkronAccDariFirebase, 2000);
+  }
+}
+
+function tutupAccModal() {
+  const backdrop = document.getElementById('accModalBackdrop');
+  const panel = document.getElementById('accModalPanel');
+  if (backdrop) backdrop.classList.remove('visible');
+  if (panel) panel.classList.remove('visible');
+
+  if (_accSyncInterval) {
+    clearInterval(_accSyncInterval);
+    _accSyncInterval = null;
+  }
+}
+
+function updateAccUI() {
+  const angle = typeof _accState.servo.angle === 'number' ? _accState.servo.angle : 90;
+  const txtVal = document.getElementById('txtServoAngleVal');
+  if (txtVal) txtVal.textContent = angle;
+
+  const slider = document.getElementById('rngServoAngle');
+  if (slider && parseInt(slider.value, 10) !== angle) {
+    slider.value = angle;
+  }
+
+  const desc = document.getElementById('txtServoPosDesc');
+  if (desc) {
+    let ket = 'Tengah';
+    if (angle <= 15) ket = 'Kiri Penuh (Min)';
+    else if (angle < 75) ket = 'Serong Kiri';
+    else if (angle <= 105) ket = 'Tengah (Center)';
+    else if (angle < 165) ket = 'Serong Kanan';
+    else ket = 'Kanan Penuh (Max)';
+    desc.textContent = `${angle}° (${ket})`;
+  }
+
+  document.querySelectorAll('.acc-preset-btn').forEach(btn => {
+    const a = parseInt(btn.getAttribute('data-angle'), 10);
+    btn.classList.toggle('active', a === angle);
+  });
+
+  const btnSweep = document.getElementById('btnAccSweep');
+  const lblSweep = document.getElementById('txtSweepBtnLabel');
+  if (btnSweep && lblSweep) {
+    const isSweep = !!_accState.servo.sweep;
+    btnSweep.classList.toggle('active', isSweep);
+    lblSweep.textContent = isSweep ? 'Auto-Sweep Patrol: ON (Aktif)' : 'Auto-Sweep Patrol: OFF';
+  }
+
+  ['r1', 'r2', 'r3', 'r4'].forEach((rKey, idx) => {
+    const card = document.getElementById(`cardRelay${idx + 1}`);
+    const lbl = document.getElementById(`lblStateRelay${idx + 1}`);
+    const isNyala = !!_accState.relays[rKey];
+
+    if (card) card.classList.toggle('active', isNyala);
+    if (lbl) lbl.textContent = isNyala ? 'ON' : 'OFF';
+
+    if (rKey === 'r2') {
+      const fanSvg = document.getElementById('svgFanRelay2');
+      if (fanSvg) fanSvg.classList.toggle('acc-fan-spin', isNyala);
+    }
+  });
+}
+
+function simpanServoKeFirebase(angle, sweep) {
+  _accState.servo.angle = Math.max(0, Math.min(180, angle));
+  if (sweep !== undefined) _accState.servo.sweep = sweep;
+  _accState.servo.updatedAt = Date.now();
+
+  updateAccUI();
+
+  const badge = document.getElementById('accSyncBadge');
+  if (badge) {
+    badge.textContent = 'Syncing...';
+    badge.style.color = '#38bdf8';
+  }
+
+  if (_accDebounceTimer) clearTimeout(_accDebounceTimer);
+  _accDebounceTimer = setTimeout(async () => {
+    try {
+      if (typeof FIREBASE_DB_URL !== 'undefined') {
+        await fetch(FIREBASE_DB_URL + '/acc/servo.json', {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            angle: _accState.servo.angle,
+            sweep: !!_accState.servo.sweep,
+            updatedAt: _accState.servo.updatedAt
+          })
+        });
+      }
+      if (badge) {
+        badge.textContent = 'Tersinkron';
+        badge.style.color = '#5DCAA5';
+        setTimeout(() => { if (badge) badge.textContent = 'Firebase Live'; }, 1500);
+      }
+    } catch (err) {
+      if (badge) {
+        badge.textContent = 'Gagal Sync';
+        badge.style.color = '#f87171';
+      }
+    }
+  }, 120);
+}
+
+async function toggleRelayAcc(relayKey) {
+  if (!_accState.relays) _accState.relays = {};
+  _accState.relays[relayKey] = !_accState.relays[relayKey];
+  _accState.relays.updatedAt = Date.now();
+
+  updateAccUI();
+  if (typeof getar === 'function') getar(30);
+
+  try {
+    if (typeof FIREBASE_DB_URL !== 'undefined') {
+      await fetch(FIREBASE_DB_URL + `/acc/relays/${relayKey}.json`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(_accState.relays[relayKey])
+      });
+    }
+  } catch (e) {}
+}
+
+async function setRelayAccSingle(relayKey, aktif) {
+  if (!_accState.relays) _accState.relays = {};
+  _accState.relays[relayKey] = !!aktif;
+  _accState.relays.updatedAt = Date.now();
+
+  updateAccUI();
+  if (typeof getar === 'function') getar(30);
+
+  try {
+    if (typeof FIREBASE_DB_URL !== 'undefined') {
+      await fetch(FIREBASE_DB_URL + `/acc/relays/${relayKey}.json`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(_accState.relays[relayKey])
+      });
+    }
+  } catch (e) {}
+}
+
+async function setSemuaRelayAcc(aktif) {
+  _accState.relays.r1 = !!aktif;
+  _accState.relays.r2 = !!aktif;
+  _accState.relays.r3 = !!aktif;
+  _accState.relays.r4 = !!aktif;
+  _accState.relays.updatedAt = Date.now();
+
+  updateAccUI();
+  if (typeof getar === 'function') getar([30, 40, 30]);
+
+  try {
+    if (typeof FIREBASE_DB_URL !== 'undefined') {
+      await fetch(FIREBASE_DB_URL + '/acc/relays.json', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(_accState.relays)
+      });
+    }
+  } catch (e) {}
+}
+
+async function sinkronAccDariFirebase() {
+  try {
+    if (typeof FIREBASE_DB_URL === 'undefined') return;
+    const res = await fetch(FIREBASE_DB_URL + '/acc.json', { signal: AbortSignal.timeout(3000) });
+    if (!res.ok) return;
+    const data = await res.json();
+    if (!data) return;
+
+    if (data.servo) {
+      if (typeof data.servo.angle === 'number') _accState.servo.angle = data.servo.angle;
+      if (typeof data.servo.sweep === 'boolean') _accState.servo.sweep = data.servo.sweep;
+    }
+    if (data.relays) {
+      if (typeof data.relays.r1 === 'boolean') _accState.relays.r1 = data.relays.r1;
+      if (typeof data.relays.r2 === 'boolean') _accState.relays.r2 = data.relays.r2;
+      if (typeof data.relays.r3 === 'boolean') _accState.relays.r3 = data.relays.r3;
+      if (typeof data.relays.r4 === 'boolean') _accState.relays.r4 = data.relays.r4;
+    }
+    updateAccUI();
+  } catch (e) {}
+}
+
+function deteksiIntentACC(teks) {
+  if (!teks) return null;
+  const t = teks.trim().toLowerCase();
+
+  // Buka Modal ACC
+  if (/^(?:buka\s+(?:acc|kontrol|control|pusat\s+kendali)|kontrol\s+center|control\s+center|panel\s+hardware)/i.test(t)) {
+    return { tipe: 'buka_modal' };
+  }
+
+  // Servo Commands
+  const mServo = t.match(/(?:servo|putar\s+servo|posisi\s+servo)\s+(?:ke\s+)?(\d{1,3})/i) ||
+                 t.match(/(\d{1,3})\s*(?:derajat|deg|°)\s*servo/i);
+  if (mServo) {
+    const deg = Math.min(180, Math.max(0, parseInt(mServo[1], 10)));
+    return { tipe: 'servo_angle', angle: deg };
+  }
+  if (/servo\s+(?:tengah|center|tengah-tengah)/i.test(t)) {
+    return { tipe: 'servo_angle', angle: 90 };
+  }
+  if (/servo\s+(?:mentok\s+kiri|kiri|min|minimal)/i.test(t)) {
+    return { tipe: 'servo_angle', angle: 0 };
+  }
+  if (/servo\s+(?:mentok\s+kanan|kanan|maks|maksimal|max)/i.test(t)) {
+    return { tipe: 'servo_angle', angle: 180 };
+  }
+  if (/(?:sweep\s+servo|patroli\s+servo|servo\s+bolak\s*balik)/i.test(t)) {
+    return { tipe: 'servo_sweep', sweep: true };
+  }
+
+  // Relay Commands
+  const isNyala = /(?:nyalakan|hidupkan|aktifkan|turn\s*on)\b/i.test(t);
+  const isMati  = /(?:matikan|padamkan|nonaktifkan|turn\s*off)\b/i.test(t);
+
+  if (isNyala || isMati) {
+    const targetState = isNyala;
+    if (/semua(?:\s+relay|\s+lampu)?/i.test(t)) {
+      return { tipe: 'relay_all', state: targetState };
+    }
+    if (/lampu/i.test(t) || /relay\s*1/i.test(t)) {
+      return { tipe: 'relay_single', key: 'r1', name: 'Lampu Utama', state: targetState };
+    }
+    if (/kipas/i.test(t) || /fan/i.test(t) || /relay\s*2/i.test(t)) {
+      return { tipe: 'relay_single', key: 'r2', name: 'Kipas Angin', state: targetState };
+    }
+    if (/stop\s*kontak|socket|colokan|steker/i.test(t) || /relay\s*3/i.test(t)) {
+      return { tipe: 'relay_single', key: 'r3', name: 'Power Socket', state: targetState };
+    }
+    if (/pompa|aksesori/i.test(t) || /relay\s*4/i.test(t)) {
+      return { tipe: 'relay_single', key: 'r4', name: 'Aksesori Pompa', state: targetState };
+    }
+  }
+
+  return null;
+}
+
+// Inisialisasi Event Listener ACC Modal
+(() => {
+  // Trigger di System Controls Drawer
+  const btnOpen = document.getElementById('btnOpenAccModal');
+  if (btnOpen) btnOpen.addEventListener('click', bukaAccModal);
+
+  // Close buttons & backdrop
+  const btnClose = document.getElementById('btnTutupAccModal');
+  if (btnClose) btnClose.addEventListener('click', tutupAccModal);
+
+  const backdrop = document.getElementById('accModalBackdrop');
+  if (backdrop) backdrop.addEventListener('click', tutupAccModal);
+
+  // Slider Servo
+  const slider = document.getElementById('rngServoAngle');
+  if (slider) {
+    slider.addEventListener('input', (e) => {
+      const val = parseInt(e.target.value, 10);
+      simpanServoKeFirebase(val, false);
+    });
+  }
+
+  // Presets Servo
+  document.querySelectorAll('.acc-preset-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const a = parseInt(btn.getAttribute('data-angle'), 10);
+      simpanServoKeFirebase(a, false);
+    });
+  });
+
+  // Auto-Sweep Toggle
+  const btnSweep = document.getElementById('btnAccSweep');
+  if (btnSweep) {
+    btnSweep.addEventListener('click', () => {
+      const nextSweep = !_accState.servo.sweep;
+      simpanServoKeFirebase(_accState.servo.angle, nextSweep);
+    });
+  }
+
+  // Relay Cards Toggle
+  ['r1', 'r2', 'r3', 'r4'].forEach((rKey, idx) => {
+    const card = document.getElementById(`cardRelay${idx + 1}`);
+    if (card) {
+      card.addEventListener('click', () => toggleRelayAcc(rKey));
+    }
+  });
+
+  // Master Relays All ON / All OFF
+  const btnAllOn = document.getElementById('btnRelayAllOn');
+  if (btnAllOn) btnAllOn.addEventListener('click', () => setSemuaRelayAcc(true));
+
+  const btnAllOff = document.getElementById('btnRelayAllOff');
+  if (btnAllOff) btnAllOff.addEventListener('click', () => setSemuaRelayAcc(false));
+
+  // Esc key to close
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      const panel = document.getElementById('accModalPanel');
+      if (panel && panel.classList.contains('visible')) {
+        tutupAccModal();
+      }
+    }
+  });
+
+  // Initial Sync
+  sinkronAccDariFirebase();
+})();
 </script>
 
 <script>

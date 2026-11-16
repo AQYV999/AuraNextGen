@@ -27,6 +27,7 @@ bool statusRTC  = false;
 #include "mode_cloud_ai.h"
 #include "led_blink.h"
 #include "serial_chat.h"
+#include "acc_control.h"          // <-- AURA NEXT GEN: ACC (AURA Control Center - Servo & Relays)
 #include "firebase_client.h"      // <-- PINDAH KE SINI, sebelum web_server
 #include "web_server_tablet.h"
 
@@ -49,6 +50,7 @@ void setup() {
   inisialisasiOLED();
   inisialisasiMic();
   inisialisasiSpeaker();
+  inisialisasiACC();
 
   WiFi.begin(SECRET_SSID, SECRET_PASS);
   Serial.print("Menghubungkan Wi-Fi");
@@ -92,6 +94,7 @@ void loop() {
   tanganiRequestTablet();
   updateLED();
   cekChatSerial();
+  updateACC();                                // sync & kendalikan servo + relay dari Firebase
   updateFirebase(pesanTerkini, modeTerkini);  // sync status + tanya-jawab ke Firebase
 
   // >>> BARU: refresh OLED cuma kalau teks berubah (bukan tiap 50ms).
