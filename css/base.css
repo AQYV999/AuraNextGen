@@ -1,0 +1,457 @@
+/* ============================================================
+   AURA NEXT GEN: BASE STYLES & CORE VISUAL LAYERS
+   ============================================================ */
+
+  @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
+
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0; width: 100%; height: 100%;
+    overflow: hidden;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: #08080a;
+    color: #e8e8e6;
+  }
+
+  /* ============ LAYER 1 — WAJAH, FULL SCREEN ============ */
+  /* Custom property yang di-register supaya bisa ditransisikan (butuh @property) */
+  @property --glow-h { syntax: '<number>';     inherits: true; initial-value: 162; }
+  @property --glow-s { syntax: '<percentage>'; inherits: true; initial-value: 58%; }
+  @property --glow-l { syntax: '<percentage>'; inherits: true; initial-value: 52%; }
+  @property --glow-a { syntax: '<number>';     inherits: true; initial-value: 0.16; }
+
+  .face-layer {
+    position: fixed; inset: 0; z-index: 1;
+    display: flex; align-items: center; justify-content: center;
+    background: radial-gradient(circle at 50% 42%, #121214 0%, #08080a 70%);
+    --glow-h: 162;
+    --glow-s: 58%;
+    --glow-l: 52%;
+    --glow-a: 0.16;
+    transition:
+      --glow-h 2.4s ease,
+      --glow-s 2.4s ease,
+      --glow-l 2.4s ease,
+      --glow-a 2.4s ease;
+  }
+
+  .face-layer::before {
+    content: "";
+    position: absolute; inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background: radial-gradient(
+      circle at 50% 42%,
+      hsl(var(--glow-h) var(--glow-s) var(--glow-l) / var(--glow-a)) 0%,
+      hsl(var(--glow-h) var(--glow-s) var(--glow-l) / calc(var(--glow-a) * 0.55)) 26%,
+      transparent 68%
+    );
+    will-change: transform, opacity;
+    animation: glowNapas 7.5s ease-in-out infinite;
+  }
+
+  @keyframes glowNapas {
+    0%, 100% { transform: scale(1);    opacity: 0.88; }
+    50%      { transform: scale(1.07); opacity: 1;    }
+  }
+
+  /* Warna glow per state */
+  .face-layer:has(#faceSvg[data-state="senang"])  { --glow-h: 212; --glow-s: 78%; --glow-l: 58%; --glow-a: 0.26; }
+  .face-layer:has(#faceSvg[data-state="netral"])  { --glow-h: 162; --glow-s: 58%; --glow-l: 52%; --glow-a: 0.20; }
+  .face-layer:has(#faceSvg[data-state="kaget"])   { --glow-h: 268; --glow-s: 72%; --glow-l: 62%; --glow-a: 0.30; }
+  .face-layer:has(#faceSvg[data-state="offline"]) { --glow-h: 0;   --glow-s: 62%; --glow-l: 48%; --glow-a: 0.18; }
+  .face-layer:has(#faceSvg[data-state="sedih"])   { --glow-h: 220; --glow-s: 22%; --glow-l: 45%; --glow-a: 0.14; }
+  .face-layer:has(#faceSvg[data-state="mikir"])   { --glow-h: 262; --glow-s: 48%; --glow-l: 58%; --glow-a: 0.20; }
+  .face-layer:has(#faceSvg[data-state="ngantuk"]) { --glow-h: 218; --glow-s: 30%; --glow-l: 50%; --glow-a: 0.14; }
+  .face-layer:has(#faceSvg[data-state="cinta"])   { --glow-h: 340; --glow-s: 78%; --glow-l: 64%; --glow-a: 0.26; }
+
+  /* ===== AURA RING — cincin cahaya tipis di sekeliling wajah =====
+     Idle: denyut pelan + rotasi lambat. Mikir: rotasi cepat + stroke lebih tebal.
+     Warna ikut currentColor state. */
+  @property --aura-spin-dur { syntax: '<time>'; inherits: false; initial-value: 28s; }
+
+  .aura-rotor {
+    transform-box: view-box;
+    transform-origin: 50px 48px;
+    animation: auraSpin var(--aura-spin-dur) linear infinite;
+    
+  }
+  @keyframes auraSpin { to { transform: rotate(360deg); } }
+
+  .aura-ring {
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    transform-box: fill-box;
+    transform-origin: center;
+    transition: stroke-width 600ms ease;
+  }
+  .aura-ring-outer {
+    stroke-width: 0.32;
+    stroke-dasharray: 0.1 2.8;
+    animation: auraPulse 4.6s ease-in-out infinite;
+  }
+  .aura-ring-inner {
+    stroke-width: 0.26;
+    stroke-dasharray: 0.1 4.2;
+    animation: auraPulse 4.6s ease-in-out infinite 0.8s;
+  }
+  @keyframes auraPulse {
+    0%, 100% { opacity: 0.18; }
+    50%      { opacity: 0.55; }
+  }
+
+  #faceSvg[data-state="mikir"] .aura-rotor { --aura-spin-dur: 1.6s; }
+  #faceSvg[data-state="mikir"] .aura-ring-outer {
+    stroke-width: 0.5;
+    animation-duration: 1.7s;
+  }
+  #faceSvg[data-state="mikir"] .aura-ring-inner {
+    stroke-width: 0.38;
+    animation-duration: 2.0s;
+    animation-delay: 0.25s;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .aura-rotor,
+    .aura-ring-outer,
+    .aura-ring-inner { animation: none; }
+    .aura-ring-outer { opacity: 0.28; }
+    .aura-ring-inner { opacity: 0.18; }
+  }
+
+  #faceSvg { width: 100%; height: 100%; display: block; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .face-layer         { transition: none; }
+    .face-layer::before { animation: none; }
+  }
+
+  /* ============================================================
+     BACKGROUND COSMOS — lapisan di belakang wajah AURA
+     3 aurora blob (drift lambat) + starfield + grid halus + vignette + grain
+     ============================================================ */
+  .face-layer { overflow: hidden; }
+
+  .bg-cosmos {
+    position: absolute; inset: 0;
+    z-index: -2;
+    pointer-events: none;
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  /* PERF: blur(90px) + mix-blend-mode:screen dihapus. Gradient dibuat lembut
+     langsung (stop tengah), tanpa filter pass & blend pass di GPU. */
+  .bg-aurora {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.55;
+    transform: translate3d(0, 0, 0);
+  }
+  .bg-aurora-1 {
+    width: 65vmin; height: 65vmin; top: -10%; left: -12%;
+    background: radial-gradient(circle, rgba(93, 202, 165, 0.55) 0%, rgba(93, 202, 165, 0.20) 30%, rgba(93, 202, 165, 0) 68%);
+    animation: auroraDrift1 32s ease-in-out infinite;
+  }
+  .bg-aurora-2 {
+    width: 58vmin; height: 58vmin; bottom: -12%; right: -10%;
+    background: radial-gradient(circle, rgba(133, 183, 235, 0.50) 0%, rgba(133, 183, 235, 0.18) 30%, rgba(133, 183, 235, 0) 68%);
+    animation: auroraDrift2 40s ease-in-out infinite;
+  }
+  .bg-aurora-3 {
+    width: 48vmin; height: 48vmin; top: 42%; left: 48%;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(circle, rgba(155, 95, 255, 0.42) 0%, rgba(155, 95, 255, 0.15) 30%, rgba(155, 95, 255, 0) 68%);
+    opacity: 0.38;
+    animation: auroraDrift3 46s ease-in-out infinite;
+  }
+  @keyframes auroraDrift1 {
+    0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+    33%      { transform: translate3d(6vw, 4vh, 0) scale(1.08); }
+    66%      { transform: translate3d(-2vw, 7vh, 0) scale(0.96); }
+  }
+  @keyframes auroraDrift2 {
+    0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+    40%      { transform: translate3d(-7vw, -5vh, 0) scale(1.1); }
+    75%      { transform: translate3d(3vw, -3vh, 0) scale(0.94); }
+  }
+  @keyframes auroraDrift3 {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); }
+    50%      { transform: translate(-50%, -50%) scale(1.18); }
+  }
+
+  .bg-stars {
+    position: absolute; inset: 0;
+    background-image:
+      radial-gradient(1.2px 1.2px at 12% 22%, rgba(255,255,255,0.55), transparent 55%),
+      radial-gradient(1.0px 1.0px at 27% 68%, rgba(255,255,255,0.40), transparent 55%),
+      radial-gradient(1.4px 1.4px at 45% 15%, rgba(255,255,255,0.50), transparent 55%),
+      radial-gradient(1.0px 1.0px at 62% 42%, rgba(255,255,255,0.35), transparent 55%),
+      radial-gradient(1.2px 1.2px at 78% 78%, rgba(255,255,255,0.50), transparent 55%),
+      radial-gradient(1.0px 1.0px at 88% 33%, rgba(255,255,255,0.40), transparent 55%),
+      radial-gradient(1.3px 1.3px at 8%  88%, rgba(255,255,255,0.45), transparent 55%),
+      radial-gradient(1.0px 1.0px at 55% 88%, rgba(255,255,255,0.30), transparent 55%),
+      radial-gradient(1.1px 1.1px at 33% 45%, rgba(255,255,255,0.35), transparent 55%),
+      radial-gradient(1.0px 1.0px at 72% 12%, rgba(255,255,255,0.40), transparent 55%),
+      radial-gradient(1.2px 1.2px at 18% 55%, rgba(255,255,255,0.30), transparent 55%),
+      radial-gradient(1.0px 1.0px at 92% 62%, rgba(255,255,255,0.35), transparent 55%),
+      radial-gradient(1.0px 1.0px at 05% 48%, rgba(255,255,255,0.28), transparent 55%),
+      radial-gradient(1.1px 1.1px at 40% 78%, rgba(255,255,255,0.32), transparent 55%),
+      radial-gradient(1.0px 1.0px at 96% 08%, rgba(255,255,255,0.30), transparent 55%),
+      radial-gradient(1.0px 1.0px at 50% 30%, rgba(255,255,255,0.28), transparent 55%),
+      radial-gradient(1.2px 1.2px at 68% 55%, rgba(255,255,255,0.35), transparent 55%),
+      radial-gradient(1.0px 1.0px at 22% 08%, rgba(255,255,255,0.28), transparent 55%);
+    opacity: 0.75;
+    animation: starTwinkle 9s ease-in-out infinite;
+  }
+  @keyframes starTwinkle {
+    0%, 100% { opacity: 0.55; }
+    50%      { opacity: 0.85; }
+  }
+
+  .bg-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.028) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.028) 1px, transparent 1px);
+    background-size: 44px 44px;
+    -webkit-mask-image: radial-gradient(ellipse 55% 60% at 50% 48%, #000 0%, transparent 78%);
+            mask-image: radial-gradient(ellipse 55% 60% at 50% 48%, #000 0%, transparent 78%);
+    opacity: 0.9;
+  }
+
+  .bg-vignette {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 75% 75% at 50% 48%,
+      transparent 0%, rgba(0, 0, 0, 0.30) 62%, rgba(0, 0, 0, 0.65) 100%);
+    pointer-events: none;
+  }
+
+  /* PERF: grain feTurbulence + overlay blend layar penuh dihapus (opacity 0.045, hampir tak terlihat). */
+  .bg-cosmos::after { content: none; }
+
+  @media (max-width: 768px) {
+    .bg-aurora   { opacity: 0.4; }
+    .bg-aurora-3 { display: none; }
+    .bg-stars    { opacity: 0.55; }
+    .bg-grid     { background-size: 32px 32px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .bg-aurora,
+    .bg-stars { animation: none; }
+    .bg-stars { opacity: 0.65; }
+  }
+  .eye { fill: currentColor; transition: all 0.45s ease; transform-box: fill-box; transform-origin: center; }
+  .mouth { fill: none; stroke: currentColor; stroke-width: 3.4; stroke-linecap: round; transition: all 0.45s ease; }
+  .eye-group, .mouth-shape, .brow-shape { opacity: 0; transition: opacity 0.35s ease, transform 0.35s ease; }
+  /* Ditransisikan lebih cepat supaya tracking kursor terasa responsif,
+     tapi tidak terlalu cepat — biar tetap smooth. */
+  .eye-shift {
+    transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+    transform-box: fill-box;
+    transform-origin: center;
+    
+  }
+
+  /* ---- Mata ala anime: sclera + iris + pupil + highlight + bulu mata ---- */
+  .sclera { fill: #f4f3ef; transition: all 0.45s ease; }
+  .iris { fill: var(--iris, currentColor); transition: all 0.45s ease; }
+  .pupil { fill: #17171b; transition: all 0.45s ease; }
+  .eye-highlight { fill: #ffffff; opacity: 0.92; }
+  .eye-highlight-sm { fill: #ffffff; opacity: 0.55; }
+  .lash { fill: none; stroke: currentColor; stroke-width: 1.1; stroke-linecap: round; opacity: 0.85; }
+  .anime-eye, .anime-eye-kaget, .anime-eye-mikir {
+    transform-box: fill-box; transform-origin: center; transition: transform 0.35s ease;
+  }
+  .eye-look { transform-box: fill-box; transform-origin: center; transition: transform 0.4s ease; }
+
+  /* ---- Alis: nambah ekspresi di atas mata, ganti sesuai state ---- */
+  .brow { fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; transition: all 0.45s ease; }
+
+  #faceSvg[data-state="senang"] { color: #85B7EB; --iris: #FFC966; }
+  #faceSvg[data-state="netral"] { color: #5DCAA5; --iris: #4FCDA0; }
+  #faceSvg[data-state="sedih"]  { color: #9b9a94; --iris: #7C8FA6; }
+  #faceSvg[data-state="mikir"]  { color: #e8e8e6; --iris: #B9AFE8; }
+  #faceSvg[data-state="kaget"]  { color: #C7A6F7; --iris: #A879EA; }
+  #faceSvg[data-state="ngantuk"] { color: #A8B5C8; --iris: #8FA0B8; }
+  #faceSvg[data-state="cinta"] { color: #F29BB2; --iris: #F2597D; }
+  #faceSvg[data-state="offline"] { color: #F09595; --iris: #F09595; }
+
+  #faceSvg[data-state="senang"] .eye-normal,
+  #faceSvg[data-state="senang"] .mouth-senang { opacity: 1; }
+
+  #faceSvg[data-state="netral"] .eye-normal,
+  #faceSvg[data-state="netral"] .mouth-netral { opacity: 1; }
+
+  #faceSvg[data-state="sedih"] .eye-normal,
+  #faceSvg[data-state="sedih"] .mouth-sedih { opacity: 1; }
+
+  #faceSvg[data-state="mikir"] .eye-mikir,
+  #faceSvg[data-state="mikir"] .mouth-mikir { opacity: 1; }
+
+  #faceSvg[data-state="kaget"] .eye-kaget,
+  #faceSvg[data-state="kaget"] .mouth-kaget { opacity: 1; }
+
+  #faceSvg[data-state="ngantuk"] .eye-ngantuk,
+  #faceSvg[data-state="ngantuk"] .mouth-ngantuk { opacity: 1; }
+
+  #faceSvg[data-state="cinta"] .eye-cinta,
+  #faceSvg[data-state="cinta"] .mouth-cinta { opacity: 1; }
+
+  #faceSvg[data-state="offline"] .eye-offline,
+  #faceSvg[data-state="offline"] .mouth-offline { opacity: 1; }
+
+  #faceSvg[data-state="senang"]  .brow-senang,
+  #faceSvg[data-state="netral"]  .brow-netral,
+  #faceSvg[data-state="sedih"]   .brow-sedih,
+  #faceSvg[data-state="mikir"]   .brow-mikir,
+  #faceSvg[data-state="kaget"]   .brow-kaget,
+  #faceSvg[data-state="ngantuk"] .brow-ngantuk,
+  #faceSvg[data-state="cinta"]   .brow-cinta { opacity: 1; }
+
+  @keyframes kedip {
+    0%, 43%, 47%, 100% { transform: scaleY(1); }
+    45% { transform: scaleY(0.10); }
+  }
+
+  @keyframes mikirGerak {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-1px); }
+  }
+
+  @keyframes kagetPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.08); }
+  }
+
+  @keyframes ngantuk {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(2px); }
+  }
+
+  #faceSvg .eye-normal { animation: kedip 4.2s ease-in-out infinite; transform-origin: center; }
+  #faceSvg[data-state="mikir"] .eye-mikir { animation: mikirGerak 1.4s ease-in-out infinite; }
+  #faceSvg[data-state="kaget"] .eye-kaget { animation: kagetPulse 0.8s ease-in-out infinite; transform-origin: center; }
+  #faceSvg[data-state="ngantuk"] .eye-ngantuk { animation: ngantuk 2.5s ease-in-out infinite; transform-origin: center; }
+
+  /* ============ VARIASI MICRO-EXPRESSION (khusus wajah, tidak menyentuh sistem lain) ============ */
+
+  /* Kedip tunggal (dipicu manual saat variasi idle terpilih) */
+  @keyframes kedipSekali {
+    0%, 100% { transform: scaleY(1); }
+    50% { transform: scaleY(0.1); }
+  }
+  @keyframes kedipGanda {
+    0%, 18%, 30%, 48%, 62%, 100% { transform: scaleY(1); }
+    9%, 39% { transform: scaleY(0.1); }
+  }
+  @keyframes kedipLambat {
+    0%, 100% { transform: scaleY(1); }
+    50% { transform: scaleY(0.15); }
+  }
+  #faceSvg[data-variant="kedip"] .eye-normal { animation: kedipSekali 0.36s ease-in-out 1; }
+  #faceSvg[data-variant="kedip-ganda"] .eye-normal { animation: kedipGanda 0.95s ease-in-out 1; }
+  #faceSvg[data-variant="kedip-lambat"] .eye-normal { animation: kedipLambat 1.7s ease-in-out 1; }
+
+  /* Lirikan mata ala anime: yang gerak cuma iris+pupil+highlight (.eye-look) di dalam
+     sclera, sclera-nya sendiri diam — sama seperti mata anime beneran melirik. */
+  #faceSvg[data-variant="glance-left"]  .eye-normal .eye-look { transform: translateX(-1.7px); }
+  #faceSvg[data-variant="glance-right"] .eye-normal .eye-look { transform: translateX(1.7px); }
+  #faceSvg[data-variant="glance-up"]    .eye-normal .eye-look { transform: translateY(-1.5px); }
+  #faceSvg[data-variant="glance-down"]  .eye-normal .eye-look { transform: translateY(1.4px); }
+
+  /* Mata menyipit / membesar / wink — hanya berlaku saat mata normal (senang/netral/sedih) tampil */
+  #faceSvg[data-variant="squint"] .eye-normal .anime-eye { transform: scaleY(0.5); }
+  #faceSvg[data-variant="wide"]   .eye-normal .anime-eye { transform: scaleY(1.14); }
+  #faceSvg[data-variant="wink"]   .eye-normal .anime-eye:first-child { transform: scaleY(0.12); }
+
+  /* Variasi senyum kecil / lebar untuk state senang, dan senyum tipis untuk state netral */
+  #faceSvg[data-state="senang"][data-variant="smile-kecil"] .mouth-senang { opacity: 0; }
+  #faceSvg[data-state="senang"][data-variant="smile-kecil"] .mouth-senang-kecil { opacity: 1; }
+  #faceSvg[data-state="senang"][data-variant="smile-lebar"] .mouth-senang { opacity: 0; }
+  #faceSvg[data-state="senang"][data-variant="smile-lebar"] .mouth-senang-lebar { opacity: 1; }
+  #faceSvg[data-state="netral"][data-variant="smile"] .mouth-netral { opacity: 0; }
+  #faceSvg[data-state="netral"][data-variant="smile"] .mouth-netral-smile { opacity: 1; }
+
+  /* ====== THINKING ANIMATION: lapis animasi yang jalan bersamaan ====== */
+
+  /* Lapis 1 — Container think-float muncul dengan fade */
+  .think-float {
+    opacity: 0;
+    transition: opacity 0.35s ease;
+  }
+  #faceSvg[data-state="mikir"] .think-float { opacity: 1; }
+
+  /* Lapis 2 — Tanda tanya: mengambang + membesar-mengecil dengan overshoot */
+  .tanya-mark {
+    fill: currentColor;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+  #faceSvg[data-state="mikir"] .tanya-mark {
+    opacity: 1;
+    animation: tanyaMengambang 1.6s cubic-bezier(0.34, 1.56, 0.64, 1) infinite;
+  }
+  @keyframes tanyaMengambang {
+    0%, 100% { transform: translateY(0)    scale(1);    opacity: 0.85; }
+    50%      { transform: translateY(-4px) scale(1.12); opacity: 1;    }
+  }
+
+  /* Lapis 3 — Trio titik di bawah "?": pulse berurutan seperti typing indicator */
+  .think-dot {
+    fill: currentColor;
+    transform-box: fill-box;
+    transform-origin: center;
+    opacity: 0;
+  }
+  #faceSvg[data-state="mikir"] .think-dot-1 { animation: thinkPulse 1.4s ease-in-out infinite 0.00s; }
+  #faceSvg[data-state="mikir"] .think-dot-2 { animation: thinkPulse 1.4s ease-in-out infinite 0.20s; }
+  #faceSvg[data-state="mikir"] .think-dot-3 { animation: thinkPulse 1.4s ease-in-out infinite 0.40s; }
+  @keyframes thinkPulse {
+    0%, 100% { opacity: 0.2; transform: translateY(0)     scale(0.85); }
+    50%      { opacity: 1;   transform: translateY(-1.8px) scale(1.2);  }
+  }
+
+  /* Lapis 4 — Iris mata "menjelajah" pelan (mata bergerak seperti sedang berpikir) */
+  #faceSvg[data-state="mikir"] .eye-mikir .iris,
+  #faceSvg[data-state="mikir"] .eye-mikir .pupil,
+  #faceSvg[data-state="mikir"] .eye-mikir .eye-highlight {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: irisJelajah 3.8s ease-in-out infinite;
+  }
+  @keyframes irisJelajah {
+    0%   { transform: translate(0, 0); }
+    18%  { transform: translate(1.1px, -0.7px); }
+    36%  { transform: translate(0.5px, 1px); }
+    54%  { transform: translate(-1.1px, 0.7px); }
+    72%  { transform: translate(-0.5px, -1px); }
+    100% { transform: translate(0, 0); }
+  }
+
+  /* Lapis 5 — Napas wajah: sangat halus (scale 1 → 1.008), bikin terasa hidup */
+  #faceSvg[data-state="mikir"] {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: napasMikir 4.2s ease-in-out infinite;
+  }
+  @keyframes napasMikir {
+    0%, 100% { transform: scale(1); }
+    50%      { transform: scale(1.008); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .think-float, .tanya-mark, .think-dot,
+    #faceSvg[data-state="mikir"] .eye-mikir .iris,
+    #faceSvg[data-state="mikir"] .eye-mikir .pupil,
+    #faceSvg[data-state="mikir"] .eye-mikir .eye-highlight,
+    #faceSvg[data-state="mikir"] {
+      animation: none;
+    }
+  }
+
+  
